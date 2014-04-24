@@ -10,7 +10,7 @@
 <meta name="keywords" content="Azolla" />
 <meta name="Description" content="Azolla" />
 <meta name="Author" content="ShaneKing,sk@azolla.org" />
-<link rel="shortcut icon" href="/static/ico/favicon.png" />
+<link rel="shortcut icon" href="/static/img/favicon.png" />
 <!-- Bootstrap core CSS -->
 <link href="/static/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
