@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Azolla － Roc － Login</title>
+<title>Azolla － Roc</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +13,6 @@
 <link rel="shortcut icon" href="/static/ico/favicon.png" />
 <!-- Bootstrap core CSS -->
 <link href="/static/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<!-- Custom styles for this template -->
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,17 +22,12 @@
 <![endif]-->
 </head>
 <body>
-	<div class="container">
-		<form class="form-signin">
-			<h2 class="form-signin-heading">Please sign in</h2>
-			<input type="text" class="form-control" placeholder="Email address" required autofocus />
-			<input type="password" class="form-control" placeholder="Password" required />
-			<label class="checkbox">
-				<input type="checkbox" value="remember-me" />
-				Remember me
-			</label>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		</form>
-	</div>
+	Template!2
+	<!-- /container -->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/static/3th/jquery/jquery.min.js"></script>
+	<script src="/static/3th/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
