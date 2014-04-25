@@ -10,8 +10,8 @@
 <meta name="keywords" content="Azolla" />
 <meta name="Description" content="Azolla" />
 <meta name="Author" content="ShaneKing,sk@azolla.org" />
-<link rel="shortcut icon" href="/static/img/favicon.png" />
-<link href="/static/3th/ProwerV4/style.css" rel="stylesheet" />
+<link rel="shortcut icon" href="/img/favicon.png" />
+<link href="/3th/ProwerV4/style.css" rel="stylesheet" />
 </head>
 <body>
 	<div id="wrap">
@@ -129,7 +129,7 @@
 				</ul>
 				<div class="navigation">
 					<span class="alignleft">
-						<a href="http://shaneking.org/index.php?paged=2">下一页 »</a>
+						<a href="http://shaneking.org/index.php?paged=2">« 上一页</a>
 					</span>
 					<span class="alignright">
 						<a href="http://shaneking.org/index.php?paged=4">下一页 »</a>

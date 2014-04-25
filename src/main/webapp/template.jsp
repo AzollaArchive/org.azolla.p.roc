@@ -10,9 +10,9 @@
 <meta name="keywords" content="Azolla" />
 <meta name="Description" content="Azolla" />
 <meta name="Author" content="ShaneKing,sk@azolla.org" />
-<link rel="shortcut icon" href="/static/img/favicon.png" />
+<link rel="shortcut icon" href="/img/favicon.png" />
 <!-- Bootstrap core CSS -->
-<link href="/static/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -22,12 +22,11 @@
 <![endif]-->
 </head>
 <body>
-	Template!2
-	<!-- /container -->
+	Template!
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/static/3th/jquery/jquery.min.js"></script>
-	<script src="/static/3th/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/3th/jquery/jquery.min.js"></script>
+	<script src="/3th/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

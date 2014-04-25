@@ -15,6 +15,7 @@ body, h1, h2, h3, p, blockquote, dl, dt, dd, ul, ol, li, button, input, textarea
 body {
 	font: 14px/1.5 "Microsoft Yahei", Tahoma, Helvetica, Arial, "SimSun", sans-serif;
 	/* background: #eee url(images/bg.jpg) repeat; */
+	background: white repeat;
 	border-top: 3px solid #45525f;
 	color: #636a73;
 	text-shadow: 1px 1px #fff;

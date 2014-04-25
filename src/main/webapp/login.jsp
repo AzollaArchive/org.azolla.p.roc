@@ -10,9 +10,9 @@
 <meta name="keywords" content="Azolla" />
 <meta name="Description" content="Azolla" />
 <meta name="Author" content="ShaneKing,sk@azolla.org" />
-<link rel="shortcut icon" href="/static/img/favicon.png" />
+<link rel="shortcut icon" href="/img/favicon.png" />
 <!-- Bootstrap core CSS -->
-<link href="/static/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
