@@ -11,94 +11,213 @@
 <meta name="Description" content="Azolla" />
 <meta name="Author" content="ShaneKing,sk@azolla.org" />
 <link rel="shortcut icon" href="/static/img/favicon.png" />
-<!-- Bootstrap core CSS -->
-<link href="/static/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<!-- Custom styles for this template -->
-<link href="/static/3th/bootstrap/css/navbar/navbar-fixed-top.css" rel="stylesheet" />
-<!-- Just for debugging purposes. Don't actually copy this line! -->
-<!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
-	<script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
+<link href="/static/3th/ProwerV4/style.css" rel="stylesheet" />
 </head>
 <body>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">ShaneKing</a>
+	<div id="wrap">
+		<div id="header">
+			<div id="logo">
+				<a href="http://shaneking.org">ShaneKing</a>
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="active">
-						<a href="#">Home</a>
+			<div class="menu-menu-container">
+				<ul id="menu-menu" class="menu">
+					<li id="menu-item-5" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-5">
+						<a href="http://shaneking.org">Home</a>
 					</li>
-					<li>
-						<a href="#about">About</a>
+					<li id="menu-item-20" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-20">
+						<a href="http://shaneking.org/?cat=9">Dev</a>
 					</li>
-					<li>
-						<a href="#contact">Contact</a>
+					<li id="menu-item-476" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-476">
+						<a href="http://shaneking.org/?cat=60">Study</a>
 					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							Dropdown
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="#">Action</a>
+					<li id="menu-item-616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-616">
+						<a href="http://shaneking.org/?cat=70">Thinks</a>
+					</li>
+					<li id="menu-item-401" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-401">
+						<a href="http://shaneking.org/?cat=53">Support</a>
+						<ul class="sub-menu">
+							<li id="menu-item-487" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-487">
+								<a href="http://shaneking.org/?cat=65">FindClass</a>
 							</li>
-							<li>
-								<a href="#">Another action</a>
-							</li>
-							<li>
-								<a href="#">Something else here</a>
-							</li>
-							<li class="divider"></li>
-							<li class="dropdown-header">Nav header</li>
-							<li>
-								<a href="#">Separated link</a>
-							</li>
-							<li>
-								<a href="#">One more separated link</a>
+							<li id="menu-item-934" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-934">
+								<a href="http://shaneking.org/?cat=115">Roc</a>
 							</li>
 						</ul>
 					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active">
-						<a href="./">Fixed top</a>
+					<li id="menu-item-4" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4">
+						<a href="http://shaneking.org/?cat=1">Others</a>
+					</li>
+					<li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33">
+						<a href="http://shaneking.org/?page_id=24">About</a>
 					</li>
 				</ul>
 			</div>
-			<!--/.nav-collapse -->
 		</div>
-	</div>
-	<div class="container">
-		<!-- Main component for a primary marketing message or call to action -->
-		<div class="jumbotron">
-			<h1>Navbar example</h1>
-			<p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport
-				and device.</p>
-			<p>To see the difference between static and fixed top navbars, just scroll.</p>
+		<div id="descr">
+			<ul>
+				<li>
+					<a id="rss_icon" href="http://shaneking.org/?feed=rss2">RSS Feed</a>
+				</li>
+			</ul>
+			有梦才有精彩！
+		</div>
+		<div id="content">
+			<div id="main">
+				<ul id="post_list">
+					<li class="post-932 post type-post status-publish format-standard hentry category-roc tag-env">
+						<h2>
+							<a href="http://shaneking.org/?p=932">Roc Env</a>
+						</h2>
+						<div class="meta">2014-04-01</div>
+						<div class="excerpt">
+							<p>
+								JDK 1.8+
+								<br>
+								Eclipse 4.4+
+								<br>
+								git@github.com:Azolla/org.azolla.open.git
+							</p>
+							<div class="meta">
+								分类目录：
+								<a href="http://shaneking.org/?cat=115" title="查看 Roc 中的全部文章" rel="category">Roc</a>
+								| 标签：
+								<a href="http://shaneking.org/?tag=env" rel="tag">Env</a>
+								| Views： 48
+							</div>
+							<div class="comments_num">
+								<a href="http://shaneking.org/?p=932#comments" title="《Roc Env》上的评论">一条评论</a>
+							</div>
+						</div>
+					</li>
+					<li class="post-924 post type-post status-publish format-standard hentry category-istudy tag-linux">
+						<h2>
+							<a href="http://shaneking.org/?p=924">vim</a>
+						</h2>
+						<div class="meta">2014-03-14</div>
+						<div class="excerpt">
+							<div class="meta">
+								分类目录：
+								<a href="http://shaneking.org/?cat=60" title="查看 Study 中的全部文章" rel="category">Study</a>
+								| 标签：
+								<a href="http://shaneking.org/?tag=linux" rel="tag">Linux</a>
+								| Views： 75
+							</div>
+							<div class="comments_num">
+								<a href="http://shaneking.org/?p=924#comments" title="《vim》上的评论">3 条评论</a>
+							</div>
+						</div>
+					</li>
+					<li class="post-767 post type-post status-publish format-standard hentry category-idev tag-linux">
+						<h2>
+							<a href="http://shaneking.org/?p=767">CentOS minimal</a>
+						</h2>
+						<div class="meta">2012-12-05</div>
+						<div class="excerpt">
+							<p>CentOS 6.3 Minimal！</p>
+							<div class="meta">
+								分类目录：
+								<a href="http://shaneking.org/?cat=9" title="查看 Dev 中的全部文章" rel="category">Dev</a>
+								| 标签：
+								<a href="http://shaneking.org/?tag=linux" rel="tag">Linux</a>
+								| Views： 5,166
+							</div>
+							<div class="comments_num">
+								<a href="http://shaneking.org/?p=767#comments" title="《CentOS minimal》上的评论">8 条评论</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="navigation">
+					<span class="alignleft">
+						<a href="http://shaneking.org/index.php?paged=2">下一页 »</a>
+					</span>
+					<span class="alignright">
+						<a href="http://shaneking.org/index.php?paged=4">下一页 »</a>
+					</span>
+				</div>
+			</div>
+			<div id="sidebar">
+				<div id="search" class="widget">
+					<form id="searchform" method="get" action="http://shaneking.org">
+						<input type="text" value="" name="s" id="s" size="30">
+						<button type="submit">搜索</button>
+					</form>
+				</div>
+				<div class="widget">
+					<h3>Random Posts</h3>
+					<ul>
+						<li>
+							<a href="http://shaneking.org/?p=352" title="PL/SQL">PL/SQL</a>
+						</li>
+					</ul>
+				</div>
+				<div id="linkcat-8" class="linkcat widget">
+					<h3>牛区</h3>
+					<ul class="xoxo blogroll">
+						<li>
+							<a href="http://www.oschina.net/" target="_blank">OsChina</a>
+						</li>
+					</ul>
+				</div>
+				<div id="linkcat-3" class="linkcat widget">
+					<h3>牛博</h3>
+					<ul class="xoxo blogroll">
+						<li>
+							<a href="http://www.blogjava.net/BlueDavy/" title="OSGI" target="_blank">BlueDavy</a>
+						</li>
+					</ul>
+				</div>
+				<div id="linkcat-67" class="linkcat widget">
+					<h3>牛品</h3>
+					<ul class="xoxo blogroll">
+						<li>
+							<a href="http://www.regexlab.com/zh/jar2exe/" title="Jar2Exe 是一款将 jar 文件转换成 exe 可执行文件的工具软件。本软件的工作原理是使用 JNI 接口启动 java 虚拟机，并在此基础上提供其他高级的功能。" target="_blank">Jar2Exe</a>
+						</li>
+					</ul>
+				</div>
+				<div id="linkcat-102" class="linkcat widget">
+					<h3>牛讯</h3>
+					<ul class="xoxo blogroll">
+						<li>
+							<a href="http://blog.jobbole.com" target="_blank">伯乐在线</a>
+						</li>
+					</ul>
+				</div>
+				<div id="linkcat-112" class="linkcat widget">
+					<h3>自链</h3>
+					<ul class="xoxo blogroll">
+						<li>
+							<a href="http://home.cnblogs.com/u/325616/" title="ShaneKing" target="_blank">cnblogs</a>
+						</li>
+						<li>
+							<a href="http://my.csdn.net/ishaneking" title="ShaneKing" target="_blank">csdn</a>
+						</li>
+					</ul>
+				</div>
+				<div id="tag_cloud-3" class="widget widget_tag_cloud">
+					<h3>标签</h3>
+					<div class="tagcloud">
+						<a href="http://shaneking.org/?tag=est" class="tag-link-109" title="1 个话题" style="font-size: 8pt;">-est</a>
+					</div>
+				</div>
+				<div id="archives-3" class="widget widget_archive">
+					<h3>文章归档</h3>
+					<ul>
+						<li>
+							<a href="http://shaneking.org/?m=201404" title="2014 年四月">2014 年四月</a>
+							&nbsp;(1)
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
 			<p>
-				<a class="btn btn-lg btn-primary" href="#">View navbar docs &raquo;</a>
+				<a href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备12006026号</a>
+				. &copy; 2011 - 2014 ShaneKing.org . Powered by
+				<a href="http://ShaneKing.org" target="_blank">ShaneKing.org</a>
 			</p>
 		</div>
 	</div>
-	<!-- /container -->
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/static/3th/jquery/jquery.min.js"></script>
-	<script src="/static/3th/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
