@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-	Path="/roc"
-	docBase="/Users/shaneking/sync/workspace/eclipse4.4m6/azolla/org.azolla.p.roc/target/org.azolla.p.roc-1.0.0-SNAPSHOT"
-	privileged="true"
-	reloadable="true"
-	debug="0" 
--->
-<Context Path="/roc" docBase="/Users/shaneking/sync/workspace/eclipse4.4m6/azolla/org.azolla.p.roc/target/org.azolla.p.roc-1.0.0-SNAPSHOT" privileged="true" reloadable="true"/>

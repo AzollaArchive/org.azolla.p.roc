@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Azolla － Roc</title>
+<title>ShaneKing</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -104,6 +104,29 @@
 							</div>
 							<div class="comments_num">
 								<a href="http://shaneking.org/?p=924#comments" title="《vim》上的评论">3 条评论</a>
+							</div>
+						</div>
+					</li>
+					<li class="post-392 post type-post status-publish format-standard hentry category-istudy tag-swing">
+						<h2>
+							<a href="http://shaneking.org/?p=392">Swing</a>
+						</h2>
+						<div class="meta">2012-06-02</div>
+						<div class="excerpt">
+							<p>
+								Swing常用的package
+								<br>
+								<a href="http://shaneking.org/?p=392#more-392" class="more-link">Read More »</a>
+							</p>
+							<div class="meta">
+								分类目录：
+								<a href="http://shaneking.org/?cat=60" title="查看 Study 中的全部文章" rel="category">Study</a>
+								| 标签：
+								<a href="http://shaneking.org/?tag=swing" rel="tag">Swing</a>
+								| Views： 920
+							</div>
+							<div class="comments_num">
+								<a href="http://shaneking.org/?p=392#comments" title="《Swing》上的评论">一条评论</a>
 							</div>
 						</div>
 					</li>
@@ -211,13 +234,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<a href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备12006026号</a>
-				. &copy; 2011 - 2014 ShaneKing.org . Powered by
-				<a href="http://ShaneKing.org" target="_blank">ShaneKing.org</a>
-			</p>
-		</div>
+		<jsp:include page="/footer.html"></jsp:include>
 	</div>
 </body>
 </html>

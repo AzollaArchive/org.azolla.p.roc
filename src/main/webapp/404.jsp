@@ -1,7 +1,8 @@
+<%@ page language="java" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Azolla － Roc － 404</title>
+<title>Not Found</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -38,13 +39,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<a href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备12006026号</a>
-				. &copy; 2011 - 2014 ShaneKing.org . Powered by
-				<a href="http://ShaneKing.org" target="_blank">ShaneKing.org</a>
-			</p>
-		</div>
+		<jsp:include page="/footer.html"></jsp:include>
 	</div>
 </body>
 </html>

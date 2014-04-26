@@ -1,8 +1,8 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Forbidden</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,15 +29,13 @@
 			有梦才有精彩！
 		</div>
 		<div id="content">
-			<div id="loginpage">
-				<h1>Login</h1>
-				<div id="login">
-					<form id="loginform" method="get" action="http://shaneking.org">
-						<input type="text" placeholder="Email address" required autofocus />
-						<input type="password" placeholder="Password" required />
-						<button type="submit">Submit</button>
+			<div id="nopage">
+				<h1>403</h1>
+				<div id="search">
+					<form id="searchform" method="get" action="http://shaneking.org">
+						<input type="text" value="" name="s" id="s" size="30">
+						<button type="submit">搜索</button>
 					</form>
-					<!-- <button id="loginsubmit" type="submit">Login</button> -->
 				</div>
 			</div>
 		</div>

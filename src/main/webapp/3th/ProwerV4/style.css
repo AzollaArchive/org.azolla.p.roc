@@ -15,7 +15,8 @@ body, h1, h2, h3, p, blockquote, dl, dt, dd, ul, ol, li, button, input, textarea
 body {
 	font: 14px/1.5 "Microsoft Yahei", Tahoma, Helvetica, Arial, "SimSun", sans-serif;
 	/* background: #eee url(images/bg.jpg) repeat; */
-	background: white repeat;
+	/* background: white repeat; */
+	background: #eee repeat;
 	border-top: 3px solid #45525f;
 	color: #636a73;
 	text-shadow: 1px 1px #fff;
@@ -374,11 +375,11 @@ blockquote p:last-child {
 #nopage {
 	text-align: center;
 	min-height: 200px;
-	padding: 80px 0;
+	padding: 40px 0 120px 0;
 	margin-top: -20px;
 	margin-bottom: -20px;
 	/* background: url(images/bg.jpg) repeat; */
-	background: white repeat;
+	background: #eee repeat;
 }
 
 #nopage h1 {
@@ -394,6 +395,69 @@ blockquote p:last-child {
 #nopage #searchform input {
 	width: 323px;
 }
+
+/* Login */
+#loginpage {
+	text-align: center;
+	min-height: 200px;
+	padding: 40px 0 120px 0;
+	margin-top: -20px;
+	margin-bottom: -20px;
+	/* background: url(images/bg.jpg) repeat; */
+	background: #eee repeat;
+}
+
+#loginpage h1 {
+	font-size: 72px;
+	font-weight: 700;
+}
+
+#loginpage #login {
+	width: 342px;
+	margin: 20px auto;
+}
+
+#loginpage #loginform input {
+	width: 325px;
+}
+
+#loginform {
+	background: #dadada;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+#loginform label {
+	display: none;
+}
+
+#loginform input {
+	width: 115px;
+	height: 24px;
+	line-height: 24px;
+	vertical-align: middle;
+	padding: 0 5px;
+	margin: 3px 0;
+}
+
+#login button, #login #loginsubmit {
+	width: 58px;
+	text-align: center;
+	height: 26px;
+	line-height: 26px;
+	background: #666;
+	margin-left: -4px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: middle;
+	text-shadow: 1px 1px #333;
+}
+
+#login button:hover {
+	background: #333;
+}
+/* Login */
 
 #sidebar {
 	width: 250px;
