@@ -57,6 +57,10 @@
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.azolla.open</groupId>
+			<artifactId>org.azolla.open.ling</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
