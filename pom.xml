@@ -9,7 +9,6 @@
 	</parent>
 
 	<artifactId>org.azolla.p.roc</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Roc: Azolla.org Blog</name>
 	<description>Roc is a blog system.</description>
