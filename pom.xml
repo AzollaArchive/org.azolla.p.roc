@@ -4,14 +4,91 @@
 	<parent>
 		<groupId>org.azolla.p</groupId>
 		<artifactId>org.azolla.p</artifactId>
-		<relativePath>../org.azolla.p</relativePath>
 		<version>1.0.0</version>
+		<relativePath>../org.azolla.p</relativePath>
 	</parent>
 
 	<artifactId>org.azolla.p.roc</artifactId>
 	<packaging>war</packaging>
 	<name>Roc: Azolla.org Blog</name>
 	<description>Roc is a blog system.</description>
+	<url>https://github.com/Azollas/org.azolla.p.roc</url>
+	<inceptionYear>2011</inceptionYear>
+	<organization>
+		<name>Azollas</name>
+		<url>https://github.com/Azollas</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>The Azolla.org Projects is released under version 2.0 of the Apache License.</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>Azolla</id>
+			<name>ShaneKing</name>
+			<email>github@azolla.org</email>
+			<url>https://github.com/Azolla</url>
+			<organization>Azollas</organization>
+			<organizationUrl>https://github.com/Azollas</organizationUrl>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+			<timezone>+8</timezone>
+			<properties>
+				<dept>No</dept>
+			</properties>
+		</developer>
+		<developer>
+			<id>iShaneKing</id>
+			<name>iShaneKing</name>
+			<email>git@azolla.org</email>
+			<url>https://github.com/iShaneKing</url>
+			<organization>Azollas</organization>
+			<organizationUrl>https://github.com/Azollas</organizationUrl>
+			<roles>
+				<role>Team Leader</role>
+			</roles>
+			<timezone>+8</timezone>
+			<properties>
+				<dept>No</dept>
+			</properties>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>Azolla</name>
+			<email>github@azolla.org</email>
+			<url>https://github.com/Azolla</url>
+			<organization>Azollas</organization>
+			<organizationUrl>https://github.com/Azollas</organizationUrl>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+			<timezone>+8</timezone>
+			<properties>
+				<dept>No</dept>
+			</properties>
+		</contributor>
+	</contributors>
+	<scm>
+		<connection>scm:git:git@github.com:Azollas/org.azolla.p.roc.git</connection>
+		<developerConnection>scm:git:git@github.com:Azollas/org.azolla.p.roc.git</developerConnection>
+		<url>git@github.com:Azollas/org.azolla.p.roc.git</url>
+	</scm>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/Azollas/org.azolla.p.roc/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Travis-CI</system>
+		<url>https://travis-ci.org/Azollas/org.azolla.p.roc</url>
+	</ciManagement>
 
 	<dependencies>
 		<dependency>
@@ -20,12 +97,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -35,27 +113,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.azolla.open</groupId>
 			<artifactId>org.azolla.open.ling</artifactId>
