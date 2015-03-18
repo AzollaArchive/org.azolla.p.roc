@@ -115,8 +115,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.azolla.open</groupId>
-			<artifactId>org.azolla.open.ling</artifactId>
+			<groupId>org.azolla.l</groupId>
+			<artifactId>org.azolla.l.ling</artifactId>
 		</dependency>
 	</dependencies>
 

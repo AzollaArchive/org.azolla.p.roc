@@ -75,7 +75,7 @@
 								<br>
 								Eclipse 4.4+
 								<br>
-								git@github.com:Azolla/org.azolla.open.git
+								git@github.com:Azolla/org.azolla.l.git
 							</p>
 							<div class="meta">
 								分类目录：
