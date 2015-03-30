@@ -1,6 +1,6 @@
 ---Dict---
-category＝菜单
+menu=菜单
 comment＝评论
-post=文章
+article=文章
 tag＝标签
 user＝用户
