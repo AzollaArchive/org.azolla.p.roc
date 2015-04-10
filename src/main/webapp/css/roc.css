@@ -10,6 +10,27 @@ img{
     font-family: "Microsoft Yahei", Tahoma, Helvetica, Arial, "SimSun", sans-serif;
     text-shadow: 1px 1px #fff;
 }
+.roc-c-div-tag a{
+    border: 1px solid #ebebeb;
+    padding: 2px 7px;
+    color: #959595;
+    line-height: 1.5em;
+    display: inline-block;
+    margin: 0 7px 7px 0;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.roc-c-div-tag a:hover {
+    color: #ffffff;
+    background: #337ab7;
+    border: 1px solid #ebebeb;
+    text-decoration: none;
+    text-shadow: none;
+}
+.roc-c-div-tag-post .nav .nav {
+    display: block;
+}
 /*overwrite*/
 .page-header{
     margin: 10px 0 20px;
@@ -30,4 +51,68 @@ img{
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 50px;
+}
+.bs-docs-sidebar {
+    padding-left: 0px;
+}
+.bs-docs-sidenav {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.bs-docs-sidebar.affix {
+    top: 70px;
+}
+.bs-docs-sidebar .nav>.active:focus>a, .bs-docs-sidebar .nav>.active:hover>a, .bs-docs-sidebar .nav>.active>a {
+    color: #337ab7;
+    border-left: 2px solid #337ab7;
+}
+.bs-docs-sidebar .nav>li>a:focus, .bs-docs-sidebar .nav>li>a:hover {
+    color: #337ab7;
+    border-left: 1px solid #337ab7;
+}
+.bs-callout-info {
+    border-left-color: #337ab7;
+}
+.bs-callout-info h4 {
+    color: #337ab7;
+}
+.media-object{
+    max-width: none;
+}
+.media-body h4{
+    color: #333;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
