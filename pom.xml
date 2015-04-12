@@ -134,7 +134,7 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>${tomcat7-maven-plugin.version}</version>
+				<version>${org.apache.tomcat.maven_tomcat7-maven-plugin_version}</version>
 				<configuration>
 					<path>/</path>
 				</configuration>

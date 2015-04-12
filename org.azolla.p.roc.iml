@@ -44,11 +44,13 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.1.6.RELEASE" level="project" />
     <orderEntry type="module" module-name="org.azolla.l.ling" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.4" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.4" level="project" />
+    <orderEntry type="library" name="Maven: com.belerweb:pinyin4j:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-net:commons-net:3.3" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.4" level="project" />
   </component>
 </module>
