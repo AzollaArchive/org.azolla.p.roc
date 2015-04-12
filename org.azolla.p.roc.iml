@@ -43,7 +43,7 @@
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.1.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.azolla.l:org.azolla.l.ling:1.0.0" level="project" />
+    <orderEntry type="module" module-name="org.azolla.l.ling" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.4" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
