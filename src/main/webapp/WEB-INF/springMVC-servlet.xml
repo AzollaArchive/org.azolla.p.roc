@@ -31,4 +31,5 @@
 	<mvc:resources mapping="/html/**" location="/html/" cache-period="31556926" />
 	<mvc:resources mapping="/img/**" location="/img/" cache-period="31556926" />
 	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926" />
+	<mvc:resources mapping="/WEB-INF/html/**" location="/WEB-INF/html/" cache-period="31556926" />
 </beans>

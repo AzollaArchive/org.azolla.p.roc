@@ -1,5 +1,11 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
 body {
     padding-top: 70px;
+    margin-bottom: 40px;
+    position: static;
 }
 img{
     max-width: 100%;
@@ -31,6 +37,7 @@ img{
 .roc-c-div-tag-post .nav .nav {
     display: block;
 }
+
 /*overwrite*/
 .page-header{
     margin: 10px 0 20px;
@@ -51,6 +58,11 @@ img{
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 50px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
 }
 .bs-docs-sidebar {
     padding-left: 0px;
