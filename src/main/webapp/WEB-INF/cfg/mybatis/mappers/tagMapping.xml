@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.tag">
+
+    <resultMap id="tag" type="TagVo">
+        <id property="id" column="id" />
+        <result property="displayName" column="displayName" />
+        <result property="urlName" column="urlName" />
+        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
+        <result property="visible" column="visible" />
+        <result property="valid" column="valid" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+
+
+    <select id="lst" resultMap="tag">
+        select * from roc_t_tag order by displayName
+    </select>
+
+    <select id="get" parameterType="String" resultMap="tag">
+        select * from roc_t_tag where urlName = #{urlName} order by displayName
+    </select>
+
+    <select id="lstBpostUrlTitle" parameterType="String" resultMap="tag">
+        select t.* from roc_t_tag t join roc_t_post_r_tag r on r.tagUrlName = t.urlName where r.postUrlTitle = #{postUrlTitle}
+    </select>
+
+</mapper>

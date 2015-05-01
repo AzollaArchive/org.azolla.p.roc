@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.post">
+
+    <resultMap id="post" type="PostVo">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="urlTitle" column="urlTitle" />
+        <result property="description" column="description" />
+        <result property="content" column="content" />
+        <result property="categoryUrlName" column="categoryUrlName" />
+        <result property="canComment" column="canComment" />
+        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
+        <result property="visible" column="visible" />
+        <result property="valid" column="valid" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+
+
+    <select id="lst" resultMap="post">
+        select * from roc_t_post order by addDate desc
+    </select>
+
+    <select id="lstBcategoryUrlName" parameterType="String" resultMap="post">
+        select * from roc_t_post where categoryUrlName=#{categoryUrlName} order by addDate desc
+    </select>
+
+    <select id="lstBtag" parameterType="String" resultMap="post">
+        select p.* from roc_t_post p join roc_t_post_r_tag r on r.postUrlTitle = p.urlTitle where r.tagUrlName=#{tagUrlName} order by p.addDate desc
+    </select>
+
+    <select id="get" parameterType="String" resultMap="post">
+        select * from roc_t_post where urlTitle=#{urlTitle}
+    </select>
+
+</mapper>
