@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:property-placeholder location="/WEB-INF/cfg/db/db.properties"/>
+    <!-- 数据源  -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${driver}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${username}"></property>
+        <property name="password" value="${password}"></property>
+    </bean>
+
+    <!--  事务管理配置 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes >
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="rmv*" propagation="REQUIRED" />
+            <tx:method name="mod*" propagation="REQUIRED" />
+            <tx:method name="lst*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config >
+        <aop:pointcut expression="execution(* org.azolla.p.roc.service.*.*(..))" id="service"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="service"/>
+    </aop:config>
+
+    <!-- 与mybatis集成  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="/WEB-INF/cfg/mybatis/mappers.xml"></property>
+        <!-- mybatis配置文件自动扫描路径  -->
+        <property name="mapperLocations" value="/WEB-INF/cfg/mybatis/mappers/*Mapping.xml"></property>
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+</beans>
