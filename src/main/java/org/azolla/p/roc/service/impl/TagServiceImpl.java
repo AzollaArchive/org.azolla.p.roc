@@ -33,8 +33,8 @@ public class TagServiceImpl implements ITagService
     }
 
     @Override
-    public TagVo get(String urlName)
+    public TagVo getByUrlName(String urlName)
     {
-        return iTagDao.get(urlName);
+        return iTagDao.getByUrlName(urlName);
     }
 }

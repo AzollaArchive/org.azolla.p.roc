@@ -19,6 +19,7 @@ import java.util.Date;
 @Component
 public class ConfigVo
 {
+    //db column
     private int    id;
     private String rocKey;
     private String rocValue;
@@ -26,7 +27,7 @@ public class ConfigVo
     private Date   modDate;
     private Date   rmvDate;
     private int    visible;
-    private int    valid;
+    private int    operable;
     private int    deleted;
 
     public int getId()
@@ -99,14 +100,14 @@ public class ConfigVo
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()

@@ -25,16 +25,16 @@ import java.util.List;
 @Component
 public class UserDetailsImpl implements UserDetails
 {
+    //db column
     private int id;
     private String username;
     private String email;
     private String password;
-    private int admin;
     private Date addDate;
     private Date modDate;
     private Date rmvDate;
     private int visible;
-    private int valid;
+    private int operable;
     private int deleted;
 
     public int getId()
@@ -79,16 +79,6 @@ public class UserDetailsImpl implements UserDetails
         this.password = password;
     }
 
-    public int getAdmin()
-    {
-        return admin;
-    }
-
-    public void setAdmin(int admin)
-    {
-        this.admin = admin;
-    }
-
     public Date getAddDate()
     {
         return addDate;
@@ -129,14 +119,14 @@ public class UserDetailsImpl implements UserDetails
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()
@@ -153,7 +143,7 @@ public class UserDetailsImpl implements UserDetails
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
         List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<SimpleGrantedAuthority>();
-        SimpleGrantedAuthority sim = new SimpleGrantedAuthority("ROLE_USER");
+        SimpleGrantedAuthority sim = new SimpleGrantedAuthority("ROLE_ADMIN");
         simpleGrantedAuthorityList.add(sim);
         return simpleGrantedAuthorityList;
     }

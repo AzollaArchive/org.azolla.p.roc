@@ -11,7 +11,7 @@
 
 
     <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
-    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <!--<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 
     <!-- View -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -38,8 +38,8 @@
     <mvc:resources mapping="/img/**" location="/img/" cache-period="31556926"/>
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
     <mvc:resources mapping="/WEB-INF/generate/**" location="/WEB-INF/generate/" cache-period="31556926"/>
-    <mvc:resources mapping="/WEB-INF/html/**" location="/WEB-INF/html/" cache-period="31556926"/>
-    <mvc:resources mapping="/WEB-INF/upload/**" location="/WEB-INF/upload/" cache-period="31556926"/>
+    <mvc:resources mapping="/WEB-INF/ref/**" location="/WEB-INF/ref/" cache-period="31556926"/>
+    <mvc:resources mapping="/WEB-INF/attachment/**" location="/WEB-INF/attachment/" cache-period="31556926"/>
 
     <task:annotation-driven/>
 

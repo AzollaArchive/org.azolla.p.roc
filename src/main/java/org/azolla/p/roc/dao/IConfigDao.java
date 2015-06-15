@@ -14,5 +14,5 @@ public interface IConfigDao
 {
     public List<ConfigVo> lst();
 
-    public ConfigVo get(String rocKey);
+    public ConfigVo getByRocKey(String rocKey);
 }

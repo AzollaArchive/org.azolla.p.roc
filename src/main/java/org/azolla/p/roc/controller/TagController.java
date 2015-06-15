@@ -8,7 +8,6 @@ package org.azolla.p.roc.controller;
 
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.service.ITagService;
-import org.azolla.p.roc.vo.CategoryVo;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since ADK1.0
  */
 @Controller
-@RequestMapping("/tag")
 public class TagController
 {
     @Autowired
@@ -32,33 +30,33 @@ public class TagController
     @Autowired
     private ITagService iTagService;
 
-    @RequestMapping("/{tag}")
+    @RequestMapping("/tag/{tag}")
     public String tag(@PathVariable String tag, Model model)
     {
-        model.addAttribute("postLst",iPostService.lstBtag(tag, 1));
+        model.addAttribute("postLst", iPostService.lstByTagUrlName(tag, 1));
         model.addAttribute("current_page",1);
 
-        tagSetting(tag, model);
+        setting(tag, model);
 
         return "lst";
     }
 
-    @RequestMapping("/{tag}/{page}")
+    @RequestMapping("/tag/{tag}/{page}")
     public String tag(@PathVariable String tag, @PathVariable String page, Model model)
     {
         int requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postLst",iPostService.lstBtag(tag,requestPage));
+        model.addAttribute("postLst",iPostService.lstByTagUrlName(tag,requestPage));
         model.addAttribute("current_page", requestPage);
 
-        tagSetting(tag, model);
+        setting(tag, model);
 
         return "lst";
     }
 
-    private void tagSetting(String tag, Model model)
+    private void setting(String tag, Model model)
     {
-        TagVo tagVo = iTagService.get(tag);
+        TagVo tagVo = iTagService.getByUrlName(tag);
 
         model.addAttribute("sidebar_title",tagVo.getDisplayName());
         model.addAttribute("current_request","tag/"+tag);

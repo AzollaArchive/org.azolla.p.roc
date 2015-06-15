@@ -28,25 +28,41 @@ public class PostDaoImpl implements IPostDao
     private SqlSession sqlSession;
 
     @Override
+    public List<PostVo> lstWithoutVOD(RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.post.lstWithoutVOD",null,rowBounds);
+    }
+
+    @Override
     public List<PostVo> lst(RowBounds rowBounds)
     {
         return sqlSession.selectList("mapper.post.lst",null,rowBounds);
     }
 
     @Override
-    public List<PostVo> lstBcategory(String categoryUrlName, RowBounds rowBounds)
+    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, RowBounds rowBounds)
     {
-        return sqlSession.selectList("mapper.post.lstBcategoryUrlName",categoryUrlName,rowBounds);
+        return sqlSession.selectList("mapper.post.lstByCategoryUrlName",categoryUrlName,rowBounds);
     }
 
     @Override
-    public List<PostVo> lstBtag(String tagUrlName, RowBounds rowBounds)
+    public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds)
     {
-        return sqlSession.selectList("mapper.post.lstBtag",tagUrlName,rowBounds);
+        return sqlSession.selectList("mapper.post.lstByTagUrlName",tagUrlName,rowBounds);
     }
 
-    public PostVo get(String urlTitle)
+    public PostVo getByUrlTitle(String urlTitle)
     {
-        return  sqlSession.selectOne("mapper.post.get",urlTitle);
+        return  sqlSession.selectOne("mapper.post.getByUrlTitle",urlTitle);
+    }
+
+    public int add(PostVo postVo)
+    {
+        return sqlSession.insert("mapper.post.add",postVo);
+    }
+
+    public int mod(PostVo postVo)
+    {
+        return sqlSession.update("mapper.post.mod",postVo);
     }
 }

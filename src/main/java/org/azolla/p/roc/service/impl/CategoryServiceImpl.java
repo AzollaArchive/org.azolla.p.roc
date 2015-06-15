@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements ICategoryService
     @Override
     public List<CategoryVo> lst(String parentUrlName)
     {
-        List<CategoryVo> rtnList = iCategoryDao.lst(parentUrlName);
+        List<CategoryVo> rtnList = iCategoryDao.lstByParentUrlName(parentUrlName);
         for(CategoryVo categoryVo : rtnList)
         {
             List<CategoryVo> subList = lst(categoryVo.getUrlName());
@@ -42,8 +42,14 @@ public class CategoryServiceImpl implements ICategoryService
     }
 
     @Override
-    public CategoryVo get(String urlName)
+    public List<CategoryVo> lst()
     {
-        return iCategoryDao.get(urlName);
+        return iCategoryDao.lst();
+    }
+
+    @Override
+    public CategoryVo getByUrlName(String urlName)
+    {
+        return iCategoryDao.getByUrlName(urlName);
     }
 }

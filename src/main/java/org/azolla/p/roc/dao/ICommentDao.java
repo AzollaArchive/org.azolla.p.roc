@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface ICommentDao
 {
-    public List<CommentVo> lstBpostUrlTitle(String postUrlTitle);
+    public List<CommentVo> lstByPostId(int postId);
 }

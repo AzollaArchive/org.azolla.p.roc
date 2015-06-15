@@ -10,12 +10,17 @@ import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.RowBounds;
+import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ICommentDao;
 import org.azolla.p.roc.dao.IPostDao;
+import org.azolla.p.roc.dao.IPostRTagDao;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.IPostService;
+import org.azolla.p.roc.vo.PostRTagVo;
 import org.azolla.p.roc.vo.PostVo;
+import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,24 +46,27 @@ public class PostServiceImpl implements IPostService
     private ICommentDao iCommentDao;
 
     @Autowired
+    private IPostRTagDao iPostRTagDao;
+
+    @Autowired
     private CacheAware cacheAware;
 
     @Override
     public List<PostVo> lst(int page)
     {
-        return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(cacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
     }
 
     @Override
-    public List<PostVo> lstBcategory(String categoryUrlName, int page)
+    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, int page)
     {
-        return more(iPostDao.lstBcategory(categoryUrlName, new RowBounds(page, Integer.parseInt(cacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lstByCategoryUrlName(categoryUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
     }
 
     @Override
-    public List<PostVo> lstBtag(String tagUrlName, int page)
+    public List<PostVo> lstByTagUrlName(String tagUrlName, int page)
     {
-        return more(iPostDao.lstBtag(tagUrlName, new RowBounds(page, Integer.parseInt(cacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
     }
 
     private List<PostVo> more(List<PostVo> lst)
@@ -69,10 +77,6 @@ public class PostServiceImpl implements IPostService
             @Override
             public PostVo apply(PostVo input)
             {
-                if(Strings.isNullOrEmpty(input.getDescription()))
-                {
-                    input.setDescription(input.getTitle());
-                }
                 input.setContent(input.getContent().split(MORE)[0]);
                 return input;
             }
@@ -80,17 +84,75 @@ public class PostServiceImpl implements IPostService
     }
 
     @Override
-    public PostVo get(String urlTitle)
+    public PostVo getByUrlTitle(String urlTitle)
     {
-        PostVo postVo = iPostDao.get(urlTitle);
+        PostVo postVo = iPostDao.getByUrlTitle(urlTitle);
 
-        if(Strings.isNullOrEmpty(postVo.getDescription()))
-        {
-            postVo.setDescription(postVo.getTitle());
-        }
-        postVo.getTagVoList().addAll(iTagDao.lstBpostUrlTitle(urlTitle));
-        postVo.getCommentVoList().addAll(iCommentDao.lstBpostUrlTitle(urlTitle));
+        postVo.getTagVoList().addAll(iTagDao.lstByPostUrlTitle(urlTitle));
+        postVo.getCommentVoList().addAll(iCommentDao.lstByPostId(postVo.getId()));
 
         return postVo;
+    }
+
+    public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, String content, int category, int visible, int operable, String tag, int[] tags)
+    {
+        Tuple.Triple<Boolean,String,PostVo> rtnResult = null;
+
+        String urlTitle = String0.pinyin(title);
+        PostVo postVo = new PostVo();
+        postVo.setTitle(title);
+        postVo.setUrlTitle(urlTitle);
+        postVo.setContent(Strings.nullToEmpty(content));
+        postVo.setCategoryId(category);
+        postVo.setVisible(visible);
+        postVo.setOperable(visible);
+
+        rtnResult = Tuple.of(true,null,postVo);
+
+        if(id == 0)
+        {
+            //add
+            if(iPostDao.getByUrlTitle(urlTitle) != null)
+            {
+                rtnResult = Tuple.of(false,"Title exist!",postVo);
+            }
+            else
+            {
+                iPostDao.add(postVo);
+            }
+        }
+        else
+        {
+            //mod
+            iPostDao.mod(postVo);
+        }
+
+        PostVo dbPostVo = iPostDao.getByUrlTitle(urlTitle);
+        String tagUrlName = "";
+        boolean hasNewTag = false;
+        for(String t : tag.split(","))
+        {
+            tagUrlName = String0.pinyin(t);
+            if(iTagDao.add(new TagVo(t,tagUrlName)) == 1)
+            {
+                hasNewTag = true;
+
+                iPostRTagDao.add(new PostRTagVo(dbPostVo.getId(),iTagDao.getByUrlName(tagUrlName).getId()));
+            }
+
+
+        }
+
+        for(int t : tags)
+        {
+            iPostRTagDao.add(new PostRTagVo(dbPostVo.getId(),t));
+        }
+
+        if(hasNewTag)
+        {
+            cacheAware.reload(CacheAware.TAG_CACHE);
+        }
+
+        return rtnResult;
     }
 }

@@ -6,33 +6,51 @@
         <id property="id" column="id" />
         <result property="title" column="title" />
         <result property="urlTitle" column="urlTitle" />
-        <result property="description" column="description" />
         <result property="content" column="content" />
-        <result property="categoryUrlName" column="categoryUrlName" />
-        <result property="canComment" column="canComment" />
+        <result property="categoryId" column="categoryId" />
         <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
-    <select id="lst" resultMap="post">
+    <select id="lstWithoutVOD" resultMap="post">
         select * from roc_t_post order by addDate desc
     </select>
 
-    <select id="lstBcategoryUrlName" parameterType="String" resultMap="post">
-        select * from roc_t_post where categoryUrlName=#{categoryUrlName} order by addDate desc
+    <select id="lst" resultMap="post">
+        select * from roc_t_post where visible=1 and operable=1 and deleted=0 order by addDate desc
     </select>
 
-    <select id="lstBtag" parameterType="String" resultMap="post">
-        select p.* from roc_t_post p join roc_t_post_r_tag r on r.postUrlTitle = p.urlTitle where r.tagUrlName=#{tagUrlName} order by p.addDate desc
+    <select id="lstByCategoryUrlName" parameterType="String" resultMap="post">
+        select p.*
+        from (select * from roc_t_post where visible=1 and operable=1 and deleted=0) p
+        join roc_t_category c on c.id = p.categoryId
+        where c.urlName = #{categoryUrlName}
+        order by p.addDate desc
     </select>
 
-    <select id="get" parameterType="String" resultMap="post">
+    <select id="lstByTagUrlName" parameterType="String" resultMap="post">
+        select p.*
+        from (select * from roc_t_post where visible=1 and operable=1 and deleted=0) p
+        join roc_t_post_r_tag r on r.postId = p.id
+        join roc_t_tag t on t.id = r.tagId
+        where t.urlName=#{tagUrlName}
+        order by p.addDate desc
+    </select>
+
+    <select id="getByUrlTitle" parameterType="String" resultMap="post">
         select * from roc_t_post where urlTitle=#{urlTitle}
     </select>
 
+    <insert id="add" parameterType="org.azolla.p.roc.vo.PostVo">
+        insert into roc_t_post(title,urlTitle,content,categoryUrlName,addDate,visible,operable) values(#{title},#{urlTitle},#{content},#{categoryUrlName},now(),#{visible},#{operable})
+    </insert>
+
+    <update id="mod" parameterType="org.azolla.p.roc.vo.PostVo">
+        update roc_t_post set title=#{title}, urlTitle=#{urlTitle}, content=#{content}, categoryUrlName=#{categoryUrlName}, visible=#{visible}, operable=#{operable}, modDate=now() where id=#{id}
+    </update>
 </mapper>

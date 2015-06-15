@@ -81,8 +81,8 @@ public class CacheAware
         switch (cache)
         {
             case CATEGORY_CACHE:
-                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT));
-                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT));
+                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
+                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
                 break;
             case CONFIG_CACHE:
                 CONFIG_MAP.putAll(iConfigService.map());
@@ -95,17 +95,17 @@ public class CacheAware
         }
     }
 
-//    public void reload()
-//    {
-//        reload(CATEGORY_CACHE);
-//        reload(CONFIG_CACHE);
-//    }
-//
-//    public void reload(String cache)
-//    {
-//        clear(cache);
-//        load(cache);
-//    }
+    public void reload()
+    {
+        reload(CATEGORY_CACHE);
+        reload(CONFIG_CACHE);
+    }
+
+    public void reload(String cache)
+    {
+        clear(cache);
+        load(cache);
+    }
 
     public void clear()
     {

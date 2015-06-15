@@ -33,8 +33,8 @@ public class ConfigDaoImpl implements IConfigDao
     }
 
     @Override
-    public ConfigVo get(String rocKey)
+    public ConfigVo getByRocKey(String rocKey)
     {
-        return sqlSession.selectOne("mapper.config.get",rocKey);
+        return sqlSession.selectOne("mapper.config.getByRocKey",rocKey);
     }
 }

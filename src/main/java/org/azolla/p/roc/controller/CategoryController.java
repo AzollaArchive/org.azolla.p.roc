@@ -6,7 +6,6 @@
  */
 package org.azolla.p.roc.controller;
 
-import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.vo.CategoryVo;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since ADK1.0
  */
 @Controller
-@RequestMapping("/category")
 public class CategoryController
 {
     @Autowired
@@ -32,35 +30,35 @@ public class CategoryController
     @Autowired
     private ICategoryService iCategoryService;
 
-    @RequestMapping("/{category}")
-    public String category(@PathVariable String category, Model model)
+    @RequestMapping("/category/{categoryUrlName}")
+    public String category(@PathVariable String categoryUrlName, Model model)
     {
-        model.addAttribute("postLst",iPostService.lstBcategory(category, 1));
+        model.addAttribute("postLst", iPostService.lstByCategoryUrlName(categoryUrlName, 1));
         model.addAttribute("current_page",1);
 
-        categorySetting(category,model);
+        setting(categoryUrlName, model);
 
         return "lst";
     }
 
-    @RequestMapping("/{category}/{page}")
-    public String category(@PathVariable String category, @PathVariable String page, Model model)
+    @RequestMapping("/category/{categoryUrlName}/{page}")
+    public String category(@PathVariable String categoryUrlName, @PathVariable String page, Model model)
     {
         int requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postLst",iPostService.lstBcategory(category,requestPage));
+        model.addAttribute("postLst",iPostService.lstByCategoryUrlName(categoryUrlName, requestPage));
         model.addAttribute("current_page", requestPage);
 
-        categorySetting(category,model);
+        setting(categoryUrlName, model);
 
         return "lst";
     }
 
-    private void categorySetting(String category, Model model)
+    private void setting(String categoryUrlName, Model model)
     {
-        CategoryVo categoryVo = iCategoryService.get(category);
+        CategoryVo categoryVo = iCategoryService.getByUrlName(categoryUrlName);
 
         model.addAttribute("sidebar_title",categoryVo.getDisplayName());
-        model.addAttribute("current_request","category/"+category);
+        model.addAttribute("current_request","category/"+categoryUrlName);
     }
 }

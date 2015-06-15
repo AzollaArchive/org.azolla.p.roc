@@ -33,14 +33,20 @@ public class TagDaoImpl implements ITagDao
     }
 
     @Override
-    public List<TagVo> lstBpostUrlTitle(String postUrlTitle)
+    public List<TagVo> lstByPostUrlTitle(String postUrlTitle)
     {
-        return sqlSession.selectList("mapper.tag.lstBpostUrlTitle", postUrlTitle);
+        return sqlSession.selectList("mapper.tag.lstByPostUrlTitle", postUrlTitle);
     }
 
     @Override
-    public TagVo get(String urlName)
+    public TagVo getByUrlName(String urlName)
     {
-        return sqlSession.selectOne("mapper.tag.get",urlName);
+        return sqlSession.selectOne("mapper.tag.getByUrlName",urlName);
+    }
+
+    @Override
+    public int add(TagVo tagVo)
+    {
+        return sqlSession.insert("mapper.tag.get",tagVo);
     }
 }

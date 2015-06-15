@@ -19,6 +19,7 @@ import java.util.Date;
 @Component
 public class TagVo
 {
+    //db column
     private int    id;
     private String displayName;
     private String urlName;
@@ -26,8 +27,16 @@ public class TagVo
     private Date   modDate;
     private Date   rmvDate;
     private int    visible;
-    private int    valid;
+    private int    operable;
     private int    deleted;
+
+    public TagVo(){}
+
+    public TagVo(String displayName, String urlName)
+    {
+        this.displayName = displayName;
+        this.urlName = urlName;
+    }
 
     public int getId()
     {
@@ -99,14 +108,14 @@ public class TagVo
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()

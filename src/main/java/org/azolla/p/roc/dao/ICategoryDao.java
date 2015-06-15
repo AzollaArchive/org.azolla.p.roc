@@ -12,7 +12,13 @@ import java.util.List;
  */
 public interface ICategoryDao
 {
-    public List<CategoryVo> lst(String parentUrlName);
+    public List<CategoryVo> lstByParentId(int parentId);
 
-    public CategoryVo get(String urlName);
+    public List<CategoryVo> lstByParentUrlName(String parentUrlName);
+
+    public List<CategoryVo> lst();
+
+    public CategoryVo getByUrlName(String urlName);
+
+    public CategoryVo getById(int id);
 }

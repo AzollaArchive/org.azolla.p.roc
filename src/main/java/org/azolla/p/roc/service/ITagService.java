@@ -14,5 +14,5 @@ public interface ITagService
 {
     public List<TagVo> lst();
 
-    public TagVo get(String urlName);
+    public TagVo getByUrlName(String urlName);
 }

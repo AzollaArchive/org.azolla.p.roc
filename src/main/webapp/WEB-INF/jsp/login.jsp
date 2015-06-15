@@ -8,19 +8,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</title>
-    <meta name="keywords" content="${applicationScope.TAG4KEYWORD}"/>
-    <meta name="Description" content="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCDESC"]}"/>
-    <meta name="Author" content="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCEMAIL"]}"/>
-    <link rel="shortcut icon" href="/img/favicon.png"/>
-    <!-- Bootstrap -->
-    <link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/3th/bootcss/css/docs.min.css" rel="stylesheet">
-    <link href="/css/roc.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <%@ include file="/WEB-INF/ref/admin/head_kindeditor.jsp"%>
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -46,23 +34,24 @@
 </nav>
 <div id="roc-i-content">
     <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" action="/j_spring_security_check" method="post">
             <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus" name="username">
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password">
+            <%--<div class="checkbox">--%>
+                <%--<label>--%>
+                    <%--<input type="checkbox" value="remember-me" name="rememberMe"> Remember me--%>
+                <%--</label>--%>
+            <%--</div>--%>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
         </form>
     </div>
 </div>
 
-<c:import url="/WEB-INF/html/footer.html" charEncoding="utf-8"/>
+<%@ include file="/WEB-INF/ref/footer.jsp" %>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/3th/jquery/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

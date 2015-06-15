@@ -10,16 +10,16 @@
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
     <select id="lst" resultMap="config">
-        select * from roc_t_config
+        select * from roc_t_config where visible=1 and operable=1 and deleted=0
     </select>
 
-    <select id="get" parameterType="String" resultMap="config">
+    <select id="getByRocKey" parameterType="String" resultMap="config">
         select * from roc_t_config where rocKey=#{rocKey}
     </select>
 

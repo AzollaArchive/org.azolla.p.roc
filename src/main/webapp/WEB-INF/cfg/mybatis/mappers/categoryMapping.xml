@@ -6,7 +6,7 @@
         <id property="id" column="id" />
         <result property="displayName" column="displayName" />
         <result property="urlName" column="urlName" />
-        <result property="parentUrlName" column="parentUrlName" />
+        <result property="parentId" column="parentId" />
         <result property="controllerName" column="controllerName" />
         <result property="group" column="group" />
         <result property="sequence" column="sequence" />
@@ -14,17 +14,33 @@
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
-    <select id="lst" parameterType="String" resultMap="category">
-        select * from roc_t_category where parentUrlName=#{parentUrlName} order by sequence
+    <select id="lstByParentId" parameterType="int" resultMap="category">
+        select * from roc_t_category where visible=1 and operable=1 and deleted=0 and parentId=#{parentId} order by sequence
     </select>
 
-    <select id="get" parameterType="String" resultMap="category">
+    <select id="lstByParentUrlName" parameterType="String" resultMap="category">
+        select c.*
+        from (select * from roc_t_category where visible=1 and operable=1 and deleted=0) c
+        join roc_t_category p on p.id = c.parentId
+        where p.urlName = #{parentUrlName}
+        order by c.sequence
+    </select>
+
+    <select id="lst" resultMap="category">
+        select * from roc_t_category where visible=1 and operable=1 and deleted=0 order by id
+    </select>
+
+    <select id="getByUrlName" parameterType="String" resultMap="category">
         select * from roc_t_category where urlName=#{urlName}
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="category">
+        select * from roc_t_category where id=#{id}
     </select>
 
 </mapper>

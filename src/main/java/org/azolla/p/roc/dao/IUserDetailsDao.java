@@ -1,7 +1,6 @@
 package org.azolla.p.roc.dao;
 
 import org.azolla.p.roc.vo.impl.UserDetailsImpl;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -11,5 +10,5 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public interface IUserDetailsDao
 {
-    public UserDetailsImpl lst(String username);
+    public UserDetailsImpl getByUsername(String username);
 }

@@ -27,14 +27,32 @@ public class CategoryDaoImpl implements ICategoryDao
     private SqlSession sqlSession;
 
     @Override
-    public List<CategoryVo> lst(String parentUrlName)
+    public List<CategoryVo> lstByParentId(int parentId)
     {
-        return sqlSession.selectList("mapper.category.lst",parentUrlName);
+        return sqlSession.selectList("mapper.category.lstByParentId",parentId);
     }
 
     @Override
-    public CategoryVo get(String urlName)
+    public List<CategoryVo> lstByParentUrlName(String parentUrlName)
     {
-        return sqlSession.selectOne("mapper.category.get",urlName);
+        return sqlSession.selectList("mapper.category.lstByParentUrlName",parentUrlName);
+    }
+
+    @Override
+    public List<CategoryVo> lst()
+    {
+        return sqlSession.selectList("mapper.category.lst");
+    }
+
+    @Override
+    public CategoryVo getByUrlName(String urlName)
+    {
+        return sqlSession.selectOne("mapper.category.getByUrlName",urlName);
+    }
+
+    @Override
+    public CategoryVo getById(int id)
+    {
+        return sqlSession.selectOne("mapper.category.getById",id);
     }
 }

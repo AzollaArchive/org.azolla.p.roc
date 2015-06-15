@@ -7,18 +7,17 @@
         <result property="username" column="username" />
         <result property="email" column="email" />
         <result property="password" column="password" />
-        <result property="admin" column="admin" />
         <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
-    <select id="lst" parameterType="String" resultMap="user">
-        select * from roc_t_user where username=#{username}
+    <select id="getByUsername" parameterType="String" resultMap="user">
+        select * from roc_t_user where visible=1 and operable=1 and deleted=0 and username=#{username}
     </select>
 
 </mapper>

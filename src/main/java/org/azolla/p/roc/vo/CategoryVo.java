@@ -21,22 +21,28 @@ import java.util.List;
 @Component
 public class CategoryVo
 {
-    public static final String LEFT = "left";
-    public static final String RIGHT = "right";
+    public static final int LEFT_ROOT_ID  = 1;
+    public static final int RIGHT_ROOT_ID = 2;
 
-    private int    id;
-    private String displayName;
-    private String urlName;
-    private String    parentUrlName;
-    private String controllerName;
-    private int group;
-    private int sequence;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    valid;
-    private int    deleted;
+    public static final String LEFT_ROOT_URL  = "left";
+    public static final String RIGHT_ROOT_URL = "right";
+
+    //db column
+    private int        id;
+    private String     displayName;
+    private String     urlName;
+    private int        parentId;
+    private String     controllerName;
+    private int        group;
+    private int        sequence;
+    private Date       addDate;
+    private Date       modDate;
+    private Date       rmvDate;
+    private int        visible;
+    private int        operable;
+    private int        deleted;
+
+    private CategoryVo parentCategoryVo;
     private List<CategoryVo> subCategoryVoList = Lists.newArrayList();
 
     public int getId()
@@ -69,14 +75,14 @@ public class CategoryVo
         this.urlName = urlName;
     }
 
-    public String getParentUrlName()
+    public int getParentId()
     {
-        return parentUrlName;
+        return parentId;
     }
 
-    public void setParentUrlName(String parentUrlName)
+    public void setParentId(int parentId)
     {
-        this.parentUrlName = parentUrlName;
+        this.parentId = parentId;
     }
 
     public String getControllerName()
@@ -149,14 +155,14 @@ public class CategoryVo
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()
@@ -167,6 +173,16 @@ public class CategoryVo
     public void setDeleted(int deleted)
     {
         this.deleted = deleted;
+    }
+
+    public CategoryVo getParentCategoryVo()
+    {
+        return parentCategoryVo;
+    }
+
+    public void setParentCategoryVo(CategoryVo parentCategoryVo)
+    {
+        this.parentCategoryVo = parentCategoryVo;
     }
 
     public List<CategoryVo> getSubCategoryVoList()

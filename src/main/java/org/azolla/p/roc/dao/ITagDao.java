@@ -14,7 +14,9 @@ public interface ITagDao
 {
     public List<TagVo> lst();
 
-    public List<TagVo> lstBpostUrlTitle(String postUrlTitle);
+    public List<TagVo> lstByPostUrlTitle(String postUrlTitle);
 
-    public TagVo get(String urlName);
+    public TagVo getByUrlName(String urlName);
+
+    public int add(TagVo tagVo);
 }

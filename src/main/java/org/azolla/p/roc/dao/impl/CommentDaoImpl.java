@@ -27,8 +27,8 @@ public class CommentDaoImpl implements ICommentDao
     private SqlSession sqlSession;
 
     @Override
-    public List<CommentVo> lstBpostUrlTitle(String postUrlTitle)
+    public List<CommentVo> lstByPostId(int postId)
     {
-        return sqlSession.selectList("mapper.comment.lstBpostUrlTitle",postUrlTitle);
+        return sqlSession.selectList("mapper.comment.lstByPostId",postId);
     }
 }

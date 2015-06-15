@@ -37,7 +37,7 @@ public class ConfigServiceImpl implements IConfigService
     @Override
     public ConfigVo lst(String rocKey)
     {
-        return iConfigDao.get(rocKey);
+        return iConfigDao.getByRocKey(rocKey);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class ConfigServiceImpl implements IConfigService
     @Override
     public String value(String rocKey)
     {
-        return iConfigDao.get(rocKey).getRocValue();
+        return iConfigDao.getByRocKey(rocKey).getRocValue();
     }
 }

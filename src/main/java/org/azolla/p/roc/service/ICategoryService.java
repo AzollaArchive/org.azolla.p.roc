@@ -14,5 +14,7 @@ public interface ICategoryService
 {
     public List<CategoryVo> lst(String parentUrlName);
 
-    public CategoryVo get(String urlName);
+    public List<CategoryVo> lst();
+
+    public CategoryVo getByUrlName(String urlName);
 }

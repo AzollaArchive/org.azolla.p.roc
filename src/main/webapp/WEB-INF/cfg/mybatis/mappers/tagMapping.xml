@@ -10,21 +10,30 @@
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
     <select id="lst" resultMap="tag">
-        select * from roc_t_tag order by displayName
+        select * from roc_t_tag where visible=1 and operable=1 and deleted=0 order by displayName
     </select>
 
-    <select id="get" parameterType="String" resultMap="tag">
-        select * from roc_t_tag where urlName = #{urlName} order by displayName
+    <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
+        select t.*
+        from (select * from roc_t_tag where visible=1 and operable=1 and deleted=0) t
+        join roc_t_post_r_tag r on r.tagId = t.id
+        join roc_t_post p on p.id = r.postId
+        where p.urlTitle = #{postUrlTitle}
+        order by t.displayName
     </select>
 
-    <select id="lstBpostUrlTitle" parameterType="String" resultMap="tag">
-        select t.* from roc_t_tag t join roc_t_post_r_tag r on r.tagUrlName = t.urlName where r.postUrlTitle = #{postUrlTitle}
+    <select id="getByUrlName" parameterType="String" resultMap="tag">
+        select * from roc_t_tag where visible=1 and operable=1 and deleted=0 and urlName = #{urlName} order by displayName
     </select>
+
+    <insert id="add" parameterType="org.azolla.p.roc.vo.TagVo">
+        insert into roc_t_tag(displayName,urlName,addDate) values(#{displayName},#{urlName},now())
+    </insert>
 
 </mapper>

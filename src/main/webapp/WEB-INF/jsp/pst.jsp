@@ -8,9 +8,9 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]} - ${post.title}</title>
+    <title>${post.title} - ${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</title>
     <meta name="keywords" content="${post4keyword}"/>
-    <meta name="Description" content="${post.description}"/>
+    <meta name="Description" content="${fn:replace(fn:replace(fn:replace(fn:replace(post.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}"/>
     <meta name="Author" content="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCEMAIL"]}"/>
     <link rel="shortcut icon" href="/img/favicon.png"/>
     <!-- Bootstrap -->
@@ -23,101 +23,7 @@
     <![endif]-->
 </head>
 <body>
-<!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="navbar-header">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <c:forEach var="leftCategory" items="${applicationScope.LEFT_CATEGORY_LST }">
-                            <c:choose>
-                                <c:when test="${(leftCategory.subCategoryVoList)!= null && fn:length(leftCategory.subCategoryVoList) > 0}">
-                                    <li class="dropdown">
-                                        <a href="/${leftCategory.controllerName}/${leftCategory.urlName}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                            ${leftCategory.displayName}
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
-                                                <c:choose>
-                                                    <c:when test="${subLeftCategory.group == 1}">
-                                                        <li class="divider"></li>
-                                                        <li class="dropdown-header">${subLeftCategory.displayName}</li>
-                                                        <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
-                                                            <li><a href="/${lastLeftCategory.controllerName}/${lastLeftCategory.urlName}">${lastLeftCategory.displayName}</a></li>
-                                                        </c:forEach>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <li><a href="/${subLeftCategory.controllerName}/${subLeftCategory.urlName}">${subLeftCategory.displayName}</a></li>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li><a href="/${leftCategory.controllerName}/${leftCategory.urlName}">${leftCategory.displayName}</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </ul>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="有梦才有精彩！" required>
-                        </div>
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <c:forEach var="rightCategory" items="${applicationScope.RIGHT_CATEGORY_LST}">
-                            <c:choose>
-                                <c:when test="${(rightCategory.subCategoryVoList)!= null && fn:length(rightCategory.subCategoryVoList) > 0}">
-                                    <li class="dropdown">
-                                        <a href="/${rightCategory.controllerName}/${rightCategory.urlName}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                            ${rightCategory.displayName}
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
-                                                <c:choose>
-                                                    <c:when test="${subRightCategory.group == 1}">
-                                                        <li class="divider"></li>
-                                                        <li class="dropdown-header">${subRightCategory.displayName}</li>
-                                                        <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">
-                                                            <li><a href="/${lastRightCategory.controllerName}/${lastRightCategory.urlName}">${lastRightCategory.displayName}</a></li>
-                                                        </c:forEach>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <li><a href="/${subRightCategory.controllerName}/${subRightCategory.urlName}">${subRightCategory.displayName}</a></li>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li><a href="/${rightCategory.controllerName}/${rightCategory.urlName}">${rightCategory.displayName}</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
-</nav>
+<jsp:include page="/WEB-INF/ref/nav.jsp" />
 <div id="roc-i-content">
     <div class="container">
         <div class="row">
@@ -130,15 +36,17 @@
                             </small>
                         </h2>
                         ${post.content}
-                        <div class="bs-callout bs-callout-info">
-                            <h4>Tag</h4>
-                            <div class="roc-c-div-tag">
-                                <c:forEach var="tag" items="${post.tagVoList}">
-                                    <a href="/tag/${tag.urlName}">${tag.displayName}</a>
-                                </c:forEach>
+                        <c:if test="${fn:length(post.tagVoList) > 0}">
+                            <div class="bs-callout bs-callout-info">
+                                <h4>Tag</h4>
+                                <div class="roc-c-div-tag">
+                                    <c:forEach var="tag" items="${post.tagVoList}">
+                                        <a href="/tag/${tag.urlName}">${tag.displayName}</a>
+                                    </c:forEach>
+                                </div>
                             </div>
-                        </div>
-                        <c:if test="${post.canComment == 1 || fn:length(post.commentVoList) > 0}">
+                        </c:if>
+                        <c:if test="${post.operable == 1 || fn:length(post.commentVoList) > 0}">
                             <div class="bs-callout bs-callout-warning">
                                 <c:if test="${fn:length(post.commentVoList) > 0}">
                                     <h4>Comment</h4>
@@ -156,7 +64,7 @@
                                         </c:forEach>
                                     </ul>
                                 </c:if>
-                                <c:if test="${post.canComment == 1}">
+                                <c:if test="${post.operable == 1}">
                                     <h4>New</h4>
                                     <form class="form-horizontal">
                                         <div class="form-group">
@@ -173,7 +81,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-1 col-sm-11">
-                                                <textarea class="form-control" rows="3" required="required"></textarea>
+                                                <textarea class="form-control" rows="3" required="required"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -217,7 +125,7 @@
         </div>
     </div>
 </div>
-<c:import url="/WEB-INF/html/footer.html" charEncoding="utf-8"/>
+<%@ include file="/WEB-INF/ref/footer.jsp" %>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/3th/jquery/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

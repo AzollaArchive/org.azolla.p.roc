@@ -16,17 +16,21 @@ import java.util.Date;
  */
 public class CommentVo
 {
+    //db column
     private int    id;
     private String username;
     private String email;
     private String content;
-    private String postUrlTitle;
+    private int postId;
+    private String ip;
     private Date   addDate;
     private Date   modDate;
     private Date   rmvDate;
     private int    visible;
-    private int    valid;
+    private int    operable;
     private int    deleted;
+
+    private PostVo postVo;
 
     public int getId()
     {
@@ -68,14 +72,24 @@ public class CommentVo
         this.content = content;
     }
 
-    public String getPostUrlTitle()
+    public int getPostId()
     {
-        return postUrlTitle;
+        return postId;
     }
 
-    public void setPostUrlTitle(String postUrlTitle)
+    public void setPostId(int postId)
     {
-        this.postUrlTitle = postUrlTitle;
+        this.postId = postId;
+    }
+
+    public String getIp()
+    {
+        return ip;
+    }
+
+    public void setIp(String ip)
+    {
+        this.ip = ip;
     }
 
     public Date getAddDate()
@@ -118,14 +132,14 @@ public class CommentVo
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()
@@ -136,5 +150,15 @@ public class CommentVo
     public void setDeleted(int deleted)
     {
         this.deleted = deleted;
+    }
+
+    public PostVo getPostVo()
+    {
+        return postVo;
+    }
+
+    public void setPostVo(PostVo postVo)
+    {
+        this.postVo = postVo;
     }
 }

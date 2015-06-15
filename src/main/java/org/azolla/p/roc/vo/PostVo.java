@@ -21,20 +21,20 @@ import java.util.List;
 @Component
 public class PostVo
 {
+    //db column
     private int    id;
     private String title;
     private String urlTitle;
-    private String description;
     private String content;
-    private String categoryUrlName;
-    private int    canComment;
+    private int    categoryId;
     private Date   addDate;
     private Date   modDate;
     private Date   rmvDate;
     private int    visible;
-    private int    valid;
+    private int    operable;
     private int    deleted;
 
+    private CategoryVo categoryVo;
     private List<TagVo> tagVoList = Lists.newArrayList();
     private List<CommentVo> commentVoList = Lists.newArrayList();
 
@@ -68,16 +68,6 @@ public class PostVo
         this.urlTitle = urlTitle;
     }
 
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
     public String getContent()
     {
         return content;
@@ -88,24 +78,14 @@ public class PostVo
         this.content = content;
     }
 
-    public String getCategoryUrlName()
+    public int getCategoryId()
     {
-        return categoryUrlName;
+        return categoryId;
     }
 
-    public void setCategoryUrlName(String categoryUrlName)
+    public void setCategoryId(int categoryId)
     {
-        this.categoryUrlName = categoryUrlName;
-    }
-
-    public int getCanComment()
-    {
-        return canComment;
-    }
-
-    public void setCanComment(int canComment)
-    {
-        this.canComment = canComment;
+        this.categoryId = categoryId;
     }
 
     public Date getAddDate()
@@ -148,14 +128,14 @@ public class PostVo
         this.visible = visible;
     }
 
-    public int getValid()
+    public int getOperable()
     {
-        return valid;
+        return operable;
     }
 
-    public void setValid(int valid)
+    public void setOperable(int operable)
     {
-        this.valid = valid;
+        this.operable = operable;
     }
 
     public int getDeleted()
@@ -166,6 +146,16 @@ public class PostVo
     public void setDeleted(int deleted)
     {
         this.deleted = deleted;
+    }
+
+    public CategoryVo getCategoryVo()
+    {
+        return categoryVo;
+    }
+
+    public void setCategoryVo(CategoryVo categoryVo)
+    {
+        this.categoryVo = categoryVo;
     }
 
     public List<TagVo> getTagVoList()

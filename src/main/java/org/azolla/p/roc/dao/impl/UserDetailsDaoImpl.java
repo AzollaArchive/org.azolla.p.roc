@@ -25,8 +25,8 @@ public class UserDetailsDaoImpl implements IUserDetailsDao
     private SqlSession sqlSession;
 
     @Override
-    public UserDetailsImpl lst(String username)
+    public UserDetailsImpl getByUsername(String username)
     {
-        return sqlSession.selectOne("mapper.user.lst",username);
+        return sqlSession.selectOne("mapper.user.getByUsername",username);
     }
 }

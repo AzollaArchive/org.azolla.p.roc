@@ -19,11 +19,17 @@ import java.util.List;
  */
 public interface IPostDao
 {
+    public List<PostVo> lstWithoutVOD(RowBounds rowBounds);
+
     public List<PostVo> lst(RowBounds rowBounds);
 
-    public List<PostVo> lstBcategory(String categoryUrlName, RowBounds rowBounds);
+    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, RowBounds rowBounds);
 
-    public List<PostVo> lstBtag(String tagUrlName, RowBounds rowBounds);
+    public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds);
 
-    public PostVo get(String urlTitle);
+    public PostVo getByUrlTitle(String urlTitle);
+
+    public int add(PostVo postVo);
+
+    public int mod(PostVo postVo);
 }
