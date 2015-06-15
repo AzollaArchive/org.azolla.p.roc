@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.postRTag">
+<mapper namespace="mapper.post">
 
-    <resultMap id="postRTag" type="PostRTagVo">
+    <resultMap id="post" type="PostVo">
         <id property="id" column="id" />
-        <result property="postId" column="postId" />
-        <result property="tagId" column="tagId" />
+        <result property="title" column="title" />
+        <result property="urlTitle" column="urlTitle" />
+        <result property="content" column="content" />
+        <result property="categoryUrlName" column="categoryUrlName" />
         <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
@@ -14,12 +16,29 @@
         <result property="deleted" column="deleted" />
     </resultMap>
 
-    <insert id="add" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        insert into roc_t_post_r_tag(postUrlTitle,tagUrlName,addDate) values(#{postUrlTitle},#{tagUrlName},now())
-    </insert>
 
-    <insert id="rmv" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        delete roc_t_post_r_tag where postUrlTitle=#{postUrlTitle},tagUrlName=#{tagUrlName}
+    <select id="lst" resultMap="post">
+        select * from roc_t_post order by addDate desc
+    </select>
+
+    <select id="lstBvisible" resultMap="post">
+        select * from roc_t_post where visible=1 and operable=1 and deleted=0 order by addDate desc
+    </select>
+
+    <select id="lstBcategoryUrlName" parameterType="String" resultMap="post">
+        select * from roc_t_post where visible=1 and operable=1 and deleted=0 and categoryUrlName=#{categoryUrlName} order by addDate desc
+    </select>
+
+    <select id="lstBtag" parameterType="String" resultMap="post">
+        select p.* from (select * from roc_t_post where visible=1 and operable=1 and deleted=0) p join roc_t_post_r_tag r on r.postUrlTitle = p.urlTitle where r.tagUrlName=#{tagUrlName} order by p.addDate desc
+    </select>
+
+    <select id="get" parameterType="String" resultMap="post">
+        select * from roc_t_post where visible=1 and operable=1 and deleted=0 and urlTitle=#{urlTitle}
+    </select>
+
+    <insert id="add" parameterType="org.azolla.p.roc.vo.PostVo">
+        insert into roc_t_post(title,urlTitle,content,categoryUrlName,addDate,visible,operable) values(#{title},#{urlTitle},#{content},#{categoryUrlName},now(),#{visible},#{operable})
     </insert>
 
 </mapper>

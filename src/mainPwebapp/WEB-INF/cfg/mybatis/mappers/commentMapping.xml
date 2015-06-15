@@ -7,18 +7,19 @@
         <result property="username" column="username" />
         <result property="email" column="email" />
         <result property="content" column="content" />
-        <result property="postUrlTitle" column="postUrlTitle" />
+        <result property="postId" column="postId" />
+        <result property="ip" column="ip" />
         <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
         <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
         <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
         <result property="visible" column="visible" />
-        <result property="valid" column="valid" />
+        <result property="operable" column="operable" />
         <result property="deleted" column="deleted" />
     </resultMap>
 
 
-    <select id="lstBpostUrlTitle" parameterType="String" resultMap="comment">
-        select * from roc_t_comment where postUrlTitle = #{postUrlTitle} order by addDate
+    <select id="lstByPostId" parameterType="int" resultMap="comment">
+        select * from roc_t_comment where visible=1 and operable=1 and deleted=0 and postId = #{postId} order by addDate
     </select>
 
 </mapper>
