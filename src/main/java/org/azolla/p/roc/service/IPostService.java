@@ -23,6 +23,8 @@ public interface IPostService
     
     public List<PostVo> lst(int page);
 
+    public List<PostVo> lstWithoutVOD(int page);
+
     public List<PostVo> lstByCategoryUrlName(String categoryUrlName, int page);
 
     public List<PostVo> lstByTagUrlName(String tagUrlName, int page);

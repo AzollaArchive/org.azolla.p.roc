@@ -42,4 +42,9 @@ public class ServletAware implements InitializingBean, ServletContextAware
         servletContext.setAttribute(CacheAware.TAG_CACHE,cacheAware.getTagList());
         servletContext.setAttribute("TAG4KEYWORD",cacheAware.getTagDisplayNameString());
     }
+
+    public static String getGenerateQrcodePath()
+    {
+        return "/generate/img/qrcode";
+    }
 }

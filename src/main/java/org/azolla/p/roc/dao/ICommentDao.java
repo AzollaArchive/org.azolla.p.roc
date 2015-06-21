@@ -13,4 +13,6 @@ import java.util.List;
 public interface ICommentDao
 {
     public List<CommentVo> lstByPostId(int postId);
+
+    public int add(CommentVo commentVo);
 }

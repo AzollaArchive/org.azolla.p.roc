@@ -22,12 +22,12 @@
     </select>
 
     <select id="lst" resultMap="post">
-        select * from roc_t_post where visible=1 and operable=1 and deleted=0 order by addDate desc
+        select * from roc_t_post where visible=1 and deleted=0 order by addDate desc
     </select>
 
     <select id="lstByCategoryUrlName" parameterType="String" resultMap="post">
         select p.*
-        from (select * from roc_t_post where visible=1 and operable=1 and deleted=0) p
+        from (select * from roc_t_post where visible=1 and deleted=0) p
         join roc_t_category c on c.id = p.categoryId
         where c.urlName = #{categoryUrlName}
         order by p.addDate desc
@@ -35,7 +35,7 @@
 
     <select id="lstByTagUrlName" parameterType="String" resultMap="post">
         select p.*
-        from (select * from roc_t_post where visible=1 and operable=1 and deleted=0) p
+        from (select * from roc_t_post where visible=1 and deleted=0) p
         join roc_t_post_r_tag r on r.postId = p.id
         join roc_t_tag t on t.id = r.tagId
         where t.urlName=#{tagUrlName}

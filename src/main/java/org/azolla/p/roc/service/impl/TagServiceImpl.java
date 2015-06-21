@@ -9,6 +9,7 @@ package org.azolla.p.roc.service.impl;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.azolla.l.ling.lang.String0;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ITagService;
 import org.azolla.p.roc.vo.TagVo;
@@ -29,6 +30,9 @@ public class TagServiceImpl implements ITagService
 {
     @Autowired
     private ITagDao iTagDao;
+
+    @Autowired
+    private CacheAware cacheAware;
 
     @Override
     public List<TagVo> lst()
@@ -88,9 +92,15 @@ public class TagServiceImpl implements ITagService
                 }
             }
         });
-        iTagDao.btAdd(needAddTagVoList);
-        rtnTagVoList.addAll(iTagDao.btLstByUrlNameList(newTagUrlNameList));
-
+        if(needAddTagVoList.size() > 0)
+        {
+            iTagDao.btAdd(needAddTagVoList);
+            cacheAware.reload(CacheAware.TAG_CACHE);
+        }
+        if(newTagUrlNameList.size() > 0)
+        {
+            rtnTagVoList.addAll(iTagDao.btLstByUrlNameList(newTagUrlNameList));
+        }
         return rtnTagVoList;
     }
 }

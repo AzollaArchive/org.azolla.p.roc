@@ -22,4 +22,8 @@
         select * from roc_t_comment where visible=1 and operable=1 and deleted=0 and postId = #{postId} order by addDate
     </select>
 
+    <insert id="add" parameterType="org.azolla.p.roc.vo.CommentVo">
+        insert into roc_t_comment(username,email,content,postId,ip,addDate) values (#{username},#{email},#{content},#{postId},#{ip},now())
+    </insert>
+
 </mapper>

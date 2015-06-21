@@ -30,6 +30,7 @@
             <main class="col-md-9">
                 <article class="roc-c-article-post">
                     <section class="bs-docs-section">
+                        <input type="hidden" id="postId" name="postId" value="${post.id}" />
                         <h2 class="page-header" id="${post.urlTitle}">${post.title}
                             <small>
                                 <time><fmt:formatDate value="${post.addDate}" type="both" pattern="yyyy-MM-dd" /></time>
@@ -47,18 +48,18 @@
                             </div>
                         </c:if>
                         <c:if test="${post.operable == 1 || fn:length(post.commentVoList) > 0}">
-                            <div class="bs-callout bs-callout-warning">
+                            <div class="bs-callout bs-callout-warning" id="list_comment_prepend">
                                 <c:if test="${fn:length(post.commentVoList) > 0}">
                                     <h4>Comment</h4>
-                                    <ul class="media-list">
+                                    <ul class="media-list" id="list_comment">
                                         <c:forEach var="comment" items="${post.commentVoList}">
                                             <li class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object" src="/WEB-INF/generate/img/qrcode/${comment.email}.png" />
+                                                    <img class="media-object" src="/generate/img/qrcode/${comment.email}.png" />
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">${comment.username}</h4>
-                                                    <p id="${comment.content}">${comment.content}</p>
+                                                    <p id="${comment.username}_${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</p>
                                                 </div>
                                             </li>
                                         </c:forEach>
@@ -66,22 +67,22 @@
                                 </c:if>
                                 <c:if test="${post.operable == 1}">
                                     <h4>New</h4>
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" onsubmit="return onSubmitButton()">
                                         <div class="form-group">
                                             <label for="commentName" class="col-sm-1 control-label">Name</label>
                                             <div class="col-sm-11">
-                                                <input type="text" class="form-control" id="commentName" placeholder="Name" required="required" />
+                                                <input type="text" class="form-control" id="commentName" name="commentName" placeholder="Name" required="required" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="commentEmail" class="col-sm-1 control-label">Email</label>
                                             <div class="col-sm-11">
-                                                <input type="email" class="form-control" id="commentEmail" placeholder="Email" required="required" />
+                                                <input type="email" class="form-control" id="commentEmail" name="commentEmail" placeholder="Email" required="required" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-1 col-sm-11">
-                                                <textarea class="form-control" rows="3" required="required"></textarea>
+                                                <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required="required"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -96,7 +97,7 @@
                     </section>
                 </article>
             </main>
-            <aside class="col-md-3 hidden-print hidden-xs hidden-sm">
+            <aside class="col-md-3 hidden-print hidden-xs hidden-sm" id="aside_comment_append">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Tag</h3>
@@ -113,9 +114,9 @@
                             <h3 class="panel-title">Comment</h3>
                         </div>
                         <div class="panel-body">
-                            <ul class="nav bs-docs-sidenav">
+                            <ul class="nav bs-docs-sidenav" id="aside_comment">
                                 <c:forEach var="comment" items="${post.commentVoList}">
-                                    <li><a href="#${comment.content}">${comment.content}</a></li>
+                                    <li><a href="#${comment.username}_${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</a></li>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -131,5 +132,62 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/3th/bootstrap/js/bootstrap.min.js"></script>
 <script src="/3th/bootcss/js/docs.min.js"></script>
+<script>
+    function onSubmitButton(){
+        $.post("/ajax/comment/add",{postId:$("#postId").val(),commentName:$("#commentName").val(),commentEmail:$("#commentEmail").val(),commentContent:$("#commentContent").val()},function(result){
+            var data = eval("("+result+")");
+            if (data.err === 0) {
+                var list_comment = "";
+                list_comment = list_comment + "<li class=\"media\">";
+                list_comment = list_comment + "<div class=\"media-left\">";
+                list_comment = list_comment + "<img class=\"media-object\" src=\"/generate/img/qrcode/"+data.rst.email+".png\" />";
+                list_comment = list_comment + "</div>";
+                list_comment = list_comment + "<div class=\"media-body\">";
+                list_comment = list_comment + "<h4 class=\"media-heading\">"+data.rst.username+"</h4>";
+                list_comment = list_comment + "<p id=\""+data.rst.username+"_"+data.rst.content+"\">"+data.rst.content+"</p>";
+                list_comment = list_comment + "</div>";
+                list_comment = list_comment + "</li>";
+                if($("#list_comment").val() == undefined){
+                    var list_comment_prepend = "";
+                    list_comment_prepend = list_comment_prepend + "<h4>Comment</h4>";
+                    list_comment_prepend = list_comment_prepend + "<ul class=\"media-list\" id=\"list_comment\">";
+                    list_comment_prepend = list_comment_prepend + list_comment;
+                    list_comment_prepend = list_comment_prepend + "</ul>";
+
+                    $("#list_comment_prepend").prepend(list_comment_prepend);
+                }else{
+                    $("#list_comment").append(list_comment);
+                }
+
+                var aside_comment = "";
+                aside_comment = aside_comment + " <li><a href=\"#"+data.rst.username+"_"+data.rst.content+"\">"+data.rst.content+"</a></li>";
+                if($("#aside_comment").val() == undefined){
+                    var aside_comment_append = "";
+                    aside_comment_append = aside_comment_append + "<div class=\"panel panel-default bs-docs-sidebar affix-top\">";
+                    aside_comment_append = aside_comment_append + "<div class=\"panel-heading\">";
+                    aside_comment_append = aside_comment_append + "<h3 class=\"panel-title\">Comment</h3>";
+                    aside_comment_append = aside_comment_append + "</div>";
+                    aside_comment_append = aside_comment_append + "<div class=\"panel-body\">";
+                    aside_comment_append = aside_comment_append + "<ul class=\"nav bs-docs-sidenav\" id=\"aside_comment\">";
+                    aside_comment_append = aside_comment_append + aside_commnet;
+                    aside_comment_append = aside_comment_append + "</ul>";
+                    aside_comment_append = aside_comment_append + "</div>";
+                    aside_comment_append = aside_comment_append + "</div>";
+
+                    $("#aside_comment_append").append(aside_comment_append);
+                }else{
+                    $("#aside_comment").append(aside_comment);
+                }
+
+                $("#commentName").val("");
+                $("#commentEmail").val("");
+                $("#commentContent").val("");
+            } else {
+                alert(data.msg);
+            }
+        });
+        return false;
+    }
+</script>
 </body>
 </html>

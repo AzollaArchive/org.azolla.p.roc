@@ -74,6 +74,22 @@ public class PostController
     @RequestMapping(value="/admin/post/lst",method= RequestMethod.GET)
     public String lst(Model model)
     {
+        model.addAttribute("postVoList", iPostService.lstWithoutVOD(1));
+        model.addAttribute("current_page", 1);
+        model.addAttribute("current_request", "admin/post/lst");
+        model.addAttribute("jsp_title","Post List");
+
+        return "admin/post/lst";
+    }
+
+    @RequestMapping(value="/admin/post/lst/{page}",method= RequestMethod.GET)
+    public String lst(@PathVariable String page,Model model)
+    {
+        int requestPage = Integer.valueOf(page);
+
+        model.addAttribute("postVoLst",iPostService.lstWithoutVOD(requestPage));
+        model.addAttribute("current_page", requestPage);
+        model.addAttribute("current_request", "admin/post/lst");
         model.addAttribute("jsp_title","Post List");
 
         return "admin/post/lst";

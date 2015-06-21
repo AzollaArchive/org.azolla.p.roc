@@ -53,15 +53,22 @@ public class PostServiceImpl implements IPostService
     private IPostRTagDao iPostRTagDao;
 
     @Autowired
-    private CacheAware cacheAware;
-
-    @Autowired
     private ITagService iTagService;
 
     @Override
     public List<PostVo> lst(int page)
     {
         return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+    }
+
+    public List<PostVo> lstWithoutVOD(int page)
+    {
+        List<PostVo> rtnList = iPostDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE))));
+        for(PostVo postVo : rtnList)
+        {
+            postVo.setCategoryVo(CacheAware.getCategoryVoById(postVo.getCategoryId()));
+        }
+        return rtnList;
     }
 
     @Override

@@ -31,4 +31,9 @@ public class CommentDaoImpl implements ICommentDao
     {
         return sqlSession.selectList("mapper.comment.lstByPostId",postId);
     }
+
+    public int add(CommentVo commentVo)
+    {
+        return sqlSession.insert("mapper.comment.add",commentVo);
+    }
 }

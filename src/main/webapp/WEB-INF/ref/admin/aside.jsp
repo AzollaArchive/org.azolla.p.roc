@@ -8,7 +8,7 @@
             <a href="/WEB-INF/html/footer.html" class="list-group-item">Setting</a>
             <a href="#" class="list-group-item">Category</a>
             <a href="#" class="list-group-item">Tag</a>
-            <a href="#" class="list-group-item">Post</a>
+            <a href="/admin/post/lst" class="list-group-item">Post</a>
             <a href="#" class="list-group-item">Comment</a>
         </ul>
     </div>

@@ -9,6 +9,7 @@ package org.azolla.p.roc.aware;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.service.ITagService;
@@ -44,7 +45,7 @@ public class CacheAware
     public static final String RIGHT_CATEGORY_LST = "RIGHT_CATEGORY_LST";
 
     public static final String ROC_CONFIG_KEY_POSTSIZE = "ROC_CONFIG_KEY_POSTSIZE";
-    public static final String ROC_CONFIG_KEY_ROCDESC = "ROC_CONFIG_KEY_ROCDESC";
+    public static final String ROC_CONFIG_KEY_ROCDESC  = "ROC_CONFIG_KEY_ROCDESC";
     public static final String ROC_CONFIG_KEY_ROCEMAIL = "ROC_CONFIG_KEY_ROCEMAIL";
     public static final String ROC_CONFIG_KEY_ROCTITLE = "ROC_CONFIG_KEY_ROCTITLE";
 
@@ -52,6 +53,8 @@ public class CacheAware
     private static ConcurrentMap<String, List<CategoryVo>> CATEGORY_MAP = new ConcurrentHashMap<String, List<CategoryVo>>();
     private static ConcurrentMap<String, String>           CONFIG_MAP   = new ConcurrentHashMap<String, String>();
     private static List<TagVo>                             TAG_LIST     = Lists.newArrayList();
+
+    private static ConcurrentMap<Integer, CategoryVo> CATEGORY_ID_VO_MAP = Maps.newConcurrentMap();
 
     @Autowired
     private ICategoryService iCategoryService;
@@ -83,6 +86,15 @@ public class CacheAware
             case CATEGORY_CACHE:
                 CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
                 CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
+                CATEGORY_ID_VO_MAP.clear();
+                for(CategoryVo categoryVo : CATEGORY_MAP.get(LEFT_CATEGORY_LST))
+                {
+                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(),categoryVo);
+                }
+                for(CategoryVo categoryVo : CATEGORY_MAP.get(RIGHT_CATEGORY_LST))
+                {
+                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(),categoryVo);
+                }
                 break;
             case CONFIG_CACHE:
                 CONFIG_MAP.putAll(iConfigService.map());
@@ -156,6 +168,11 @@ public class CacheAware
                 return input.getDisplayName();
             }
         }));
+    }
+
+    public static CategoryVo getCategoryVoById(Integer categoryId)
+    {
+        return CATEGORY_ID_VO_MAP.get(categoryId);
     }
 
     @PreDestroy
