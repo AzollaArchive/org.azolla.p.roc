@@ -47,6 +47,16 @@ public class TagDaoImpl implements ITagDao
     @Override
     public int add(TagVo tagVo)
     {
-        return sqlSession.insert("mapper.tag.get",tagVo);
+        return sqlSession.insert("mapper.tag.add",tagVo);
+    }
+
+    public int btAdd(List<TagVo> tagVoList)
+    {
+        return sqlSession.insert("mapper.tag.btAdd",tagVoList);
+    }
+
+    public List<TagVo> btLstByUrlNameList(List<String> urlNameList)
+    {
+        return sqlSession.selectList("mapper.tag.btLstByUrlNameList",urlNameList);
     }
 }

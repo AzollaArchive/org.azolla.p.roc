@@ -35,8 +35,8 @@ public class PostController
     @Autowired
     private IPostService iPostService;
 
-    @RequestMapping(value="/admin/post/add",method= RequestMethod.GET)
-    public String add(Model model)
+    @RequestMapping(value="/admin/post/opt",method= RequestMethod.GET)
+    public String opt(Model model)
     {
         model.addAttribute("jsp_title","New Post");
         model.addAttribute("postVo", new PostVo());
@@ -44,22 +44,30 @@ public class PostController
         return "admin/post/opt";
     }
 
-    @RequestMapping(value="/admin/post/add",method= RequestMethod.POST)
-    public String add(int id, String title, String content, int category, int visible, int operable, String tag, int[] tags, Model model, HttpServletResponse response)
+    @RequestMapping(value="/admin/post/opt/{urlTitle}",method= RequestMethod.GET)
+    public String opt(@PathVariable String urlTitle, Model model)
+    {
+        model.addAttribute("jsp_title","Mod Post");
+        model.addAttribute("postVo", iPostService.getByUrlTitle(urlTitle));
+
+        return "admin/post/opt";
+    }
+
+    @RequestMapping(value="/admin/post/opt",method= RequestMethod.POST)
+    public String opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable, Model model, HttpServletResponse response)
     {
         String rtnString = "redirect:/admin/post/lst";
-        Tuple.Triple<Boolean,String,PostVo> serviceResult = iPostService.opt(id,title,content,category,visible,operable,tag,tags);
+        Tuple.Triple<Boolean,String,PostVo> serviceResult = iPostService.opt(id,title,category,tag,content,visible,operable);
 
         if(!Tuple.getFirst(serviceResult))
         {
-            rtnString = "admin/post/add";
+            rtnString = "admin/post/opt";
 
             model.addAttribute("jsp_title","New Post");
             model.addAttribute("ctrl_result",Tuple.getSecond(serviceResult));
             model.addAttribute("postVo",Tuple.getThird(serviceResult));
 
         }
-
         return rtnString;
     }
 

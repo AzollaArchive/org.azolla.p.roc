@@ -15,11 +15,26 @@
     </resultMap>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        insert into roc_t_post_r_tag(postUrlTitle,tagUrlName,addDate) values(#{postUrlTitle},#{tagUrlName},now())
+        insert into roc_t_post_r_tag(postId,tagId,addDate) values(#{postId},#{tagId},now())
     </insert>
 
-    <insert id="rmv" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        delete roc_t_post_r_tag where postUrlTitle=#{postUrlTitle},tagUrlName=#{tagUrlName}
+    <delete id="rmv" parameterType="org.azolla.p.roc.vo.PostRTagVo">
+        delete roc_t_post_r_tag where postId=#{postId},tagId=#{tagId}
+    </delete>
+
+    <select id="lstByPostId" parameterType="Integer" resultMap="postRTag">
+        select * from roc_t_post_r_tag where postId=#{postId}
+    </select>
+
+    <delete id="rmvByPostId" parameterType="Integer">
+        delete roc_t_post_r_tag where postId=#{postId}
+    </delete>
+
+    <insert id="btAdd" parameterType="java.util.List">
+        insert into roc_t_post_r_tag(postId,tagId,addDate) values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.postId},#{item.tagId},now())
+        </foreach>
     </insert>
 
 </mapper>

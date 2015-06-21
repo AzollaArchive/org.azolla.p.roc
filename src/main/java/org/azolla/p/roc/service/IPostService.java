@@ -29,5 +29,5 @@ public interface IPostService
 
     public PostVo getByUrlTitle(String urlTitle);
 
-    public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, String content, int category, int visible, int operable, String tag, int[] tags);
+    public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable);
 }

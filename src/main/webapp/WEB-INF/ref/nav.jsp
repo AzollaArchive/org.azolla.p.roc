@@ -53,10 +53,12 @@
                         </c:forEach>
                     </ul>
                     <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="text" class="form-control" placeholder="有梦才有精彩！" required>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">Search</button>
+                            </span>
                         </div>
-                        <button type="submit" class="btn btn-default">Search</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <c:forEach var="rightCategory" items="${applicationScope.RIGHT_CATEGORY_LST}">

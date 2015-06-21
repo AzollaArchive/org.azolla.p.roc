@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.controller;
 
+import com.google.common.base.Strings;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -35,10 +36,10 @@ import java.util.List;
 public class FileController
 {
 
-    private static final String ATTACHMENT = "WEB-INF/attachment";
+    private static final String UPLOAD = "/upload";
 
     @RequestMapping("/kindeditor")
-    public void kindeditor(HttpServletRequest request,HttpServletResponse response)
+    public void kindeditor(HttpServletRequest request, HttpServletResponse response)
     {
         //最大文件大小
         long maxSize = 1000000;
@@ -46,10 +47,11 @@ public class FileController
         PrintWriter out = null;
         try
         {
-            File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), ATTACHMENT);
+            File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), UPLOAD);
             out = response.getWriter();
 
-            if(!ServletFileUpload.isMultipartContent(request)){
+            if (!ServletFileUpload.isMultipartContent(request))
+            {
                 out.println(getError("Please select file."));
                 return;
             }
@@ -59,11 +61,13 @@ public class FileController
             upload.setHeaderEncoding("UTF-8");
             List items = upload.parseRequest(request);
             Iterator itr = items.iterator();
-            while (itr.hasNext()) {
+            while (itr.hasNext())
+            {
                 FileItem item = (FileItem) itr.next();
                 String fileName = item.getName();
                 long fileSize = item.getSize();
-                if (!item.isFormField()) {
+                if (!item.isFormField())
+                {
                     //检查文件大小
                     if(item.getSize() > maxSize){
                         out.println(getError("Upload file size exceeds the limit."));
@@ -79,23 +83,34 @@ public class FileController
 //                    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 //                    String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
                     String md5 = Byte0.md5(item.get());
-                    File md5Folder = File0.newFile(attachmentFolder,md5);
-                    if(!md5Folder.exists())
+                    String fileType = File0.fileType(fileName);
+                    File uploadedFile = null;
+                    if(Strings.isNullOrEmpty(fileType) || fileName.equals(fileType))
                     {
-                        md5Folder.mkdirs();
+                        uploadedFile = File0.newFile(attachmentFolder, md5);
                     }
-                    try{
-                        File uploadedFile = File0.newFile(md5Folder, fileName);
-                        item.write(uploadedFile);
-                    }catch(Exception e){
-                        out.println(getError("Upload file failed."));
-                        return;
+                    else
+                    {
+                        uploadedFile = File0.newFile(attachmentFolder, md5+File0.POINT+fileType);
                     }
 
+                    if(!uploadedFile.exists())
+                    {
+                        try
+                        {
+                            item.write(uploadedFile);
+                        }
+                        catch (Exception e)
+                        {
+                            out.println(getError("Upload file failed."));
+                            return;
+                        }
+                    }
                     JSONObject obj = new JSONObject();
                     obj.put("error", 0);
-                    obj.put("url", "/" + ATTACHMENT + "/" + md5 + "/" + fileName);
+                    obj.put("url", UPLOAD + "/" + uploadedFile.getName());
                     out.println(obj.toJSONString());
+                    return;
                 }
             }
         }

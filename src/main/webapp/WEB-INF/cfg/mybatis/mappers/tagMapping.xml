@@ -36,4 +36,19 @@
         insert into roc_t_tag(displayName,urlName,addDate) values(#{displayName},#{urlName},now())
     </insert>
 
+    <insert id="btAdd" parameterType="java.util.List">
+        insert into roc_t_tag(displayName,urlName,addDate) values
+        <foreach collection="tagVoList" item="item" index="index" separator="," >
+            (#{item.displayName},#{item.urlName},now())
+        </foreach>
+    </insert>
+
+    <select id="btLstByUrlNameList" parameterType="java.util.List">
+        select * from roc_t_tag where urlName in (
+        <foreach collection="urlNameList" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
 </mapper>

@@ -19,4 +19,8 @@ public interface ITagDao
     public TagVo getByUrlName(String urlName);
 
     public int add(TagVo tagVo);
+
+    public int btAdd(List<TagVo> tagVoList);
+
+    public List<TagVo> btLstByUrlNameList(List<String> urlNameList);
 }

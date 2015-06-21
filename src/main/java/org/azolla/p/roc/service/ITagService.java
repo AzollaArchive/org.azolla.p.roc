@@ -15,4 +15,8 @@ public interface ITagService
     public List<TagVo> lst();
 
     public TagVo getByUrlName(String urlName);
+
+    public TagVo addByTagDisplayName(String tagDisplayName);
+
+    public List<TagVo> btAddByTagDisplayName(List<String> tagDisplayNameList);
 }

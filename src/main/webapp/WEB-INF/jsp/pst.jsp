@@ -6,17 +6,17 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${post.title} - ${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</title>
-    <meta name="keywords" content="${post4keyword}"/>
-    <meta name="Description" content="${fn:replace(fn:replace(fn:replace(fn:replace(post.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}"/>
-    <meta name="Author" content="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCEMAIL"]}"/>
-    <link rel="shortcut icon" href="/img/favicon.png"/>
+    <meta name="keywords" content="${post4keyword}" />
+    <meta name="Description" content="${fn:replace(fn:replace(fn:replace(fn:replace(post.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}" />
+    <meta name="Author" content="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCEMAIL"]}" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
     <!-- Bootstrap -->
-    <link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/3th/bootcss/css/docs.min.css" rel="stylesheet">
-    <link href="/css/roc.css" rel="stylesheet">
+    <link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/3th/bootcss/css/docs.min.css" rel="stylesheet" />
+    <link href="/css/roc.css" rel="stylesheet" />
     <!--[if lt IE 9]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -54,7 +54,7 @@
                                         <c:forEach var="comment" items="${post.commentVoList}">
                                             <li class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object" src="/WEB-INF/generate/img/qrcode/${comment.email}.png">
+                                                    <img class="media-object" src="/WEB-INF/generate/img/qrcode/${comment.email}.png" />
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">${comment.username}</h4>
@@ -70,18 +70,18 @@
                                         <div class="form-group">
                                             <label for="commentName" class="col-sm-1 control-label">Name</label>
                                             <div class="col-sm-11">
-                                                <input type="text" class="form-control" id="commentName" placeholder="Name" required="required">
+                                                <input type="text" class="form-control" id="commentName" placeholder="Name" required="required" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="commentEmail" class="col-sm-1 control-label">Email</label>
                                             <div class="col-sm-11">
-                                                <input type="email" class="form-control" id="commentEmail" placeholder="Email" required="required">
+                                                <input type="email" class="form-control" id="commentEmail" placeholder="Email" required="required" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-1 col-sm-11">
-                                                <textarea class="form-control" rows="3" required="required"/>
+                                                <textarea class="form-control" rows="3" required="required"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">

@@ -47,10 +47,10 @@
     </select>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.PostVo">
-        insert into roc_t_post(title,urlTitle,content,categoryUrlName,addDate,visible,operable) values(#{title},#{urlTitle},#{content},#{categoryUrlName},now(),#{visible},#{operable})
+        insert into roc_t_post(title,urlTitle,content,categoryId,addDate,visible,operable) values(#{title},#{urlTitle},#{content},#{categoryId},now(),#{visible},#{operable})
     </insert>
 
     <update id="mod" parameterType="org.azolla.p.roc.vo.PostVo">
-        update roc_t_post set title=#{title}, urlTitle=#{urlTitle}, content=#{content}, categoryUrlName=#{categoryUrlName}, visible=#{visible}, operable=#{operable}, modDate=now() where id=#{id}
+        update roc_t_post set title=#{title}, urlTitle=#{urlTitle}, content=#{content}, categoryId=#{categoryId}, visible=#{visible}, operable=#{operable}, modDate=now() where id=#{id}
     </update>
 </mapper>
