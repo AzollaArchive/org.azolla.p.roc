@@ -158,17 +158,22 @@ public class PostServiceImpl implements IPostService
                     return String.valueOf(input.getId());
                 }
             });
-            List<String> optTagList = Arrays.asList(tag.split(","));
-            List<Integer> tagIdList = Lists.transform(List0.listExistInOther(optTagList, cachedTagIdList), new Function<String, Integer>()
-            {
-                @Nullable
-                @Override
-                public Integer apply(@Nullable String input)
-                {
-                    return Integer.valueOf(input);
-                }
-            });
 
+            List<Integer> tagIdList = Lists.newArrayList();
+            List<String> optTagList = Lists.newArrayList();
+            if(!Strings.isNullOrEmpty(tag))
+            {
+                optTagList.addAll(Arrays.asList(tag.split(",")));
+                tagIdList.addAll(Lists.transform(List0.listExistInOther(optTagList, cachedTagIdList), new Function<String, Integer>()
+                {
+                    @Nullable
+                    @Override
+                    public Integer apply(@Nullable String input)
+                    {
+                        return Integer.valueOf(input);
+                    }
+                }));
+            }
             tagIdList.addAll(Lists.transform(iTagService.btAddByTagDisplayName(List0.listNotExistInOther(optTagList, cachedTagIdList)), new Function<TagVo, Integer>()
             {
                 @Nullable

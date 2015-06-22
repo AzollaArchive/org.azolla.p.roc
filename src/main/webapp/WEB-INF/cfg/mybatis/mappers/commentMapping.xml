@@ -3,27 +3,58 @@
 <mapper namespace="mapper.comment">
 
     <resultMap id="comment" type="CommentVo">
-        <id property="id" column="id" />
-        <result property="username" column="username" />
-        <result property="email" column="email" />
-        <result property="content" column="content" />
-        <result property="postId" column="postId" />
-        <result property="ip" column="ip" />
-        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
+        <id property="id" column="cmt_id" />
+        <result property="username" column="cmt_u" />
+        <result property="email" column="cmt_e" />
+        <result property="content" column="cmt_c" />
+        <result property="postId" column="cmt_pId" />
+        <result property="ip" column="cmt_ip" />
+        <result property="addDate" javaType="java.util.Date" column="cmt_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="cmt_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="cmt_rD" jdbcType="DATE" />
+        <result property="visible" column="cmt_v" />
+        <result property="operable" column="cmt_o" />
+        <result property="deleted" column="cmt_d" />
+        <association property="postVo" javaType="PostVo" resultMap="mapper.post.post"/>
     </resultMap>
 
+    <select id="fullLstWithoutVOD" resultMap="comment">
+        select cmt.id cmt_id
+              ,cmt.username cmt_u
+              ,cmt.email cmt_e
+              ,cmt.content cmt_c
+              ,cmt.postId cmt_pId
+              ,cmt.ip cmt_ip
+              ,cmt.addDate cmt_aD
+              ,cmt.modDate cmt_mD
+              ,cmt.rmvDate cmt_rD
+              ,cmt.visible cmt_v
+              ,cmt.operable cmt_o
+              ,cmt.deleted cmt_d
+              ,p.id p_id
+              ,p.title p_t
+              ,p.urlTitle p_uT
+              ,p.content p_c
+              ,p.categoryId p_cId
+              ,p.addDate p_aD
+              ,p.modDate p_mD
+              ,p.rmvDate p_rD
+              ,p.visible p_v
+              ,p.operable p_o
+              ,p.deleted p_d
+        from roc_t_comment cmt,roc_t_post p
+        where cmt.postId = p.id
+    </select>
 
-    <select id="lstByPostId" parameterType="int" resultMap="comment">
+
+    <select id="lstByPostId" parameterType="int" resultType="CommentVo">
         select * from roc_t_comment where visible=1 and operable=1 and deleted=0 and postId = #{postId} order by addDate
     </select>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.CommentVo">
         insert into roc_t_comment(username,email,content,postId,ip,addDate) values (#{username},#{email},#{content},#{postId},#{ip},now())
     </insert>
+
+
 
 </mapper>

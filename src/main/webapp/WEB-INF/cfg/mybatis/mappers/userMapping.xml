@@ -16,7 +16,7 @@
     </resultMap>
 
 
-    <select id="getByUsername" parameterType="String" resultMap="user">
+    <select id="getByUsername" parameterType="String" resultType="User">
         select * from roc_t_user where visible=1 and operable=1 and deleted=0 and username=#{username}
     </select>
 

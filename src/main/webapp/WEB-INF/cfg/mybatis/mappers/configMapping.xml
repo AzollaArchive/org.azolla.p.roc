@@ -15,11 +15,11 @@
     </resultMap>
 
 
-    <select id="lst" resultMap="config">
+    <select id="lst" resultType="ConfigVo">
         select * from roc_t_config where visible=1 and operable=1 and deleted=0
     </select>
 
-    <select id="getByRocKey" parameterType="String" resultMap="config">
+    <select id="getByRocKey" parameterType="String" resultType="ConfigVo">
         select * from roc_t_config where rocKey=#{rocKey}
     </select>
 

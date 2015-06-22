@@ -26,8 +26,10 @@
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Content</th>
+                                    <th>Post Title</th>
                                     <th>AddDate</th>
                                     <th>ModDate</th>
                                     <th>RmvDate</th>
@@ -36,18 +38,20 @@
                                     <th>Deleted</th>
                                     <th>Operation</th>
                                 </tr>
-                                <c:forEach var="postVo" items="${postVoList}">
+                                <c:forEach var="commentVo" items="${commentVoList}">
                                     <tr>
-                                        <td>${postVo.id}</td>
-                                        <td>${postVo.title}</td>
-                                        <td>${postVo.categoryVo.displayName}</td>
-                                        <td><fmt:formatDate value="${postVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${postVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${postVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><input type="checkbox" disabled <c:if test="${postVo.visible == 1}">checked="checked"</c:if> /></td>
-                                        <td><input type="checkbox" disabled <c:if test="${postVo.operable == 1}">checked="checked"</c:if> /></td>
-                                        <td><input type="checkbox" disabled <c:if test="${postVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/post/opt/${postVo.urlTitle}" />MOD</td>
+                                        <td>${commentVo.id}</td>
+                                        <td>${commentVo.username}</td>
+                                        <td>${commentVo.email}</td>
+                                        <td>${commentVo.content}</td>
+                                        <td>${commentVo.postVo.title}</td>
+                                        <td><fmt:formatDate value="${commentVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                        <td><fmt:formatDate value="${commentVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                        <td><fmt:formatDate value="${commentVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                        <td><input type="checkbox" disabled <c:if test="${commentVo.visible == 1}">checked="checked"</c:if> /></td>
+                                        <td><input type="checkbox" disabled <c:if test="${commentVo.operable == 1}">checked="checked"</c:if> /></td>
+                                        <td><input type="checkbox" disabled <c:if test="${commentVo.deleted == 1}">checked="checked"</c:if> /></td>
+                                        <td><a href="/admin/comment/rmv/${commentVo.id}" />RMV</td>
                                     </tr>
                                 </c:forEach>
                             </table>

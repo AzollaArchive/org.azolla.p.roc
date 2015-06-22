@@ -1,5 +1,6 @@
 package org.azolla.p.roc.dao;
 
+import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.CommentVo;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ICommentDao
     public List<CommentVo> lstByPostId(int postId);
 
     public int add(CommentVo commentVo);
+
+    public List<CommentVo> fullLstWithoutVOD(RowBounds rowBounds);
 }

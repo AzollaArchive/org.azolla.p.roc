@@ -22,7 +22,7 @@
         delete from roc_t_post_r_tag where postId=#{postId},tagId=#{tagId}
     </delete>
 
-    <select id="lstByPostId" parameterType="Integer" resultMap="postRTag">
+    <select id="lstByPostId" parameterType="Integer" resultType="PostRTagVo">
         select * from roc_t_post_r_tag where postId=#{postId}
     </select>
 

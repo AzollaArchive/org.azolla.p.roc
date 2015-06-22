@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.dao.impl;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.azolla.p.roc.dao.ICommentDao;
 import org.azolla.p.roc.vo.CommentVo;
@@ -35,5 +36,10 @@ public class CommentDaoImpl implements ICommentDao
     public int add(CommentVo commentVo)
     {
         return sqlSession.insert("mapper.comment.add",commentVo);
+    }
+
+    public List<CommentVo> fullLstWithoutVOD(RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.comment.fullLstWithoutVOD",null,rowBounds);
     }
 }

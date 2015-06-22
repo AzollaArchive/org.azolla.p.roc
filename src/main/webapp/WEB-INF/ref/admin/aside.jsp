@@ -9,7 +9,7 @@
             <a href="#" class="list-group-item">Category</a>
             <a href="#" class="list-group-item">Tag</a>
             <a href="/admin/post/lst" class="list-group-item">Post</a>
-            <a href="#" class="list-group-item">Comment</a>
+            <a href="/admin/comment/lst" class="list-group-item">Comment</a>
         </ul>
     </div>
 </aside>

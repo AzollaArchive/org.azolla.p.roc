@@ -59,7 +59,7 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">${comment.username}</h4>
-                                                    <p id="${comment.username}_${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</p>
+                                                    <p id="comment_${comment.postId}_${comment.id}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</p>
                                                 </div>
                                             </li>
                                         </c:forEach>
@@ -116,7 +116,7 @@
                         <div class="panel-body">
                             <ul class="nav bs-docs-sidenav" id="aside_comment">
                                 <c:forEach var="comment" items="${post.commentVoList}">
-                                    <li><a href="#${comment.username}_${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</a></li>
+                                    <li><a href="#comment_${comment.postId}_${comment.id}">${fn:replace(fn:replace(fn:replace(fn:replace(comment.content, '&', '&amp;'),'<','&lt;'),'>','&gt;'),'\"','&quot;')}</a></li>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -144,7 +144,7 @@
                 list_comment = list_comment + "</div>";
                 list_comment = list_comment + "<div class=\"media-body\">";
                 list_comment = list_comment + "<h4 class=\"media-heading\">"+data.rst.username+"</h4>";
-                list_comment = list_comment + "<p id=\""+data.rst.username+"_"+data.rst.content+"\">"+data.rst.content+"</p>";
+                list_comment = list_comment + "<p id=\"comment_"+data.rst.postId+"_"+data.rst.id+"\">"+data.rst.content+"</p>";
                 list_comment = list_comment + "</div>";
                 list_comment = list_comment + "</li>";
                 if($("#list_comment").val() == undefined){
@@ -160,7 +160,7 @@
                 }
 
                 var aside_comment = "";
-                aside_comment = aside_comment + " <li><a href=\"#"+data.rst.username+"_"+data.rst.content+"\">"+data.rst.content+"</a></li>";
+                aside_comment = aside_comment + " <li><a href=\"#comment_"+data.rst.postId+"_"+data.rst.id+"\">"+data.rst.content+"</a></li>";
                 if($("#aside_comment").val() == undefined){
                     var aside_comment_append = "";
                     aside_comment_append = aside_comment_append + "<div class=\"panel panel-default bs-docs-sidebar affix-top\">";
@@ -169,7 +169,7 @@
                     aside_comment_append = aside_comment_append + "</div>";
                     aside_comment_append = aside_comment_append + "<div class=\"panel-body\">";
                     aside_comment_append = aside_comment_append + "<ul class=\"nav bs-docs-sidenav\" id=\"aside_comment\">";
-                    aside_comment_append = aside_comment_append + aside_commnet;
+                    aside_comment_append = aside_comment_append + aside_comment;
                     aside_comment_append = aside_comment_append + "</ul>";
                     aside_comment_append = aside_comment_append + "</div>";
                     aside_comment_append = aside_comment_append + "</div>";

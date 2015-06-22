@@ -19,11 +19,11 @@
     </resultMap>
 
 
-    <select id="lstByParentId" parameterType="int" resultMap="category">
+    <select id="lstByParentId" parameterType="int" resultType="CategoryVo">
         select * from roc_t_category where visible=1 and operable=1 and deleted=0 and parentId=#{parentId} order by sequence
     </select>
 
-    <select id="lstByParentUrlName" parameterType="String" resultMap="category">
+    <select id="lstByParentUrlName" parameterType="String" resultType="CategoryVo">
         select c.*
         from (select * from roc_t_category where visible=1 and operable=1 and deleted=0) c
         join roc_t_category p on p.id = c.parentId
@@ -31,15 +31,15 @@
         order by c.sequence
     </select>
 
-    <select id="lst" resultMap="category">
+    <select id="lst" resultType="CategoryVo">
         select * from roc_t_category where visible=1 and operable=1 and deleted=0 order by id
     </select>
 
-    <select id="getByUrlName" parameterType="String" resultMap="category">
+    <select id="getByUrlName" parameterType="String" resultType="CategoryVo">
         select * from roc_t_category where urlName=#{urlName}
     </select>
 
-    <select id="getById" parameterType="int" resultMap="category">
+    <select id="getById" parameterType="int" resultType="CategoryVo">
         select * from roc_t_category where id=#{id}
     </select>
 

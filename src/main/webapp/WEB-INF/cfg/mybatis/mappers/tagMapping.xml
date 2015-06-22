@@ -15,11 +15,11 @@
     </resultMap>
 
 
-    <select id="lst" resultMap="tag">
+    <select id="lst" resultType="TagVo">
         select * from roc_t_tag where visible=1 and operable=1 and deleted=0 order by displayName
     </select>
 
-    <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
+    <select id="lstByPostUrlTitle" parameterType="String" resultType="TagVo">
         select t.*
         from (select * from roc_t_tag where visible=1 and operable=1 and deleted=0) t
         join roc_t_post_r_tag r on r.tagId = t.id
@@ -28,7 +28,7 @@
         order by t.displayName
     </select>
 
-    <select id="getByUrlName" parameterType="String" resultMap="tag">
+    <select id="getByUrlName" parameterType="String" resultType="TagVo">
         select * from roc_t_tag where visible=1 and operable=1 and deleted=0 and urlName = #{urlName} order by displayName
     </select>
 
@@ -44,7 +44,7 @@
         </foreach>
     </insert>
 
-    <select id="btLstByUrlNameList" parameterType="java.util.List" resultMap="tag">
+    <select id="btLstByUrlNameList" parameterType="java.util.List" resultType="TagVo">
         select * from roc_t_tag where urlName in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}

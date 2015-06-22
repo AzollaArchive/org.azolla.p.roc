@@ -3,29 +3,29 @@
 <mapper namespace="mapper.post">
 
     <resultMap id="post" type="PostVo">
-        <id property="id" column="id" />
-        <result property="title" column="title" />
-        <result property="urlTitle" column="urlTitle" />
-        <result property="content" column="content" />
-        <result property="categoryId" column="categoryId" />
-        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
+        <id property="id" column="p_id" />
+        <result property="title" column="p_t" />
+        <result property="urlTitle" column="p_uT" />
+        <result property="content" column="p_c" />
+        <result property="categoryId" column="p_cId" />
+        <result property="addDate" javaType="java.util.Date" column="p_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="p_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="p_rD" jdbcType="DATE" />
+        <result property="visible" column="p_v" />
+        <result property="operable" column="p_o" />
+        <result property="deleted" column="p_d" />
     </resultMap>
 
 
-    <select id="lstWithoutVOD" resultMap="post">
+    <select id="lstWithoutVOD" resultType="PostVo">
         select * from roc_t_post order by addDate desc
     </select>
 
-    <select id="lst" resultMap="post">
+    <select id="lst" resultType="PostVo">
         select * from roc_t_post where visible=1 and deleted=0 order by addDate desc
     </select>
 
-    <select id="lstByCategoryUrlName" parameterType="String" resultMap="post">
+    <select id="lstByCategoryUrlName" parameterType="String" resultType="PostVo">
         select p.*
         from (select * from roc_t_post where visible=1 and deleted=0) p
         join roc_t_category c on c.id = p.categoryId
@@ -33,7 +33,7 @@
         order by p.addDate desc
     </select>
 
-    <select id="lstByTagUrlName" parameterType="String" resultMap="post">
+    <select id="lstByTagUrlName" parameterType="String" resultType="PostVo">
         select p.*
         from (select * from roc_t_post where visible=1 and deleted=0) p
         join roc_t_post_r_tag r on r.postId = p.id
@@ -42,7 +42,7 @@
         order by p.addDate desc
     </select>
 
-    <select id="getByUrlTitle" parameterType="String" resultMap="post">
+    <select id="getByUrlTitle" parameterType="String" resultType="PostVo">
         select * from roc_t_post where urlTitle=#{urlTitle}
     </select>
 
