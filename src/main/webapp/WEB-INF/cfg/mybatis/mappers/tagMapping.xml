@@ -3,15 +3,15 @@
 <mapper namespace="mapper.tag">
 
     <resultMap id="tag" type="TagVo">
-        <id property="id" column="id" />
-        <result property="displayName" column="displayName" />
-        <result property="urlName" column="urlName" />
-        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
+        <id property="id" column="t_id" />
+        <result property="displayName" column="t_dN" />
+        <result property="urlName" column="t_uN" />
+        <result property="addDate" javaType="java.util.Date" column="t_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="t_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="t_rD" jdbcType="DATE" />
+        <result property="visible" column="t_v" />
+        <result property="operable" column="t_o" />
+        <result property="deleted" column="t_d" />
     </resultMap>
 
 

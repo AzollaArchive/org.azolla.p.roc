@@ -16,6 +16,76 @@
         <result property="deleted" column="p_d" />
     </resultMap>
 
+    <resultMap id="postForSelf" type="PostVo">
+        <id property="id" column="p_id" />
+        <result property="title" column="p_t" />
+        <result property="urlTitle" column="p_uT" />
+        <result property="content" column="p_c" />
+        <result property="categoryId" column="p_cId" />
+        <result property="addDate" javaType="java.util.Date" column="p_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="p_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="p_rD" jdbcType="DATE" />
+        <result property="visible" column="p_v" />
+        <result property="operable" column="p_o" />
+        <result property="deleted" column="p_d" />
+        <association property="categoryVo" javaType="CategoryVo" resultMap="mapper.category.category"/>
+        <collection property="tagVoList" resultMap="mapper.tag.tag"/>
+        <collection property="commentVoList" resultMap="mapper.comment.comment"/>
+    </resultMap>
+
+    <select id="fullLstByUrlTitle" parameterType="String" resultMap="postForSelf">
+        select p.id p_id,
+               p.title p_t,
+               p.urlTitle p_uT,
+               p.content p_c,
+               p.categoryId p_cId,
+               p.addDate p_aD,
+               p.modDate p_mD,
+               p.rmvDate p_rD,
+               p.visible p_v,
+               p.operable p_o,
+               p.deleted p_d,
+               ctg.id ctg_id,
+               ctg.displayName ctg_dN,
+               ctg.urlName ctg_uN,
+               ctg.parentId ctg_pId,
+               ctg.controllerName ctg_cN,
+               ctg.`group` ctg_g,
+               ctg.sequence ctg_s,
+               ctg.addDate ctg_aD,
+               ctg.modDate ctg_mD,
+               ctg.rmvDate ctg_rD,
+               ctg.visible ctg_v,
+               ctg.operable ctg_o,
+               ctg.deleted ctg_d,
+               t.id t_id,
+               t.displayName t_dN,
+               t.urlName t_uN,
+               t.addDate t_aD,
+               t.modDate t_mD,
+               t.rmvDate t_rD,
+               t.visible t_v,
+               t.operable t_o,
+               t.deleted t_d,
+               cmt.id cmt_id,
+               cmt.username cmt_u,
+               cmt.email cmt_e,
+               cmt.content cmt_c,
+               cmt.postId cmt_pId,
+               cmt.ip cmt_ip,
+               cmt.addDate cmt_aD,
+               cmt.modDate cmt_mD,
+               cmt.rmvDate cmt_rD,
+               cmt.visible cmt_v,
+               cmt.operable cmt_o,
+               cmt.deleted cmt_d
+        from roc_t_post p
+        join roc_t_category ctg on ctg.id = p.categoryId
+        join roc_t_post_r_tag prt on prt.postId = p.id
+        join roc_t_tag t on t.id = prt.tagId
+        join roc_t_comment cmt on cmt.postId = p.id
+        where p.urlTitle=#{urlTitle}
+    </select>
 
     <select id="lstWithoutVOD" resultType="PostVo">
         select * from roc_t_post order by addDate desc

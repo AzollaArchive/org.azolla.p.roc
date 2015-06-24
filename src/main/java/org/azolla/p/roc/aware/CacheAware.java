@@ -10,6 +10,8 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.ibatis.session.RowBounds;
+import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.service.ITagService;
@@ -65,6 +67,9 @@ public class CacheAware
     @Autowired
     private ITagService iTagService;
 
+    @Autowired
+    private ICategoryDao iCategoryDao;
+
     @PostConstruct
     private void pre()
     {
@@ -85,6 +90,7 @@ public class CacheAware
         {
             case CATEGORY_CACHE:
                 CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
+//                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryDao.fullLstByIdWithoutVOD(CategoryVo.LEFT_ROOT_ID,new RowBounds(1, 50)).get(0).getSubCategoryVoList());
                 CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
                 CATEGORY_ID_VO_MAP.clear();
                 for(CategoryVo categoryVo : CATEGORY_MAP.get(LEFT_CATEGORY_LST))

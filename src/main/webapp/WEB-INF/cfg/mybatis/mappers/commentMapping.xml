@@ -15,10 +15,26 @@
         <result property="visible" column="cmt_v" />
         <result property="operable" column="cmt_o" />
         <result property="deleted" column="cmt_d" />
+        <!--<association property="postVo" javaType="PostVo" resultMap="mapper.post.post"/>-->
+    </resultMap>
+
+    <resultMap id="commentForSelf" type="CommentVo">
+        <id property="id" column="cmt_id" />
+        <result property="username" column="cmt_u" />
+        <result property="email" column="cmt_e" />
+        <result property="content" column="cmt_c" />
+        <result property="postId" column="cmt_pId" />
+        <result property="ip" column="cmt_ip" />
+        <result property="addDate" javaType="java.util.Date" column="cmt_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="cmt_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="cmt_rD" jdbcType="DATE" />
+        <result property="visible" column="cmt_v" />
+        <result property="operable" column="cmt_o" />
+        <result property="deleted" column="cmt_d" />
         <association property="postVo" javaType="PostVo" resultMap="mapper.post.post"/>
     </resultMap>
 
-    <select id="fullLstWithoutVOD" resultMap="comment">
+    <select id="fullLstWithoutVOD" resultMap="commentForSelf">
         select cmt.id cmt_id
               ,cmt.username cmt_u
               ,cmt.email cmt_e

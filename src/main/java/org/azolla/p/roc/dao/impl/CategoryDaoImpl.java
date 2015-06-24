@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.dao.impl;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.vo.CategoryVo;
@@ -25,6 +26,11 @@ public class CategoryDaoImpl implements ICategoryDao
 {
     @Autowired
     private SqlSession sqlSession;
+
+    public List<CategoryVo> fullLstByIdWithoutVOD(int id, RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.category.fullLstByIdWithoutVOD",id,rowBounds);
+    }
 
     @Override
     public List<CategoryVo> lstByParentId(int parentId)

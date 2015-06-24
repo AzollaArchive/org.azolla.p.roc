@@ -3,15 +3,15 @@
 <mapper namespace="mapper.postRTag">
 
     <resultMap id="postRTag" type="PostRTagVo">
-        <id property="id" column="id" />
-        <result property="postId" column="postId" />
-        <result property="tagId" column="tagId" />
-        <result property="addDate" javaType="java.util.Date" column="addDate" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="modDate" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmvDate" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
+        <id property="id" column="prt_id" />
+        <result property="postId" column="prt_pId" />
+        <result property="tagId" column="prt_tId" />
+        <result property="addDate" javaType="java.util.Date" column="prt_aD" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="prt_mD" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="prt_rD" jdbcType="DATE" />
+        <result property="visible" column="prt_v" />
+        <result property="operable" column="prt_o" />
+        <result property="deleted" column="prt_d" />
     </resultMap>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.PostRTagVo">

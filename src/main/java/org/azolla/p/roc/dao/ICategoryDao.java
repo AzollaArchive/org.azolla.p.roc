@@ -1,5 +1,6 @@
 package org.azolla.p.roc.dao;
 
+import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.CategoryVo;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 public interface ICategoryDao
 {
+    public List<CategoryVo> fullLstByIdWithoutVOD(int id, RowBounds rowBounds);
+
     public List<CategoryVo> lstByParentId(int parentId);
 
     public List<CategoryVo> lstByParentUrlName(String parentUrlName);
