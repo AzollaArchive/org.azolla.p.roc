@@ -60,6 +60,7 @@
               ,p.deleted p_d
         from roc_t_comment cmt,roc_t_post p
         where cmt.postId = p.id
+        order by cmt.addDate
     </select>
 
 

@@ -27,6 +27,11 @@ public class CategoryDaoImpl implements ICategoryDao
     @Autowired
     private SqlSession sqlSession;
 
+    public List<CategoryVo> fullLstWithoutVOD(RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.category.fullLstWithoutVOD",null,rowBounds);
+    }
+
     public List<CategoryVo> fullLstByIdWithoutVOD(int id, RowBounds rowBounds)
     {
         return sqlSession.selectList("mapper.category.fullLstByIdWithoutVOD",id,rowBounds);

@@ -28,7 +28,7 @@ public class IndexController
     @RequestMapping({"/", "/index"})
     public String index(Model model)
     {
-        model.addAttribute("postLst",iPostService.lst(1));
+        model.addAttribute("postList",iPostService.lst(1));
         model.addAttribute("current_page",1);
 
         setting(model);
@@ -41,7 +41,7 @@ public class IndexController
     {
         int requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postLst",iPostService.lst(requestPage));
+        model.addAttribute("postList",iPostService.lst(requestPage));
         model.addAttribute("current_page", requestPage);
 
         setting(model);

@@ -1,5 +1,6 @@
 package org.azolla.p.roc.dao;
 
+import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.ConfigVo;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 public interface IConfigDao
 {
+    public List<ConfigVo> lstWithoutVOD(RowBounds rowBounds);
+
     public List<ConfigVo> lst();
 
     public ConfigVo getByRocKey(String rocKey);

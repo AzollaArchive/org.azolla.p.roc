@@ -1,5 +1,6 @@
 package org.azolla.p.roc.dao;
 
+import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.TagVo;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 public interface ITagDao
 {
+    public List<TagVo> lstWithoutVOD(RowBounds rowBounds);
+
     public List<TagVo> lst();
 
     public List<TagVo> lstByPostUrlTitle(String postUrlTitle);

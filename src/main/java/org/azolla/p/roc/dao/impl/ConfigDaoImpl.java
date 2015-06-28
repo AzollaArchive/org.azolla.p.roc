@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.dao.impl;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.azolla.p.roc.dao.IConfigDao;
 import org.azolla.p.roc.vo.ConfigVo;
@@ -25,6 +26,11 @@ public class ConfigDaoImpl implements IConfigDao
 {
     @Autowired
     private SqlSession sqlSession;
+
+    public List<ConfigVo> lstWithoutVOD(RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.config.lstWithoutVOD",null,rowBounds);
+    }
 
     @Override
     public List<ConfigVo> lst()

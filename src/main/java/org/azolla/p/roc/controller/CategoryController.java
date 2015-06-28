@@ -6,6 +6,9 @@
  */
 package org.azolla.p.roc.controller;
 
+import org.apache.ibatis.session.RowBounds;
+import org.azolla.p.roc.aware.CacheAware;
+import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.vo.CategoryVo;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -30,10 +34,37 @@ public class CategoryController
     @Autowired
     private ICategoryService iCategoryService;
 
+    @Autowired
+    private ICategoryDao iCategoryDao;
+
+    @RequestMapping(value="/admin/category/lst",method= RequestMethod.GET)
+    public String lst(Model model)
+    {
+        return lst(1, model);
+    }
+
+    @RequestMapping(value="/admin/category/lst/{page}",method= RequestMethod.GET)
+    public String lst(@PathVariable String page,Model model)
+    {
+        int requestPage = Integer.valueOf(page);
+
+        return lst(requestPage, model);
+    }
+
+    private String lst(int page, Model model)
+    {
+        model.addAttribute("categoryVoList", iCategoryDao.fullLstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        model.addAttribute("current_page", page);
+        model.addAttribute("current_request", "admin/category/lst");
+        model.addAttribute("jsp_title","Category List");
+
+        return "admin/category/lst";
+    }
+
     @RequestMapping("/category/{categoryUrlName}")
     public String category(@PathVariable String categoryUrlName, Model model)
     {
-        model.addAttribute("postLst", iPostService.lstByCategoryUrlName(categoryUrlName, 1));
+        model.addAttribute("postList", iPostService.lstByCategoryUrlName(categoryUrlName, 1));
         model.addAttribute("current_page",1);
 
         setting(categoryUrlName, model);
@@ -46,7 +77,7 @@ public class CategoryController
     {
         int requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postLst",iPostService.lstByCategoryUrlName(categoryUrlName, requestPage));
+        model.addAttribute("postList",iPostService.lstByCategoryUrlName(categoryUrlName, requestPage));
         model.addAttribute("current_page", requestPage);
 
         setting(categoryUrlName, model);

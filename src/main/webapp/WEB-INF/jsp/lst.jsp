@@ -29,7 +29,7 @@
         <div class="row">
             <main class="col-md-9">
                 <article class="roc-c-article-post">
-                    <c:forEach var="post" items="${postLst}">
+                    <c:forEach var="post" items="${postList}">
                         <section class="bs-docs-section">
                             <h2 class="page-header" id="${post.urlTitle}">${post.title}
                                 <small>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="panel-body">
                         <ul class="nav bs-docs-sidenav">
-                            <c:forEach var="post" items="${postLst}">
+                            <c:forEach var="post" items="${postList}">
                                 <li><a href="#${post.urlTitle}">${post.title}</a></li>
                             </c:forEach>
                         </ul>

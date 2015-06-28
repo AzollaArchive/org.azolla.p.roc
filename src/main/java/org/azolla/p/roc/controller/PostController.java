@@ -87,7 +87,7 @@ public class PostController
 
     private String lst(int page,Model model)
     {
-        model.addAttribute("postVoLst",iPostService.lstWithoutVOD(page));
+        model.addAttribute("postVoList",iPostService.lstWithoutVOD(page));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/post/lst");
         model.addAttribute("jsp_title","Post List");

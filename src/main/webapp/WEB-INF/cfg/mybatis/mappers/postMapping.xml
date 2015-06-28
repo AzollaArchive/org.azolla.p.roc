@@ -85,6 +85,7 @@
         join roc_t_tag t on t.id = prt.tagId
         join roc_t_comment cmt on cmt.postId = p.id
         where p.urlTitle=#{urlTitle}
+        order by p.addDate desc
     </select>
 
     <select id="lstWithoutVOD" resultType="PostVo">

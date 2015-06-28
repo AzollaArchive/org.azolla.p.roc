@@ -54,7 +54,7 @@
                     </ul>
                     <form class="navbar-form navbar-right" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="有梦才有精彩！" required>
+                            <input type="text" class="form-control" placeholder="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCDESC"]}" required>
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default">Search</button>
                             </span>

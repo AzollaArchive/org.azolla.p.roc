@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.dao.impl;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.vo.TagVo;
@@ -25,6 +26,11 @@ public class TagDaoImpl implements ITagDao
 {
     @Autowired
     private SqlSession sqlSession;
+
+    public List<TagVo> lstWithoutVOD(RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.tag.lstWithoutVOD",null,rowBounds);
+    }
 
     @Override
     public List<TagVo> lst()

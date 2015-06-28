@@ -15,12 +15,16 @@
     </resultMap>
 
 
+    <select id="lstWithoutVOD" resultType="ConfigVo">
+        select * from roc_t_config order by id
+    </select>
+
     <select id="lst" resultType="ConfigVo">
-        select * from roc_t_config where visible=1 and operable=1 and deleted=0
+        select * from roc_t_config where visible=1 and operable=1 and deleted=0 order by id
     </select>
 
     <select id="getByRocKey" parameterType="String" resultType="ConfigVo">
-        select * from roc_t_config where rocKey=#{rocKey}
+        select * from roc_t_config where rocKey=#{rocKey} order by id
     </select>
 
 </mapper>

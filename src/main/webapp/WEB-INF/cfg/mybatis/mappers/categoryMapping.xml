@@ -22,7 +22,7 @@
         <id property="id" column="id" />
         <result property="displayName" column="displayName" />
         <result property="urlName" column="urlName" />
-        <!--<result property="parentId" column="parentId" />-->
+        <result property="parentId" column="parentId" />
         <result property="controllerName" column="controllerName" />
         <result property="group" column="group" />
         <result property="sequence" column="sequence" />
@@ -37,16 +37,20 @@
         <collection property="subCategoryVoList" column="id" select="fullLstByIdWithoutVOD4Sub" />
     </resultMap>
 
+    <select id="fullLstWithoutVOD" resultMap="categoryForSelf">
+        select * from roc_t_category order by id,sequence
+    </select>
+
     <select id="fullLstByIdWithoutVOD" parameterType="int" resultMap="categoryForSelf">
-        select * from roc_t_category where id=#{id}
+        select * from roc_t_category where id=#{id} order by id,sequence
     </select>
 
     <select id="fullLstByIdWithoutVOD4Parent" parameterType="int" resultMap="categoryForSelf">
-        select * from roc_t_category where id=#{id}
+        select * from roc_t_category where id=#{id} order by id,sequence
     </select>
 
     <select id="fullLstByIdWithoutVOD4Sub" parameterType="int" resultMap="categoryForSelf">
-        select * from roc_t_category where parentId=#{id}
+        select * from roc_t_category where parentId=#{id} order by id,sequence
     </select>
 
 
@@ -67,11 +71,11 @@
     </select>
 
     <select id="getByUrlName" parameterType="String" resultType="CategoryVo">
-        select * from roc_t_category where urlName=#{urlName}
+        select * from roc_t_category where urlName=#{urlName} order by id,sequence
     </select>
 
     <select id="getById" parameterType="int" resultType="CategoryVo">
-        select * from roc_t_category where id=#{id}
+        select * from roc_t_category where id=#{id} order by id,sequence
     </select>
 
 </mapper>

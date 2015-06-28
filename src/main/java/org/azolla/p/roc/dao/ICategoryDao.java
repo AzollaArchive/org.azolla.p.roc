@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface ICategoryDao
 {
+    public List<CategoryVo> fullLstWithoutVOD(RowBounds rowBounds);
+
     public List<CategoryVo> fullLstByIdWithoutVOD(int id, RowBounds rowBounds);
 
     public List<CategoryVo> lstByParentId(int parentId);

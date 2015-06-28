@@ -15,6 +15,10 @@
     </resultMap>
 
 
+    <select id="lstWithoutVOD" resultType="TagVo">
+        select * from roc_t_tag order by displayName
+    </select>
+
     <select id="lst" resultType="TagVo">
         select * from roc_t_tag where visible=1 and operable=1 and deleted=0 order by displayName
     </select>
