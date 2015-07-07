@@ -65,8 +65,8 @@ public class AjaxController
             }
             else
             {
-                File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath("/"), ServletAware.getGenerateQrcodePath());
-                File qrcodeFile = File0.newFile(qrcodeFolder,commentVo.getEmail() + File0.POINT + File0.PNG_FILETYPE);
+                File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), ServletAware.getGenerateQrcodePath());
+                File qrcodeFile = File0.newFile(qrcodeFolder,commentVo.getEmail() + String0.POINT + File0.PNG_FILETYPE);
                 if(!qrcodeFile.exists())
                 {
                     Img0.qrcode(commentVo.getEmail(),64,64, Paths.get(qrcodeFile.toURI()));

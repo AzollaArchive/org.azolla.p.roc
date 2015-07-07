@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
 import org.azolla.l.ling.lang.Byte0;
+import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -91,7 +92,7 @@ public class FileController
                     }
                     else
                     {
-                        uploadedFile = File0.newFile(attachmentFolder, md5+File0.POINT+fileType);
+                        uploadedFile = File0.newFile(attachmentFolder, md5+ String0.POINT+fileType);
                     }
 
                     if(!uploadedFile.exists())

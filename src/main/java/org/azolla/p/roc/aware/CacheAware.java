@@ -11,6 +11,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.ibatis.session.RowBounds;
+import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
@@ -165,7 +166,7 @@ public class CacheAware
 
     public static String getTagDisplayNameString()
     {
-        return Joiner.on(",").join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
+        return Joiner.on(String0.ALPHABET).join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
         {
             @Nullable
             @Override
