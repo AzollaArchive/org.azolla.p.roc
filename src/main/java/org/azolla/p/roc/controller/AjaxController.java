@@ -9,7 +9,7 @@ package org.azolla.p.roc.controller;
 import org.azolla.l.ling.img.Img0;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
-import org.azolla.l.ling.json.JSON0;
+import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
 import org.azolla.p.roc.aware.CacheAware;
@@ -78,7 +78,7 @@ public class AjaxController
                 obj.put("err", 0);
                 obj.put("rst", commentVo);
             }
-            out.println(JSON0.object2String(obj));
+            out.println(Json0.object2String(obj));
             out.flush();
         }
         catch (Exception e)
