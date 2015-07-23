@@ -87,7 +87,7 @@ public class CategoryController
 
     private void setting(String categoryUrlName, Model model)
     {
-        CategoryVo categoryVo = iCategoryService.getByUrlName(categoryUrlName);
+        CategoryVo categoryVo = iCategoryDao.getByUrlName(categoryUrlName);
 
         model.addAttribute("sidebar_title",categoryVo.getDisplayName());
         model.addAttribute("current_request","category/"+categoryUrlName);

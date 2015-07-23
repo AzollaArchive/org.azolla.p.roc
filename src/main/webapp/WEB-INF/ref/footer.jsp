@@ -19,3 +19,8 @@
         </div>
     </div>
 </footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/3th/jquery/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/3th/bootstrap/js/bootstrap.min.js"></script>
+<script src="/3th/bootcss/js/docs.min.js"></script>

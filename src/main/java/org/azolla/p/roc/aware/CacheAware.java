@@ -10,9 +10,9 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.dao.ICategoryDao;
+import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.service.ITagService;
@@ -71,6 +71,9 @@ public class CacheAware
     @Autowired
     private ICategoryDao iCategoryDao;
 
+    @Autowired
+    private ITagDao iTagDao;
+
     @PostConstruct
     private void pre()
     {
@@ -107,7 +110,7 @@ public class CacheAware
                 CONFIG_MAP.putAll(iConfigService.map());
                 break;
             case TAG_CACHE:
-                TAG_LIST.addAll(iTagService.lst());
+                TAG_LIST.addAll(iTagDao.lst());
                 break;
             default:
                 break;

@@ -40,16 +40,4 @@ public class CategoryServiceImpl implements ICategoryService
         }
         return rtnList;
     }
-
-    @Override
-    public List<CategoryVo> lst()
-    {
-        return iCategoryDao.lst();
-    }
-
-    @Override
-    public CategoryVo getByUrlName(String urlName)
-    {
-        return iCategoryDao.getByUrlName(urlName);
-    }
 }

@@ -11,7 +11,11 @@
 
 
     <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
-    <!--<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </beans:bean>
 
     <!-- View -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

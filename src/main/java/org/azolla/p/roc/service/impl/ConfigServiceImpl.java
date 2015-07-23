@@ -29,18 +29,6 @@ public class ConfigServiceImpl implements IConfigService
     private IConfigDao iConfigDao;
 
     @Override
-    public List<ConfigVo> lst()
-    {
-        return iConfigDao.lst();
-    }
-
-    @Override
-    public ConfigVo lst(String rocKey)
-    {
-        return iConfigDao.getByRocKey(rocKey);
-    }
-
-    @Override
     public ConcurrentMap<String, String> map()
     {
         ConcurrentMap<String, String> concurrentMap = new ConcurrentHashMap<String, String>();
@@ -49,11 +37,5 @@ public class ConfigServiceImpl implements IConfigService
             concurrentMap.put(configVo.getRocKey(),configVo.getRocValue());
         }
         return concurrentMap;
-    }
-
-    @Override
-    public String value(String rocKey)
-    {
-        return iConfigDao.getByRocKey(rocKey).getRocValue();
     }
 }

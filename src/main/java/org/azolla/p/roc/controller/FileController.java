@@ -7,25 +7,25 @@
 package org.azolla.p.roc.controller;
 
 import com.google.common.base.Strings;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import com.google.common.collect.Maps;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
+import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.Byte0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -39,85 +39,63 @@ public class FileController
 
     private static final String UPLOAD = "/upload";
 
-    @RequestMapping("/kindeditor")
-    public void kindeditor(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/simditor", method = RequestMethod.POST)
+    public void simditor(MultipartHttpServletRequest request, HttpServletResponse response)
     {
-        //最大文件大小
-        long maxSize = 1000000;
+        File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), UPLOAD);
+
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;
+
+        Map<String, Boolean> pathResultMap = Maps.newHashMap();
         try
         {
-            File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), UPLOAD);
             out = response.getWriter();
-
-            if (!ServletFileUpload.isMultipartContent(request))
+            //取得request中的所有文件名
+            Iterator<String> iterator = request.getFileNames();
+            while (iterator.hasNext())
             {
-                out.println(getError("Please select file."));
-                return;
-            }
-
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setHeaderEncoding("UTF-8");
-            List items = upload.parseRequest(request);
-            Iterator itr = items.iterator();
-            while (itr.hasNext())
-            {
-                FileItem item = (FileItem) itr.next();
-                String fileName = item.getName();
-                long fileSize = item.getSize();
-                if (!item.isFormField())
+                pathResultMap = Maps.newHashMap();
+                //取得上传文件
+                MultipartFile multipartFile = request.getFile(iterator.next());
+                if (multipartFile != null)
                 {
-                    //检查文件大小
-                    if(item.getSize() > maxSize){
-                        out.println(getError("Upload file size exceeds the limit."));
-                        return;
-                    }
-                    //检查扩展名
-//                    String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-//                    if(!Arrays.<String>asList(extMap.get(dirName).split(",")).contains(fileExt)){
-//                        out.println(getError("上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。"));
-//                        return;
-//                    }
-//
-//                    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-//                    String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
-                    String md5 = Byte0.md5(item.get());
-                    String fileType = File0.fileType(fileName);
-                    File uploadedFile = null;
-                    if(Strings.isNullOrEmpty(fileType) || fileName.equals(fileType))
+                    //取得当前上传文件的文件名称
+                    String originalFilename = multipartFile.getOriginalFilename();
+                    if (!Strings.isNullOrEmpty(originalFilename) && !Strings.isNullOrEmpty(originalFilename.trim()))
                     {
-                        uploadedFile = File0.newFile(attachmentFolder, md5);
-                    }
-                    else
-                    {
-                        uploadedFile = File0.newFile(attachmentFolder, md5+ String0.POINT+fileType);
-                    }
+                        String md5 = Byte0.md5(multipartFile.getBytes());
+                        String fileType = File0.fileType(originalFilename);
+                        File uploadedFile = null;
+                        if (Strings.isNullOrEmpty(fileType) || originalFilename.equals(fileType))
+                        {
+                            uploadedFile = File0.newFile(attachmentFolder, md5);
+                        }
+                        else
+                        {
+                            uploadedFile = File0.newFile(attachmentFolder, md5 + String0.POINT + fileType);
+                        }
 
-                    if(!uploadedFile.exists())
-                    {
-                        try
+                        if (!uploadedFile.exists())
                         {
-                            item.write(uploadedFile);
-                        }
-                        catch (Exception e)
-                        {
-                            out.println(getError("Upload file failed."));
-                            return;
+                            try
+                            {
+                                multipartFile.transferTo(uploadedFile);
+                                out.println(simditor(true, UPLOAD + String0.SLASH + uploadedFile.getName(), null));
+                            }
+                            catch (Exception e)
+                            {
+                                out.println(simditor(false, null, Json0.object2String(pathResultMap.put(originalFilename, false))));
+                            }
                         }
                     }
-                    JSONObject obj = new JSONObject();
-                    obj.put("error", 0);
-                    obj.put("url", UPLOAD + "/" + uploadedFile.getName());
-                    out.println(obj.toJSONString());
-                    return;
                 }
             }
         }
         catch (Exception e)
         {
             Log0.error(this.getClass(), e.toString(), e);
+            out.println(simditor(false, null, e.toString()));
         }
         finally
         {
@@ -125,10 +103,18 @@ public class FileController
         }
     }
 
-    private String getError(String message) {
+    private String simditor(boolean success, String file_path, String msg)
+    {
         JSONObject obj = new JSONObject();
-        obj.put("error", 1);
-        obj.put("message", message);
+        obj.put("success", success);
+        if (!Strings.isNullOrEmpty(file_path))
+        {
+            obj.put("file_path", file_path);
+        }
+        if (!Strings.isNullOrEmpty(msg))
+        {
+            obj.put("msg", msg);
+        }
         return obj.toJSONString();
     }
 }

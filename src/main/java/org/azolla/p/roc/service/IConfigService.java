@@ -19,11 +19,5 @@ import java.util.concurrent.ConcurrentMap;
  */
 public interface IConfigService
 {
-    public List<ConfigVo> lst();
-
-    public ConfigVo lst(String rocKey);
-
     public ConcurrentMap<String,String> map();
-
-    public String value(String rocKey);
 }

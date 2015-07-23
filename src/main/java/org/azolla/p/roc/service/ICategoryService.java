@@ -13,8 +13,4 @@ import java.util.List;
 public interface ICategoryService
 {
     public List<CategoryVo> lst(String parentUrlName);
-
-    public List<CategoryVo> lst();
-
-    public CategoryVo getByUrlName(String urlName);
 }

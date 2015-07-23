@@ -20,7 +20,7 @@
                 <article class="roc-c-article-post">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">${jsp_title}</div>
+                        <div class="panel-heading">${jsp_title} </div>
                         <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
@@ -47,7 +47,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${postVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${postVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${postVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/post/opt/${postVo.urlTitle}" />MOD</td>
+                                        <td><a href="/admin/post/opt/${postVo.urlTitle}">MOD</a> <a href="/admin/post/rmv/${postVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -65,10 +65,5 @@
     </div>
 </div>
 <%@ include file="/WEB-INF/ref/footer.jsp" %>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/3th/jquery/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/3th/bootstrap/js/bootstrap.min.js"></script>
-<script src="/3th/bootcss/js/docs.min.js"></script>
 </body>
 </html>

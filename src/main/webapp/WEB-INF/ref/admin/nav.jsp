@@ -17,19 +17,23 @@
                     <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div id="navbar" class="navbar-collapse collapse navbar-right btn-group">
-                    <!-- Single button -->
-                    <button type="button" class="btn btn-default navbar-btn"><sec:authentication property="principal.username"/></button>
-                    <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown"
-                            aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="/admin/user/mod">修改密码</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/j_spring_security_logout">Logout</a></li>
-                    </ul>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="input-group">
+                            <!-- Single button -->
+                            <button type="button" class="btn btn-default"><sec:authentication property="principal.username"/></button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/admin/user/mod">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/j_spring_security_logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </form>
                 </div>
                 <!--/.nav-collapse -->
             </div>

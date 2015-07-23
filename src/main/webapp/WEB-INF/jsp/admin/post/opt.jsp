@@ -8,8 +8,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/3th/select2/css/select2.min.css" rel="stylesheet" />
-    <%@ include file="/WEB-INF/ref/admin/head_kindeditor.jsp"%>
+    <%@ include file="/WEB-INF/ref/admin/head_editor.jsp"%>
 </head>
 <body>
 <jsp:include page="/WEB-INF/ref/admin/nav.jsp" />
@@ -112,7 +111,7 @@
                             <div class="form-group">
                                 <label for="content" class="col-xs-2 control-label">Content</label>
                                 <div class="col-xs-9">
-                                    <textarea class="form-control" cols="100" rows="8" id="content" name="content" style="visibility:hidden;">${postVo.content}</textarea>
+                                    <textarea class="form-control" id="content" name="content" autofocus>${postVo.content}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -134,38 +133,17 @@
         </div>
     </div>
 </div>
-<%@ include file="/WEB-INF/ref/footer.jsp" %>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/3th/jquery/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/3th/bootstrap/js/bootstrap.min.js"></script>
-<script src="/3th/bootcss/js/docs.min.js"></script>
-<script src="/3th/select2/js/select2.full.min.js"></script>
+<%@ include file="/WEB-INF/ref/footer_editor.jsp" %>
 <script>
-    KindEditor.ready(function(K) {
-        var editor1 = K.create('textarea[name="content"]', {
-            cssPath : '/3th/kindeditor/plugins/code/prettify.css',
-            uploadJson : '/kindeditor',
-            fileManagerJson : '/3th/kindeditor/jsp/file_manager_json.jsp',
-            allowFileManager : true,
-            afterCreate : function() {
-                var self = this;
-                K.ctrl(document, 13, function() {
-                    self.sync();
-                    document.forms['form1'].submit();
-                });
-                K.ctrl(self.edit.doc, 13, function() {
-                    self.sync();
-                    document.forms['form1'].submit();
-                });
-            },
-            items : [
-                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link','unlink','source','about']
-
-        });
-        prettyPrint();
+    var simditor = new Simditor({
+        textarea: $('#content'),
+        placeholder:'Please input...',
+        toolbar:['bold','italic','underline','strikethrough','color','ol','ul','blockquote','code','table','link','image','hr','emoji','html'],
+        defaultImage:'/img/favicon.png',
+        upload: {url:'/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
+        pasteImage: true,
+        emoji: {imagePath: '/3th/simditor/images/emoji/'},
+        autosave: 'editor-content'
     });
 
     $(document).ready(function() {

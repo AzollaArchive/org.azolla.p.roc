@@ -34,18 +34,6 @@ public class TagServiceImpl implements ITagService
     @Autowired
     private CacheAware cacheAware;
 
-    @Override
-    public List<TagVo> lst()
-    {
-        return iTagDao.lst();
-    }
-
-    @Override
-    public TagVo getByUrlName(String urlName)
-    {
-        return iTagDao.getByUrlName(urlName);
-    }
-
     public TagVo addByTagDisplayName(String tagDisplayName)
     {
         String urlName = String0.pinyin(tagDisplayName);

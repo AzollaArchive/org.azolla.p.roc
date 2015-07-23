@@ -87,7 +87,7 @@ public class TagController
 
     private void setting(String tag, Model model)
     {
-        TagVo tagVo = iTagService.getByUrlName(tag);
+        TagVo tagVo = iTagDao.getByUrlName(tag);
 
         model.addAttribute("sidebar_title",tagVo.getDisplayName());
         model.addAttribute("current_request","tag/"+tag);

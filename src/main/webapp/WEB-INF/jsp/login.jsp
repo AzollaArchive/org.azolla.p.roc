@@ -8,7 +8,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="/WEB-INF/ref/admin/head_kindeditor.jsp"%>
+    <%@ include file="/WEB-INF/ref/admin/head.jsp"%>
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -50,12 +50,6 @@
         </form>
     </div>
 </div>
-
 <%@ include file="/WEB-INF/ref/footer.jsp" %>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/3th/jquery/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/3th/bootstrap/js/bootstrap.min.js"></script>
-<script src="/3th/bootcss/js/docs.min.js"></script>
 </body>
 </html>
