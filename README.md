@@ -1,4 +1,6 @@
 ## Azolla.org Projects [![Build Status](https://travis-ci.org/Azollas/org.azolla.p.roc.png?branch=mirror)](https://travis-ci.org/Azollas/org.azolla.p.roc) 
+
+[![Join the chat at https://gitter.im/Azollas/org.azolla.p.roc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Azollas/org.azolla.p.roc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 More to see [p.azolla.org][].
 
 ## License
