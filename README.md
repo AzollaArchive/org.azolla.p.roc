@@ -7,7 +7,6 @@ More to see [p.azolla.org][].
 ## Build
 [![][travis img]][travis]
 [![][coverage img]][coverage]
-
 [![][appveyor img]][appveyor]
 
 ## Test
@@ -17,11 +16,11 @@ More to see [p.azolla.org][].
 [![][mavenbadge img]][mavenbadge]
 
 ## Discussion
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Azollas/org.azolla.p.roc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![][gitter img]][gitter]
 
 ## License
 [![][license img]][license]
+
 The Azolla.org Projects is released under version 2.0 of the [Apache License][].
 
 
