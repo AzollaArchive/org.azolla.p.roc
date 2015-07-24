@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface IPostService
 {
-    public static final String MORE = "<!--MORE-->";
+    public static final String MORE = "<more>";
     
     public List<PostVo> lst(int page);
 

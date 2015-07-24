@@ -20,7 +20,7 @@
                 <article class="roc-c-article-post">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">${jsp_title}</div>
+                        <div class="panel-heading">${jsp_title} <a href="/admin/config/opt">ADD</a> </div>
                         <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">

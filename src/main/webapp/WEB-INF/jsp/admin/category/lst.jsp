@@ -21,7 +21,7 @@
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">
-                            ${jsp_title} <a href="admin/category/add">ADD</a>
+                            ${jsp_title} <a href="admin/category/opt">ADD</a>
                         </div>
                         <!-- Table -->
                         <div class="table-responsive">

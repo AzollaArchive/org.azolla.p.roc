@@ -12,6 +12,7 @@ import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.vo.CategoryVo;
+import org.azolla.p.roc.vo.PostVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,15 @@ public class CategoryController
 
     @Autowired
     private ICategoryDao iCategoryDao;
+
+    @RequestMapping(value="/admin/category/opt",method= RequestMethod.GET)
+    public String opt(Model model)
+    {
+        model.addAttribute("jsp_title","New Category");
+        model.addAttribute("categoryVo", new CategoryVo());
+
+        return "admin/category/opt";
+    }
 
     @RequestMapping(value="/admin/category/lst",method= RequestMethod.GET)
     public String lst(Model model)

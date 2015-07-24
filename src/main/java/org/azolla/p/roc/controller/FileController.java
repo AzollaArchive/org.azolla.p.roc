@@ -88,6 +88,10 @@ public class FileController
                                 out.println(simditor(false, null, Json0.object2String(pathResultMap.put(originalFilename, false))));
                             }
                         }
+                        else
+                        {
+                            out.println(simditor(true, UPLOAD + String0.SLASH + uploadedFile.getName(), null));
+                        }
                     }
                 }
             }
