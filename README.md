@@ -7,7 +7,6 @@ More to see [p.azolla.org][].
 ## Build
 [![][travis img]][travis]
 [![][coverage img]][coverage]
-[![][appveyor img]][appveyor]
 
 ## Test
 [![][saucelabs img]][saucelabs]
@@ -36,9 +35,6 @@ The Azolla.org Projects is released under version 2.0 of the [Apache License][].
 [travis img]:https://secure.travis-ci.org/Azollas/org.azolla.p.roc.png
 [coverage]:https://codecov.io/github/Azollas/org.azolla.p.roc?branch=mirror
 [coverage img]:https://codecov.io/github/Azollas/org.azolla.p.roc/coverage.svg?branch=mirror
-
-[appveyor]:https://ci.appveyor.com/project/Azolla/org-azolla-p-roc
-[appveyor img]:https://ci.appveyor.com/api/projects/status/mhpjgtq30qd920sq?svg=true
 
 
 [saucelabs]:https://saucelabs.com/u/org.azolla.p.roc
