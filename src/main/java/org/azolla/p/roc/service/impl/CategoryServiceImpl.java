@@ -6,6 +6,8 @@
  */
 package org.azolla.p.roc.service.impl;
 
+import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.vo.CategoryVo;
@@ -39,5 +41,37 @@ public class CategoryServiceImpl implements ICategoryService
             }
         }
         return rtnList;
+    }
+
+    public Tuple.Triple<Boolean,String,CategoryVo> opt(int id, String displayName, int parentId, String controllerName, int group, int sequence, Integer visible, Integer operable)
+    {
+        Tuple.Triple<Boolean,String,CategoryVo> rtnResult = null;
+        CategoryVo categoryVo = new CategoryVo();
+        categoryVo.setDisplayName(displayName);
+        categoryVo.setUrlName(String0.pinyin(displayName));
+        categoryVo.setParentId(parentId);
+        categoryVo.setControllerName(controllerName);
+        categoryVo.setGroup(group);
+        categoryVo.setSequence(sequence);
+        categoryVo.setVisible(visible);
+        categoryVo.setOperable(operable);
+        rtnResult = Tuple.of(true,null,categoryVo);
+        try
+        {
+            if(id == 0)
+            {
+                iCategoryDao.add(categoryVo);
+            }
+            else
+            {
+                categoryVo.setId(id);
+                iCategoryDao.mod(categoryVo);
+            }
+        }
+        catch (Exception e)
+        {
+            rtnResult = Tuple.of(false,e.toString(),categoryVo);
+        }
+        return rtnResult;
     }
 }

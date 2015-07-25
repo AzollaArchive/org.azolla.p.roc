@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.azolla.p</groupId>
 		<artifactId>org.azolla.p</artifactId>
-		<version>1.0.2</version>
+		<version>1.0.3</version>
 		<relativePath>../org.azolla.p</relativePath>
 	</parent>
 
@@ -183,11 +183,6 @@
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.maven</groupId>
-            <artifactId>tomcat7-maven-plugin</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
         </dependency>
@@ -261,16 +256,5 @@
         </dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>${org.apache.tomcat.maven_tomcat7-maven-plugin_version}</version>
-				<configuration>
-					<path>/</path>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
 </project>

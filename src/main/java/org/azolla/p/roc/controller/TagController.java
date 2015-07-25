@@ -89,7 +89,7 @@ public class TagController
     {
         TagVo tagVo = iTagDao.getByUrlName(tag);
 
-        model.addAttribute("sidebar_title",tagVo.getDisplayName());
+        model.addAttribute("jsp_title",tagVo.getDisplayName());
         model.addAttribute("current_request","tag/"+tag);
     }
 }

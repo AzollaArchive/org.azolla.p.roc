@@ -78,4 +78,16 @@
         select * from roc_t_category where id=#{id} order by id,sequence
     </select>
 
+    <update id="rmvById" parameterType="int">
+        update roc_t_category set deleted=1, rmvDate=now() where id=#{id}
+    </update>
+
+    <insert id="add" parameterType="org.azolla.p.roc.vo.CategoryVo">
+        insert into roc_t_category(displayName,urlName,parentId,controllerName,group,sequence,addDate,visible,operable) values(#{displayName},#{urlName},#{parentId},#{controllerName},#{group},#{sequence},now(),#{visible},#{operable})
+    </insert>
+
+    <update id="mod" parameterType="org.azolla.p.roc.vo.CategoryVo">
+        update roc_t_category set displayName=#{displayName},urlName=#{urlName},parentId=#{parentId},controllerName=#{controllerName},group=#{group},sequence=#{sequence},modDate=now(),visible=#{visible},operable=#{operable} where id=#{id}
+    </update>
+
 </mapper>

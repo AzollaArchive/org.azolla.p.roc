@@ -7,6 +7,7 @@
 package org.azolla.p.roc.controller;
 
 import org.apache.ibatis.session.RowBounds;
+import org.azolla.l.ling.collect.Tuple;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
@@ -45,6 +46,39 @@ public class CategoryController
         model.addAttribute("categoryVo", new CategoryVo());
 
         return "admin/category/opt";
+    }
+
+    @RequestMapping(value="/admin/category/opt/{id}",method= RequestMethod.GET)
+    public String opt(@PathVariable int id, Model model)
+    {
+        model.addAttribute("jsp_title","Mod Category");
+        model.addAttribute("categoryVo", iCategoryDao.getById(id));
+
+        return "admin/category/opt";
+    }
+
+    @RequestMapping(value="/admin/category/opt",method= RequestMethod.POST)
+    public String opt(int id, String displayName, int parentId, String controllerName, int group, int sequence, Integer visible, Integer operable, Model model)
+    {
+        String rtnString = "redirect:/admin/category/lst";
+        Tuple.Triple<Boolean,String,CategoryVo> serviceResult = iCategoryService.opt(id,displayName,parentId,controllerName,group,sequence,visible,operable);
+        if(!Tuple.getFirst(serviceResult))
+        {
+            rtnString = "admin/category/opt";
+
+            model.addAttribute("jsp_title",id == 0 ? "New Category" : "Mod Category");
+            model.addAttribute("ctrl_result",Tuple.getSecond(serviceResult));
+            model.addAttribute("postVo",Tuple.getThird(serviceResult));
+
+        }
+        return rtnString;
+    }
+
+    @RequestMapping(value="/admin/category/die/{id}",method= RequestMethod.GET)
+    public String die(int id, Model model)
+    {
+        iCategoryDao.rmvById(id);
+        return "redirect:/admin/post/lst";
     }
 
     @RequestMapping(value="/admin/category/lst",method= RequestMethod.GET)
@@ -99,7 +133,7 @@ public class CategoryController
     {
         CategoryVo categoryVo = iCategoryDao.getByUrlName(categoryUrlName);
 
-        model.addAttribute("sidebar_title",categoryVo.getDisplayName());
+        model.addAttribute("jsp_title",categoryVo.getDisplayName());
         model.addAttribute("current_request","category/"+categoryUrlName);
     }
 }

@@ -12,6 +12,10 @@
     <link href="/3th/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/3th/bootcss/css/docs.min.css" rel="stylesheet"/>
     <link href="/css/roc.css" rel="stylesheet"/>
+    <link href="/3th/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="/3th/simditor/styles/simditor.css" rel="stylesheet"/>
+    <link href="/3th/simditor/styles/simditor-emoji.css" rel="stylesheet"/>
+    <link href="/3th/simditor/styles/simditor-html.css" media="screen" rel="stylesheet"/>
     <!--[if lt IE 9]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>

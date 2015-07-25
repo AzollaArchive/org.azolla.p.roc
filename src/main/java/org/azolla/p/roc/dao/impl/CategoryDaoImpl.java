@@ -66,4 +66,19 @@ public class CategoryDaoImpl implements ICategoryDao
     {
         return sqlSession.selectOne("mapper.category.getById",id);
     }
+
+    public int rmvById(int id)
+    {
+        return sqlSession.update("mapper.category.rmvById",id);
+    }
+
+    public int add(CategoryVo categoryVo)
+    {
+        return sqlSession.insert("mapper.category.add",categoryVo);
+    }
+
+    public int mod(CategoryVo categoryVo)
+    {
+        return sqlSession.update("mapper.category.mod",categoryVo);
+    }
 }

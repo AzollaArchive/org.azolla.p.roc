@@ -54,7 +54,7 @@ public class PostController
     }
 
     @RequestMapping(value="/admin/post/opt",method= RequestMethod.POST)
-    public String opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable, Model model, HttpServletResponse response)
+    public String opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable, Model model)
     {
         String rtnString = "redirect:/admin/post/lst";
         Tuple.Triple<Boolean,String,PostVo> serviceResult = iPostService.opt(id,title,category,tag,content,visible,operable);
@@ -63,7 +63,7 @@ public class PostController
         {
             rtnString = "admin/post/opt";
 
-            model.addAttribute("jsp_title","New Post");
+            model.addAttribute("jsp_title",id == 0 ? "New Post" : "Mod Post");
             model.addAttribute("ctrl_result",Tuple.getSecond(serviceResult));
             model.addAttribute("postVo",Tuple.getThird(serviceResult));
 
@@ -100,14 +100,15 @@ public class PostController
     {
         PostVo postVo = iPostService.getByUrlTitle(urlTile);
         model.addAttribute("post", postVo);
-        model.addAttribute("post4keyword", Joiner.on(",").join(Lists.transform(postVo.getTagVoList(), new Function<TagVo, String>(){
-            @Nullable
-            @Override
-            public String apply(TagVo input)
-            {
-                return input.getDisplayName();
-            }
-        })));
+        model.addAttribute("jsp_title",postVo.getTitle());
+//        model.addAttribute("post4keyword", Joiner.on(",").join(Lists.transform(postVo.getTagVoList(), new Function<TagVo, String>(){
+//            @Nullable
+//            @Override
+//            public String apply(TagVo input)
+//            {
+//                return input.getDisplayName();
+//            }
+//        })));
 
         return "pst";
     }

@@ -1,16 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/ref/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><c:if test="${sidebar_title!='Index'}">${sidebar_title} - </c:if>${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</title>
-    <%@ include file="/WEB-INF/ref/head.jsp"%>
-</head>
+<%@ include file="/WEB-INF/ref/head.jsp"%>
 <body>
 <jsp:include page="/WEB-INF/ref/nav.jsp" />
 <div id="roc-i-content">
@@ -53,7 +45,7 @@
                 </div>
                 <div class="panel panel-default bs-docs-sidebar affix-top">
                     <div class="panel-heading">
-                        <h3 class="panel-title">${sidebar_title}</h3>
+                        <h3 class="panel-title">${jsp_title}</h3>
                     </div>
                     <div class="panel-body">
                         <ul class="nav bs-docs-sidenav">

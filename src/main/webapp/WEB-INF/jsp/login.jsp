@@ -1,15 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/ref/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="/WEB-INF/ref/admin/head.jsp"%>
-</head>
+<%@ include file="/WEB-INF/ref/head.jsp"%>
 <body>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">

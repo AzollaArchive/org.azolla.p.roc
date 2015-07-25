@@ -11,7 +11,7 @@ More to see [p.azolla.org][].
 ## Test
 [![][saucelabs img]][saucelabs]
 
-## Deploy
+## Release
 [![][mavenbadge img]][mavenbadge]
 
 ## Discussion

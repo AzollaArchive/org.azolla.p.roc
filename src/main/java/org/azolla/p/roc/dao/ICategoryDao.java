@@ -26,4 +26,10 @@ public interface ICategoryDao
     public CategoryVo getByUrlName(String urlName);
 
     public CategoryVo getById(int id);
+
+    public int rmvById(int id);
+
+    public int add(CategoryVo categoryVo);
+
+    public int mod(CategoryVo categoryVo);
 }

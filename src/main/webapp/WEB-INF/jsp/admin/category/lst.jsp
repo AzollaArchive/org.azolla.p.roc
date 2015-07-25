@@ -1,15 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/ref/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="/WEB-INF/ref/admin/head.jsp"%>
-</head>
+<%@ include file="/WEB-INF/ref/head.jsp"%>
 <body>
 <jsp:include page="/WEB-INF/ref/admin/nav.jsp" />
 <div id="roc-i-content">
@@ -21,7 +14,7 @@
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">
-                            ${jsp_title} <a href="admin/category/opt">ADD</a>
+                            ${jsp_title} <span class="label label-default"><a href="/admin/category/opt" style="color: #FFFFFF;text-shadow: none">ADD</a></span>
                         </div>
                         <!-- Table -->
                         <div class="table-responsive">
@@ -57,7 +50,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/category/rmv/${categoryVo.id}" />RMV</td>
+                                        <td><a href="/admin/category/opt/${categoryVo.id}">MOD</a> <a href="/admin/category/rmv/${categoryVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

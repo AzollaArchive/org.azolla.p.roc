@@ -1,15 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/ref/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="/WEB-INF/ref/admin/head_editor.jsp"%>
-</head>
+<%@ include file="/WEB-INF/ref/head_editor.jsp"%>
 <body>
 <jsp:include page="/WEB-INF/ref/admin/nav.jsp" />
 <div id="roc-i-content">
@@ -18,6 +11,12 @@
             <%@ include file="/WEB-INF/ref/admin/aside.jsp"%>
             <main class="col-md-9">
                 <article class="roc-c-article-post">
+                    <c:if test="${ctrl_result != null && ctrl_result.trim() != ''}">
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Oh snap! </strong>${ctrl_result}
+                        </div>
+                    </c:if>
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">${jsp_title}</div>
@@ -155,7 +154,7 @@
         $(".js-example-tokenizer").select2({
             tags: true,
             tokenSeparators: [',', ' ']
-        })
+        });
     });
 </script>
 </body>
