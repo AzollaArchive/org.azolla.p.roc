@@ -6,10 +6,9 @@ More to see [p.azolla.org][].
 
 ## Build
 [![][travis img]][travis]
-[![][coverage img]][coverage]
 
 ## Test
-[![][saucelabs img]][saucelabs]
+[![][coverage img]][coverage]
 
 ## Release
 [![][mavenbadge img]][mavenbadge]
@@ -33,12 +32,12 @@ The Azolla.org Projects is released under version 2.0 of the [Apache License][].
 
 [travis]:https://travis-ci.org/Azollas/org.azolla.p.roc
 [travis img]:https://secure.travis-ci.org/Azollas/org.azolla.p.roc.png
+
+
 [coverage]:https://codecov.io/github/Azollas/org.azolla.p.roc?branch=mirror
 [coverage img]:https://codecov.io/github/Azollas/org.azolla.p.roc/coverage.svg?branch=mirror
-
-
-[saucelabs]:https://saucelabs.com/u/org.azolla.p.roc
-[saucelabs img]:https://saucelabs.com/browser-matrix/org.azolla.p.roc.svg
+[saucelabs]:https://saucelabs.com/u/Azollas
+[saucelabs img]:https://saucelabs.com/browser-matrix/Azollas.svg
 
 
 [mavenbadge]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.azolla.p%22%20AND%20a%3A%22org.azolla.p.roc%22
