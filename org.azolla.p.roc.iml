@@ -81,6 +81,6 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:4.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:4.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:4.0.0.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.azolla.l:org.azolla.l.ling:1.0.1" level="project" />
+    <orderEntry type="module" module-name="org.azolla.l.ling" />
   </component>
 </module>
