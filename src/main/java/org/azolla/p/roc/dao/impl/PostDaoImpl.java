@@ -65,4 +65,9 @@ public class PostDaoImpl implements IPostDao
     {
         return sqlSession.update("mapper.post.mod",postVo);
     }
+
+    public int rmvById(int id)
+    {
+        return sqlSession.update("mapper.post.rmvById",id);
+    }
 }

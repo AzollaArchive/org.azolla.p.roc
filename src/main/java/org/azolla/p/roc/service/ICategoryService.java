@@ -16,5 +16,5 @@ public interface ICategoryService
 {
     public List<CategoryVo> lst(String parentUrlName);
 
-    public Tuple.Triple<Boolean,String,CategoryVo> opt(int id, String displayName, int parentId, String controllerName, int group, int sequence, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean,String,CategoryVo> opt(int id, String displayName, int parentId, String controllerName, Integer group, int sequence, Integer visible, Integer operable);
 }

@@ -6,6 +6,8 @@
  */
 package org.azolla.p.roc.service.impl;
 
+import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.p.roc.dao.IConfigDao;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.vo.ConfigVo;
@@ -37,5 +39,33 @@ public class ConfigServiceImpl implements IConfigService
             concurrentMap.put(configVo.getRocKey(),configVo.getRocValue());
         }
         return concurrentMap;
+    }
+
+    public Tuple.Triple<Boolean,String,ConfigVo> opt(int id, String rocKey, String rocValue, Integer visible, Integer operable)
+    {
+        ConfigVo configVo = new ConfigVo();
+        configVo.setRocKey(rocKey);
+        configVo.setRocValue(rocValue);
+        configVo.setVisible(Integer0.nullToZero(visible));
+        configVo.setOperable(Integer0.nullToZero(operable));
+
+        Tuple.Triple<Boolean,String,ConfigVo> rtnResult = Tuple.of(true,null,configVo);
+        try
+        {
+            if(id == 0)
+            {
+                iConfigDao.add(configVo);
+            }
+            else
+            {
+                configVo.setId(id);
+                iConfigDao.mod(configVo);
+            }
+        }
+        catch (Exception e)
+        {
+            rtnResult = Tuple.of(false,e.toString(),configVo);
+        }
+        return rtnResult;
     }
 }

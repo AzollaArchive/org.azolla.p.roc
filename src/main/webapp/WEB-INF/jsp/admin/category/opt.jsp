@@ -1,7 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/ref/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@ include file="/WEB-INF/ref/head_editor.jsp"%>
@@ -43,18 +41,12 @@
                                                     <%--<option value="${leftCategory.id}" disabled>${leftCategory.displayName}</option>--%>
                                                     <optgroup label="${leftCategory.displayName}" />
                                                     <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
-                                                        <c:choose>
-                                                            <c:when test="${subLeftCategory.group == 1}">
-                                                                <%--<option value="${subLeftCategory.id}" disabled>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>--%>
-                                                                <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}" />
-                                                                <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
-                                                                    <option value="${lastLeftCategory.id}" <c:if test="${lastLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastLeftCategory.displayName}</option>
-                                                                </c:forEach>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${subLeftCategory.id}" <c:if test="${subLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                        <option value="${subLeftCategory.id}" <c:if test="${subLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>
+                                                        <c:if test="${subLeftCategory.group == 1}">
+                                                            <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
+                                                                <option value="${lastLeftCategory.id}" <c:if test="${lastLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastLeftCategory.displayName}</option>
+                                                            </c:forEach>
+                                                        </c:if>
                                                     </c:forEach>
                                                 </c:when>
                                                 <c:otherwise>
@@ -68,18 +60,12 @@
                                                     <%--<option value="${rightCategory.id}" disabled>${rightCategory.displayName}</option>--%>
                                                     <optgroup label="${rightCategory.displayName}" />
                                                     <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
-                                                        <c:choose>
-                                                            <c:when test="${subRightCategory.group == 1}">
-                                                                <%--<option value="${subRightCategory.id}" disabled>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>--%>
-                                                                <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}" />
-                                                                <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">
-                                                                    <option value="${lastRightCategory.id}" <c:if test="${lastRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastRightCategory.displayName}</option>
-                                                                </c:forEach>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${subRightCategory.id}" <c:if test="${subRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                        <option value="${subRightCategory.id}" <c:if test="${subRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>
+                                                        <c:if test="${subRightCategory.group == 1}">
+                                                            <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">
+                                                                <option value="${lastRightCategory.id}" <c:if test="${lastRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastRightCategory.displayName}</option>
+                                                            </c:forEach>
+                                                        </c:if>
                                                     </c:forEach>
                                                 </c:when>
                                                 <c:otherwise>

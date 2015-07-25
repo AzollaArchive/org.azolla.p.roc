@@ -58,7 +58,7 @@ public class CategoryController
     }
 
     @RequestMapping(value="/admin/category/opt",method= RequestMethod.POST)
-    public String opt(int id, String displayName, int parentId, String controllerName, int group, int sequence, Integer visible, Integer operable, Model model)
+    public String opt(int id, String displayName, int parentId, String controllerName, Integer group, int sequence, Integer visible, Integer operable, Model model)
     {
         String rtnString = "redirect:/admin/category/lst";
         Tuple.Triple<Boolean,String,CategoryVo> serviceResult = iCategoryService.opt(id,displayName,parentId,controllerName,group,sequence,visible,operable);
@@ -68,14 +68,13 @@ public class CategoryController
 
             model.addAttribute("jsp_title",id == 0 ? "New Category" : "Mod Category");
             model.addAttribute("ctrl_result",Tuple.getSecond(serviceResult));
-            model.addAttribute("postVo",Tuple.getThird(serviceResult));
-
+            model.addAttribute("categoryVo",Tuple.getThird(serviceResult));
         }
         return rtnString;
     }
 
-    @RequestMapping(value="/admin/category/die/{id}",method= RequestMethod.GET)
-    public String die(int id, Model model)
+    @RequestMapping(value="/admin/category/rmv/{id}",method= RequestMethod.GET)
+    public String rmv(int id, Model model)
     {
         iCategoryDao.rmvById(id);
         return "redirect:/admin/post/lst";

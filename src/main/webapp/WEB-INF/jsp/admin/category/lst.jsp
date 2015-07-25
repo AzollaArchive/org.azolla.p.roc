@@ -21,19 +21,19 @@
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
                                 <tr>
                                     <th>#</th>
-                                    <th>DisplayName</th>
-                                    <th>UrlName</th>
-                                    <th>ParentId</th>
-                                    <th>ControllerName</th>
-                                    <th>Group</th>
-                                    <th>Sequence</th>
-                                    <th>AddDate</th>
-                                    <th>ModDate</th>
-                                    <th>RmvDate</th>
-                                    <th>Visible</th>
-                                    <th>Operable</th>
-                                    <th>Deleted</th>
-                                    <th>Operation</th>
+                                    <th nowrap="nowrap">DisplayName</th>
+                                    <th nowrap="nowrap">UrlName</th>
+                                    <th nowrap="nowrap">ParentId</th>
+                                    <th nowrap="nowrap">ControllerName</th>
+                                    <th nowrap="nowrap">Group</th>
+                                    <th nowrap="nowrap">Sequence</th>
+                                    <th nowrap="nowrap">AddDate</th>
+                                    <th nowrap="nowrap">ModDate</th>
+                                    <th nowrap="nowrap">RmvDate</th>
+                                    <th nowrap="nowrap">Visible</th>
+                                    <th nowrap="nowrap">Operable</th>
+                                    <th nowrap="nowrap">Deleted</th>
+                                    <th nowrap="nowrap">Operation</th>
                                 </tr>
                                 <c:forEach var="categoryVo" items="${categoryVoList}">
                                     <tr>

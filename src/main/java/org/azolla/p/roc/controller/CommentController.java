@@ -28,6 +28,13 @@ public class CommentController
     @Autowired
     private ICommentDao iCommentDao;
 
+    @RequestMapping(value="/admin/comment/rmv/{id}",method= RequestMethod.GET)
+    public String rmv(@PathVariable int id, Model model)
+    {
+        iCommentDao.rmvById(id);
+        return "redirect:/admin/comment/lst";
+    }
+
     @RequestMapping(value="/admin/comment/lst",method= RequestMethod.GET)
     public String lst(Model model)
     {

@@ -124,4 +124,8 @@
     <update id="mod" parameterType="org.azolla.p.roc.vo.PostVo">
         update roc_t_post set title=#{title}, urlTitle=#{urlTitle}, content=#{content}, categoryId=#{categoryId}, visible=#{visible}, operable=#{operable}, modDate=now() where id=#{id}
     </update>
+
+    <update id="rmvById" parameterType="int">
+        update roc_t_post set deleted=1,rmvDate=now() where id=#{id}
+    </update>
 </mapper>

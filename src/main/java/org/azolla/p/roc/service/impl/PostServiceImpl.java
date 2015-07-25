@@ -101,10 +101,8 @@ public class PostServiceImpl implements IPostService
     public PostVo getByUrlTitle(String urlTitle)
     {
         PostVo postVo = iPostDao.getByUrlTitle(urlTitle);
-
         postVo.getTagVoList().addAll(iTagDao.lstByPostUrlTitle(urlTitle));
         postVo.getCommentVoList().addAll(iCommentDao.lstByPostId(postVo.getId()));
-
         return postVo;
     }
 

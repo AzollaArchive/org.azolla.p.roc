@@ -18,4 +18,6 @@ public interface ICommentDao
     public int add(CommentVo commentVo);
 
     public List<CommentVo> fullLstWithoutVOD(RowBounds rowBounds);
+
+    public int rmvById(int id);
 }

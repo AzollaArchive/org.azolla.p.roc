@@ -32,4 +32,6 @@ public interface IPostDao
     public int add(PostVo postVo);
 
     public int mod(PostVo postVo);
+
+    public int rmvById(int id);
 }

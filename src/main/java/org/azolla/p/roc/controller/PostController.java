@@ -10,6 +10,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import org.azolla.l.ling.collect.Tuple;
+import org.azolla.p.roc.dao.IPostDao;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.vo.PostVo;
 import org.azolla.p.roc.vo.TagVo;
@@ -34,6 +35,9 @@ public class PostController
 {
     @Autowired
     private IPostService iPostService;
+
+    @Autowired
+    private IPostDao iPostDao;
 
     @RequestMapping(value="/admin/post/opt",method= RequestMethod.GET)
     public String opt(Model model)
@@ -69,6 +73,13 @@ public class PostController
 
         }
         return rtnString;
+    }
+
+    @RequestMapping(value = "/admin/post/rmv/{id}", method = RequestMethod.GET)
+    public String rmv(@PathVariable int id)
+    {
+        iPostDao.rmvById(id);
+        return "redirect:/admin/post/lst";
     }
 
     @RequestMapping(value="/admin/post/lst",method= RequestMethod.GET)

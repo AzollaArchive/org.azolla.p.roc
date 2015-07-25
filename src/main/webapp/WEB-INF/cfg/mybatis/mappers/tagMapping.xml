@@ -55,4 +55,12 @@
         </foreach>
     </select>
 
+    <update id="mod" parameterType="org.azolla.p.roc.vo.TagVo">
+        update roc_t_tag set displayName=#{displayName},urlName=#{urlName},modDate=now() where id=#{id}
+    </update>
+
+    <update id="rmvById" parameterType="int">
+        update roc_t_tag set deleted=1,rmvDate=now() where id=#{id}
+    </update>
+
 </mapper>

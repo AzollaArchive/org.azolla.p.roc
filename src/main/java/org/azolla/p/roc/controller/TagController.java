@@ -7,6 +7,7 @@
 package org.azolla.p.roc.controller;
 
 import org.apache.ibatis.session.RowBounds;
+import org.azolla.l.ling.collect.Tuple;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.IPostService;
@@ -36,6 +37,44 @@ public class TagController
 
     @Autowired
     private ITagDao iTagDao;
+
+    @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.GET)
+    public String opt(Model model)
+    {
+        model.addAttribute("jsp_title","New Tag");
+        model.addAttribute("tagVo",new TagVo());
+        return "/admin/tag/opt";
+    }
+
+    @RequestMapping(value = "/admin/tag/opt/{urlName}", method = RequestMethod.GET)
+    public String opt(@PathVariable String urlName, Model model)
+    {
+        model.addAttribute("jsp_title","Mod Tag");
+        model.addAttribute("tagVo",iTagDao.getByUrlName(urlName));
+        return "/admin/tag/opt";
+    }
+
+    @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.POST)
+    public String opt(int id, String displayName, Integer visible, Integer operable, Model model)
+    {
+        String rtnString = "redirect:/admin/tag/lst";
+        Tuple.Triple<Boolean,String,TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable);
+        if(!Tuple.getFirst(serviceResult))
+        {
+            rtnString = "admin/tag/opt";
+
+            model.addAttribute("jsp_title",id == 0 ? "New Tag" : "Mod Tag");
+            model.addAttribute("ctrl_result",Tuple.getSecond(serviceResult));
+            model.addAttribute("tagVo",Tuple.getThird(serviceResult));
+        }
+        return rtnString;
+    }
+
+    public String rmv(@PathVariable int id)
+    {
+        iTagDao.rmvById(id);
+        return "redirect:/admin/tag/lst";
+    }
 
     @RequestMapping(value="/admin/tag/lst",method= RequestMethod.GET)
     public String lst(Model model)

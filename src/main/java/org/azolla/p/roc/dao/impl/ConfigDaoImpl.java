@@ -43,4 +43,19 @@ public class ConfigDaoImpl implements IConfigDao
     {
         return sqlSession.selectOne("mapper.config.getByRocKey",rocKey);
     }
+
+    public int add(ConfigVo configVo)
+    {
+        return sqlSession.insert("mapper.config.add",configVo);
+    }
+
+    public int mod(ConfigVo configVo)
+    {
+        return sqlSession.update("mapper.config.mod",configVo);
+    }
+
+    public int rmvById(int id)
+    {
+        return sqlSession.update("mapper.config.rmvById",id);
+    }
 }

@@ -65,4 +65,14 @@ public class TagDaoImpl implements ITagDao
     {
         return sqlSession.selectList("mapper.tag.btLstByUrlNameList",urlNameList);
     }
+
+    public int mod(TagVo tagVo)
+    {
+        return sqlSession.update("mapper.tag.mod",tagVo);
+    }
+
+    public int rmvById(int id)
+    {
+        return sqlSession.update("mapper.tag.rmvById",id);
+    }
 }

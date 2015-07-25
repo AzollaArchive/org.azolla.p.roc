@@ -1,5 +1,6 @@
 package org.azolla.p.roc.service;
 
+import org.azolla.l.ling.collect.Tuple;
 import org.azolla.p.roc.vo.TagVo;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ITagService
     public TagVo addByTagDisplayName(String tagDisplayName);
 
     public List<TagVo> btAddByTagDisplayName(List<String> tagDisplayNameList);
+
+    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable);
 }

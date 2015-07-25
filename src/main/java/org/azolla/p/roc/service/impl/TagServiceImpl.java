@@ -8,6 +8,8 @@ package org.azolla.p.roc.service.impl;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ITagDao;
@@ -90,5 +92,33 @@ public class TagServiceImpl implements ITagService
             rtnTagVoList.addAll(iTagDao.btLstByUrlNameList(newTagUrlNameList));
         }
         return rtnTagVoList;
+    }
+
+    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable)
+    {
+        TagVo tagVo = new TagVo();
+        tagVo.setDisplayName(displayName);
+        tagVo.setUrlName(String0.pinyin(displayName));
+        tagVo.setVisible(Integer0.nullToZero(visible));
+        tagVo.setOperable(Integer0.nullToZero(operable));
+
+        Tuple.Triple<Boolean,String,TagVo> rtnResult = Tuple.of(true,null,tagVo);
+        try
+        {
+            if(id == 0)
+            {
+                iTagDao.add(tagVo);
+            }
+            else
+            {
+                tagVo.setId(id);
+                iTagDao.mod(tagVo);
+            }
+        }
+        catch (Exception e)
+        {
+            rtnResult = Tuple.of(false,e.toString(),tagVo);
+        }
+        return rtnResult;
     }
 }

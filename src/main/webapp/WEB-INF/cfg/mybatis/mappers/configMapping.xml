@@ -27,4 +27,17 @@
         select * from roc_t_config where rocKey=#{rocKey} order by id
     </select>
 
+    <insert id="add" parameterType="org.azolla.p.roc.vo.ConfigVo">
+        insert into roc_t_config(rocKey,rocValue,addDate,visible,operable) values(#{rocKey},#{rocValue},now(),#{visible},#{operable})
+    </insert>
+
+    <update id="mod" parameterType="org.azolla.p.roc.vo.ConfigVo">
+        update roc_t_config set rocKey=#{rocKey},rocValue=#{rocValue},modDate=now(),visible=#{visible},operable=#{operable} where id=#{id}
+    </update>
+
+    <update id="rmvById" parameterType="int">
+        update roc_t_config set deleted=1,rmvDate=now() where id=#{id}
+    </update>
+
+
 </mapper>

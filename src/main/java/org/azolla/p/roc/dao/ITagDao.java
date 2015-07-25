@@ -26,4 +26,8 @@ public interface ITagDao
     public int btAdd(List<TagVo> tagVoList);
 
     public List<TagVo> btLstByUrlNameList(List<String> urlNameList);
+
+    public int mod(TagVo tagVo);
+
+    public int rmvById(int id);
 }

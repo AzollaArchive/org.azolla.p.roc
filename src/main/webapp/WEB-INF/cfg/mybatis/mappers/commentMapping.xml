@@ -72,6 +72,8 @@
         insert into roc_t_comment(username,email,content,postId,ip,addDate) values (#{username},#{email},#{content},#{postId},#{ip},now())
     </insert>
 
-
+    <delete id="rmv" parameterType="int">
+        update roc_t_comment set deleted=1,rmvDate=now() where id=#{id}
+    </delete>
 
 </mapper>

@@ -13,23 +13,25 @@
                 <article class="roc-c-article-post">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">${jsp_title}</div>
+                        <div class="panel-heading">
+                            ${jsp_title}
+                        </div>
                         <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
                                 <tr>
                                     <th>#</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Content</th>
-                                    <th>Post Title</th>
-                                    <th>AddDate</th>
-                                    <th>ModDate</th>
-                                    <th>RmvDate</th>
-                                    <th>Visible</th>
-                                    <th>Operable</th>
-                                    <th>Deleted</th>
-                                    <th>Operation</th>
+                                    <th nowrap="nowrap">Username</th>
+                                    <th nowrap="nowrap">Email</th>
+                                    <th nowrap="nowrap">Content</th>
+                                    <th nowrap="nowrap">Post Title</th>
+                                    <th nowrap="nowrap">AddDate</th>
+                                    <th nowrap="nowrap">ModDate</th>
+                                    <th nowrap="nowrap">RmvDate</th>
+                                    <th nowrap="nowrap">Visible</th>
+                                    <th nowrap="nowrap">Operable</th>
+                                    <th nowrap="nowrap">Deleted</th>
+                                    <th nowrap="nowrap">Operation</th>
                                 </tr>
                                 <c:forEach var="commentVo" items="${commentVoList}">
                                     <tr>
@@ -44,7 +46,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/comment/rmv/${commentVo.id}" />RMV</td>
+                                        <td><a href="/admin/comment/rmv/${commentVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

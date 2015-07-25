@@ -42,4 +42,9 @@ public class CommentDaoImpl implements ICommentDao
     {
         return sqlSession.selectList("mapper.comment.fullLstWithoutVOD",null,rowBounds);
     }
+
+    public int rmvById(int id)
+    {
+        return sqlSession.delete("mapper.comment.rmv",id);
+    }
 }

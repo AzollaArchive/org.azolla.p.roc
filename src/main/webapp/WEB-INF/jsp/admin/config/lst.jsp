@@ -13,21 +13,23 @@
                 <article class="roc-c-article-post">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">${jsp_title} <a href="/admin/config/opt">ADD</a> </div>
+                        <div class="panel-heading">
+                            ${jsp_title} <span class="label label-default"><a href="/admin/config/opt" style="color: #FFFFFF;text-shadow: none">ADD</a></span>
+                        </div>
                         <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
                                 <tr>
                                     <th>#</th>
-                                    <th>Key</th>
-                                    <th>Value</th>
-                                    <th>AddDate</th>
-                                    <th>ModDate</th>
-                                    <th>RmvDate</th>
-                                    <th>Visible</th>
-                                    <th>Operable</th>
-                                    <th>Deleted</th>
-                                    <th>Operation</th>
+                                    <th nowrap="nowrap">Key</th>
+                                    <th nowrap="nowrap">Value</th>
+                                    <th nowrap="nowrap">AddDate</th>
+                                    <th nowrap="nowrap">ModDate</th>
+                                    <th nowrap="nowrap">RmvDate</th>
+                                    <th nowrap="nowrap">Visible</th>
+                                    <th nowrap="nowrap">Operable</th>
+                                    <th nowrap="nowrap">Deleted</th>
+                                    <th nowrap="nowrap">Operation</th>
                                 </tr>
                                 <c:forEach var="configVo" items="${configVoList}">
                                     <tr>
@@ -40,7 +42,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${configVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${configVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${configVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/config/rmv/${configVo.id}" />RMV</td>
+                                        <td><a href="/admin/config/opt/${configVo.rocKey}">MOD</a> <a href="/admin/config/rmv/${configVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

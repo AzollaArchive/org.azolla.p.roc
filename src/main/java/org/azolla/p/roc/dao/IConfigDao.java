@@ -18,4 +18,10 @@ public interface IConfigDao
     public List<ConfigVo> lst();
 
     public ConfigVo getByRocKey(String rocKey);
+
+    public int add(ConfigVo configVo);
+
+    public int mod(ConfigVo configVo);
+
+    public int rmvById(int id);
 }
