@@ -8,6 +8,7 @@ package org.azolla.p.roc.dao.impl;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.IConfigDao;
 import org.azolla.p.roc.vo.ConfigVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ConfigDaoImpl implements IConfigDao
 {
     @Autowired
     private SqlSession sqlSession;
+
+    @Autowired
+    private CacheAware cacheAware;
 
     public List<ConfigVo> lstWithoutVOD(RowBounds rowBounds)
     {
@@ -46,16 +50,31 @@ public class ConfigDaoImpl implements IConfigDao
 
     public int add(ConfigVo configVo)
     {
-        return sqlSession.insert("mapper.config.add",configVo);
+        int rtn = sqlSession.insert("mapper.config.add",configVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CONFIG_CACHE);
+        }
+        return rtn;
     }
 
     public int mod(ConfigVo configVo)
     {
-        return sqlSession.update("mapper.config.mod",configVo);
+        int rtn = sqlSession.update("mapper.config.mod",configVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CONFIG_CACHE);
+        }
+        return rtn;
     }
 
     public int rmvById(int id)
     {
-        return sqlSession.update("mapper.config.rmvById",id);
+        int rtn = sqlSession.update("mapper.config.rmvById",id);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CONFIG_CACHE);
+        }
+        return rtn;
     }
 }

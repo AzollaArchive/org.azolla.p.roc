@@ -8,6 +8,7 @@ package org.azolla.p.roc.dao.impl;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,12 @@ public class TagDaoImpl implements ITagDao
     @Autowired
     private SqlSession sqlSession;
 
+    @Autowired
+    private CacheAware cacheAware;
+
     public List<TagVo> lstWithoutVOD(RowBounds rowBounds)
     {
-        return sqlSession.selectList("mapper.tag.lstWithoutVOD",null,rowBounds);
+        return sqlSession.selectList("mapper.tag.lstWithoutVOD", null, rowBounds);
     }
 
     @Override
@@ -47,13 +51,18 @@ public class TagDaoImpl implements ITagDao
     @Override
     public TagVo getByUrlName(String urlName)
     {
-        return sqlSession.selectOne("mapper.tag.getByUrlName",urlName);
+        return sqlSession.selectOne("mapper.tag.getByUrlName", urlName);
     }
 
     @Override
     public int add(TagVo tagVo)
     {
-        return sqlSession.insert("mapper.tag.add",tagVo);
+        int rtn = sqlSession.insert("mapper.tag.add", tagVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.TAG_CACHE);
+        }
+        return rtn;
     }
 
     public int btAdd(List<TagVo> tagVoList)
@@ -68,11 +77,21 @@ public class TagDaoImpl implements ITagDao
 
     public int mod(TagVo tagVo)
     {
-        return sqlSession.update("mapper.tag.mod",tagVo);
+        int rtn = sqlSession.update("mapper.tag.mod",tagVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.TAG_CACHE);
+        }
+        return rtn;
     }
 
     public int rmvById(int id)
     {
-        return sqlSession.update("mapper.tag.rmvById",id);
+        int rtn = sqlSession.update("mapper.tag.rmvById",id);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.TAG_CACHE);
+        }
+        return rtn;
     }
 }

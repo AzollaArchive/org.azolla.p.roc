@@ -8,6 +8,7 @@ package org.azolla.p.roc.dao.impl;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class CategoryDaoImpl implements ICategoryDao
 {
     @Autowired
     private SqlSession sqlSession;
+
+    @Autowired
+    private CacheAware cacheAware;
 
     public List<CategoryVo> fullLstWithoutVOD(RowBounds rowBounds)
     {
@@ -69,16 +73,31 @@ public class CategoryDaoImpl implements ICategoryDao
 
     public int rmvById(int id)
     {
-        return sqlSession.update("mapper.category.rmvById",id);
+        int rtn = sqlSession.update("mapper.category.rmvById",id);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CATEGORY_CACHE);
+        }
+        return rtn;
     }
 
     public int add(CategoryVo categoryVo)
     {
-        return sqlSession.insert("mapper.category.add",categoryVo);
+        int rtn = sqlSession.insert("mapper.category.add",categoryVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CATEGORY_CACHE);
+        }
+        return rtn;
     }
 
     public int mod(CategoryVo categoryVo)
     {
-        return sqlSession.update("mapper.category.mod",categoryVo);
+        int rtn = sqlSession.update("mapper.category.mod",categoryVo);
+        if(rtn > 0)
+        {
+            cacheAware.reload(CacheAware.CATEGORY_CACHE);
+        }
+        return rtn;
     }
 }

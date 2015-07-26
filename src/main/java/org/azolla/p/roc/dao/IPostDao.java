@@ -27,6 +27,8 @@ public interface IPostDao
 
     public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds);
 
+    public List<PostVo> search(String search, RowBounds rowBounds);
+
     public PostVo getByUrlTitle(String urlTitle);
 
     public int add(PostVo postVo);

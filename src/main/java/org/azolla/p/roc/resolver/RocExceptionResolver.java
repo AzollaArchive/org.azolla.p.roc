@@ -6,6 +6,7 @@
  */
 package org.azolla.p.roc.resolver;
 
+import org.azolla.l.ling.util.Log0;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,7 @@ public class RocExceptionResolver implements HandlerExceptionResolver
         {
             rtn = new ModelAndView("404");
         }
+        Log0.error(this.getClass(),ex.toString(),ex);
         request.setAttribute("exception",ex);
         return rtn;
     }

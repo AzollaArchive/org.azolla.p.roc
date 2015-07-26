@@ -113,6 +113,10 @@
         order by p.addDate desc
     </select>
 
+    <select id="search" parameterType="String" resultType="PostVo">
+        select * from roc_t_post where content like CONCAT(CONCAT('%',#{search}),'%') order by addDate desc
+    </select>
+
     <select id="getByUrlTitle" parameterType="String" resultType="PostVo">
         select * from roc_t_post where urlTitle=#{urlTitle}
     </select>

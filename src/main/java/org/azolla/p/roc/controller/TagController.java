@@ -70,6 +70,7 @@ public class TagController
         return rtnString;
     }
 
+    @RequestMapping(value = "/admin/tag/rmv/{id}", method = RequestMethod.GET)
     public String rmv(@PathVariable int id)
     {
         iTagDao.rmvById(id);

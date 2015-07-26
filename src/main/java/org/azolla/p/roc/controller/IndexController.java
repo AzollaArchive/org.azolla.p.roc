@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -33,6 +36,27 @@ public class IndexController
 
         setting(model);
 
+        return "lst";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(String search,Model model,HttpServletRequest request)
+    {
+        request.getSession().setAttribute("search",search);
+        model.addAttribute("postList", iPostService.search(search,1));
+        model.addAttribute("current_page", 1);
+        model.addAttribute("jsp_title","Search");
+        model.addAttribute("current_request","search");
+        return "lst";
+    }
+
+    @RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
+    public String search(@PathVariable int page,Model model,HttpServletRequest request)
+    {
+        model.addAttribute("postList", iPostService.search(request.getSession().getAttribute("search").toString(),page));
+        model.addAttribute("current_page", page);
+        model.addAttribute("jsp_title","Search");
+        model.addAttribute("current_request","search");
         return "lst";
     }
 

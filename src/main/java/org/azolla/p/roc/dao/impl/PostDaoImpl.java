@@ -51,6 +51,12 @@ public class PostDaoImpl implements IPostDao
         return sqlSession.selectList("mapper.post.lstByTagUrlName",tagUrlName,rowBounds);
     }
 
+    @Override
+    public List<PostVo> search(String search, RowBounds rowBounds)
+    {
+        return sqlSession.selectList("mapper.post.search",search,rowBounds);
+    }
+
     public PostVo getByUrlTitle(String urlTitle)
     {
         return  sqlSession.selectOne("mapper.post.getByUrlTitle",urlTitle);

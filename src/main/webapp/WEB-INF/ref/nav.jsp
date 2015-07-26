@@ -50,9 +50,9 @@
                             </c:choose>
                         </c:forEach>
                     </ul>
-                    <form class="navbar-form navbar-right" role="search">
+                    <form class="navbar-form navbar-right" role="search" method="post" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCDESC"]}" required>
+                            <input type="text" class="form-control" id="search" name="search" placeholder="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCDESC"]}" required>
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default">Search</button>
                             </span>

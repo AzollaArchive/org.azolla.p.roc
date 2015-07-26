@@ -29,6 +29,8 @@ public interface IPostService
 
     public List<PostVo> lstByTagUrlName(String tagUrlName, int page);
 
+    public List<PostVo> search(String search, int page);
+
     public PostVo getByUrlTitle(String urlTitle);
 
     public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable);

@@ -74,10 +74,10 @@ public class CategoryController
     }
 
     @RequestMapping(value="/admin/category/rmv/{id}",method= RequestMethod.GET)
-    public String rmv(int id, Model model)
+    public String rmv(@PathVariable int id, Model model)
     {
         iCategoryDao.rmvById(id);
-        return "redirect:/admin/post/lst";
+        return "redirect:/admin/category/lst";
     }
 
     @RequestMapping(value="/admin/category/lst",method= RequestMethod.GET)

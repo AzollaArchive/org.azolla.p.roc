@@ -29,7 +29,7 @@
     <div class="container">
         <div class="jumbotron">
             <h1>500</h1>
-            <p>maybe the server have some mistake</p>
+            <p>maybe the server have some mistake!</p>
             <p><button class="btn btn-primary btn-lg" onclick="seeDetail()">See Detail</button></p>
             <p id="exception" hidden="hidden">${exception}</p>
         </div>

@@ -66,12 +66,6 @@ public class CacheAware
     private IConfigService iConfigService;
 
     @Autowired
-    private ITagService iTagService;
-
-    @Autowired
-    private ICategoryDao iCategoryDao;
-
-    @Autowired
     private ITagDao iTagDao;
 
     @PostConstruct
@@ -121,6 +115,7 @@ public class CacheAware
     {
         reload(CATEGORY_CACHE);
         reload(CONFIG_CACHE);
+        reload(TAG_CACHE);
     }
 
     public void reload(String cache)

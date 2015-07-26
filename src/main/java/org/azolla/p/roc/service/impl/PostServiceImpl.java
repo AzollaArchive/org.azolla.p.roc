@@ -83,6 +83,11 @@ public class PostServiceImpl implements IPostService
         return more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
     }
 
+    public List<PostVo> search(String search, int page)
+    {
+        return more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+    }
+
     private List<PostVo> more(List<PostVo> lst)
     {
         return Lists.transform(lst, new Function<PostVo, PostVo>()
