@@ -36,7 +36,7 @@
                                         <c:forEach var="comment" items="${post.commentVoList}">
                                             <li class="media">
                                                 <div class="media-left">
-                                                    <img class="media-object" src="/generate/img/qrcode/${comment.email}.png" />
+                                                    <img class="media-object" src="${comment.photoUrl}" />
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading">${comment.username}</h4>
@@ -116,7 +116,7 @@
                 var list_comment = "";
                 list_comment = list_comment + "<li class=\"media\">";
                 list_comment = list_comment + "<div class=\"media-left\">";
-                list_comment = list_comment + "<img class=\"media-object\" src=\"/generate/img/qrcode/"+data.rst.email+".png\" />";
+                list_comment = list_comment + "<img class=\"media-object\" src=\"data.rst.photoUrl\" />";
                 list_comment = list_comment + "</div>";
                 list_comment = list_comment + "<div class=\"media-body\">";
                 list_comment = list_comment + "<h4 class=\"media-heading\">"+data.rst.username+"</h4>";
