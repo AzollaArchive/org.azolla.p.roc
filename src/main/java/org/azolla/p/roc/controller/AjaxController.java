@@ -13,11 +13,11 @@ import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
 import org.azolla.p.roc.aware.CacheAware;
-import org.azolla.p.roc.aware.ServletAware;
 import org.azolla.p.roc.service.ICommentService;
 import org.azolla.p.roc.service.ITagService;
 import org.azolla.p.roc.vo.CommentVo;
 import org.azolla.p.roc.vo.TagVo;
+import org.azolla.w.alioss.AliOss;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +40,16 @@ import java.nio.file.Paths;
 @Controller
 public class AjaxController
 {
+    public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";
     @Autowired
-    private ITagService iTagService;
+    private ITagService     iTagService;
     @Autowired
     private ICommentService iCommentService;
     @Autowired
-    private CacheAware cacheAware;
+    private CacheAware      cacheAware;
 
     @RequestMapping("/ajax/comment/add")
-    public void addComment(Integer postId, String commentName, String commentEmail, String commentContent,HttpServletRequest request, HttpServletResponse response)
+    public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, HttpServletRequest request, HttpServletResponse response)
     {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;
@@ -56,21 +57,33 @@ public class AjaxController
         {
             out = response.getWriter();
             JSONObject obj = new JSONObject();
-            CommentVo commentVo = iCommentService.add(postId, commentName, commentEmail, commentContent, request);
 
-            if(commentVo == null)
+            File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+            if (!qrcodeFolder.exists())
+            {
+                qrcodeFolder.mkdirs();
+            }
+            File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
+            CommentVo commentVo = null;
+            String photoUrl = null;
+            if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
+            {
+                photoUrl = AliOss.IMG.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+            }
+            else
+            {
+                photoUrl = AliOss.IMG.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
+            }
+            commentVo = iCommentService.add(postId, commentName, commentEmail, photoUrl, commentContent, request);
+
+            if (commentVo == null)
             {
                 obj.put("err", 1);
                 obj.put("msg", "add failed!");
             }
             else
             {
-                File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), ServletAware.getGenerateQrcodePath());
-                File qrcodeFile = File0.newFile(qrcodeFolder,commentVo.getEmail() + String0.POINT + File0.PNG_FILETYPE);
-                if(!qrcodeFile.exists())
-                {
-                    Img0.qrcode(commentVo.getEmail(),64,64, Paths.get(qrcodeFile.toURI()));
-                }
+
                 commentVo.setUsername(String0.html(commentVo.getUsername()));
                 commentVo.setEmail(String0.html(commentVo.getEmail()));
                 commentVo.setContent(String0.html(commentVo.getContent()));
@@ -114,7 +127,7 @@ public class AjaxController
 
     @Deprecated
     @RequestMapping("/ajax/addTag/{tagDisplayName}")
-    public void addTag(@PathVariable String tagDisplayName,HttpServletRequest request, HttpServletResponse response)
+    public void addTag(@PathVariable String tagDisplayName, HttpServletRequest request, HttpServletResponse response)
     {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;
@@ -123,7 +136,7 @@ public class AjaxController
             out = response.getWriter();
             JSONObject obj = new JSONObject();
             TagVo tagVo = iTagService.addByTagDisplayName(tagDisplayName);
-            if(tagVo == null)
+            if (tagVo == null)
             {
                 obj.put("err", 1);
                 obj.put("msg", "operation failed!");

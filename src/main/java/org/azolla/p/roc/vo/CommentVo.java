@@ -20,6 +20,7 @@ public class CommentVo
     private int    id;
     private String username;
     private String email;
+    private String photoUrl;
     private String content;
     private int postId;
     private String ip;
@@ -160,5 +161,15 @@ public class CommentVo
     public void setPostVo(PostVo postVo)
     {
         this.postVo = postVo;
+    }
+
+    public String getPhotoUrl()
+    {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl)
+    {
+        this.photoUrl = photoUrl;
     }
 }

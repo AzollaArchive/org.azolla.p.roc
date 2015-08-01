@@ -26,12 +26,13 @@ public class CommentServiceImpl implements ICommentService
     @Autowired
     private ICommentDao iCommentDao;
 
-    public CommentVo add(Integer postId, String commentName, String commentEmail, String commentContent,HttpServletRequest request)
+    public CommentVo add(Integer postId, String commentName, String commentEmail, String photoUrl, String commentContent,HttpServletRequest request)
     {
         CommentVo rtnCommentVo = new CommentVo();
         rtnCommentVo.setPostId(postId);
         rtnCommentVo.setUsername(commentName);
         rtnCommentVo.setEmail(commentEmail);
+        rtnCommentVo.setPhotoUrl(photoUrl);
         rtnCommentVo.setContent(commentContent);
         rtnCommentVo.setIp(request.getRemoteHost());
 

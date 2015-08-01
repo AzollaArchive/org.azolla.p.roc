@@ -41,8 +41,7 @@
     <mvc:resources mapping="/html/**" location="/html/" cache-period="31556926"/>
     <mvc:resources mapping="/img/**" location="/img/" cache-period="31556926"/>
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
-    <mvc:resources mapping="/generate/**" location="/generate/" cache-period="31556926"/>
-    <mvc:resources mapping="/upload/**" location="/upload/" cache-period="31556926"/>
+    <mvc:resources mapping="/roc/**" location="/roc/" cache-period="31556926"/>
     <mvc:resources mapping="/WEB-INF/ref/**" location="/WEB-INF/ref/" cache-period="31556926"/>
 
     <task:annotation-driven/>

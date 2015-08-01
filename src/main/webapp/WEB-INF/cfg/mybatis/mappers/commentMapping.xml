@@ -6,6 +6,7 @@
         <id property="id" column="cmt_id" />
         <result property="username" column="cmt_u" />
         <result property="email" column="cmt_e" />
+        <result property="photoUrl" column="cmt_pU"/>
         <result property="content" column="cmt_c" />
         <result property="postId" column="cmt_pId" />
         <result property="ip" column="cmt_ip" />
@@ -22,6 +23,7 @@
         <id property="id" column="cmt_id" />
         <result property="username" column="cmt_u" />
         <result property="email" column="cmt_e" />
+        <result property="photoUrl" column="cmt_pU"/>
         <result property="content" column="cmt_c" />
         <result property="postId" column="cmt_pId" />
         <result property="ip" column="cmt_ip" />
@@ -38,6 +40,7 @@
         select cmt.id cmt_id
               ,cmt.username cmt_u
               ,cmt.email cmt_e
+              ,cmt.photoUrl cmt_pU
               ,cmt.content cmt_c
               ,cmt.postId cmt_pId
               ,cmt.ip cmt_ip
@@ -69,7 +72,7 @@
     </select>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.CommentVo">
-        insert into roc_t_comment(username,email,content,postId,ip,addDate) values (#{username},#{email},#{content},#{postId},#{ip},now())
+        insert into roc_t_comment(username,email,photoUrl,content,postId,ip,addDate) values (#{username},#{email},#{photoUrl},#{content},#{postId},#{ip},now())
     </insert>
 
     <delete id="rmv" parameterType="int">

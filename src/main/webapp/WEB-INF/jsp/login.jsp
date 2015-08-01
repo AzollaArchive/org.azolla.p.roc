@@ -4,27 +4,7 @@
 <html lang="zh-CN">
 <%@ include file="/WEB-INF/ref/head.jsp"%>
 <body>
-<!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="navbar-header">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
-</nav>
+<jsp:include page="/WEB-INF/ref/nav_no_menu.jsp" />
 <div id="roc-i-content">
     <div class="container">
         <form class="form-signin" action="/j_spring_security_check" method="post">

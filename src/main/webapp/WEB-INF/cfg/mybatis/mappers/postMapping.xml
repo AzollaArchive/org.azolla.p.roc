@@ -70,6 +70,7 @@
                cmt.id cmt_id,
                cmt.username cmt_u,
                cmt.email cmt_e,
+               cmt.photoUrl cmt_pU,
                cmt.content cmt_c,
                cmt.postId cmt_pId,
                cmt.ip cmt_ip,

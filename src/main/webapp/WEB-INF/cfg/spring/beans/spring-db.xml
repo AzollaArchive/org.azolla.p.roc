@@ -8,7 +8,7 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:property-placeholder location="/WEB-INF/cfg/db/db.properties"/>
+    <context:property-placeholder location="/WEB-INF/cfg/Azolla/db.roc.p.Azolla.Cfg.properties"/>
     <!-- 数据源  -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="${driver}"></property>
@@ -24,16 +24,13 @@
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes >
-            <tx:method name="add*" propagation="REQUIRED" />
-            <tx:method name="rmv*" propagation="REQUIRED" />
-            <tx:method name="mod*" propagation="REQUIRED" />
-            <tx:method name="lst*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="REQUIRED" />
         </tx:attributes>
     </tx:advice>
 
     <aop:config >
-        <aop:pointcut expression="execution(* org.azolla.p.roc.service.*.*(..))" id="service"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="service"/>
+        <aop:pointcut expression="execution(* org.azolla.p.roc.controller.*.*(..))" id="controller"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="controller"/>
     </aop:config>
 
     <!-- 与mybatis集成  -->

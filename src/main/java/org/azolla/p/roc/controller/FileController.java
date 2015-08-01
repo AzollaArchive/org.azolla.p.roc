@@ -14,6 +14,7 @@ import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.Byte0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
+import org.azolla.w.alioss.AliOss;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,12 @@ import java.util.Map;
 public class FileController
 {
 
-    private static final String UPLOAD = "/upload";
+    private static final String OSS_ROC_UPLOAD_FOLDER = "roc/upload/";
 
     @RequestMapping(value = "/simditor", method = RequestMethod.POST)
     public void simditor(MultipartHttpServletRequest request, HttpServletResponse response)
     {
-        File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), UPLOAD);
+        File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), OSS_ROC_UPLOAD_FOLDER);
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;
@@ -65,23 +66,19 @@ public class FileController
                     if (!Strings.isNullOrEmpty(originalFilename) && !Strings.isNullOrEmpty(originalFilename.trim()))
                     {
                         String md5 = Byte0.md5(multipartFile.getBytes());
-                        String fileType = File0.fileType(originalFilename);
-                        File uploadedFile = null;
-                        if (Strings.isNullOrEmpty(fileType) || originalFilename.equals(fileType))
+                        File md5Folder = File0.newFile(attachmentFolder, md5);
+                        if (!md5Folder.exists())
                         {
-                            uploadedFile = File0.newFile(attachmentFolder, md5);
+                            md5Folder.mkdirs();
                         }
-                        else
-                        {
-                            uploadedFile = File0.newFile(attachmentFolder, md5 + String0.POINT + fileType);
-                        }
-
+                        File uploadedFile = File0.newFile(md5Folder, originalFilename);
                         if (!uploadedFile.exists())
                         {
                             try
                             {
                                 multipartFile.transferTo(uploadedFile);
-                                out.println(simditor(true, UPLOAD + String0.SLASH + uploadedFile.getName(), null));
+                                String url = AliOss.IMG.putObject(uploadedFile, OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH);
+                                out.println(simditor(true, url, null));
                             }
                             catch (Exception e)
                             {
@@ -90,7 +87,7 @@ public class FileController
                         }
                         else
                         {
-                            out.println(simditor(true, UPLOAD + String0.SLASH + uploadedFile.getName(), null));
+                            out.println(simditor(true, AliOss.IMG.getOssDomain() + OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH + originalFilename, null));
                         }
                     }
                 }

@@ -14,11 +14,12 @@
 # mvn
 target
 
-# security
-db.properties
-
 # java
 *.class
+
+# cfg
+*.Azolla.Cfg.properties
+*.Azolla.Cfg.xml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

@@ -13,7 +13,6 @@ import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.vo.CategoryVo;
-import org.azolla.p.roc.vo.PostVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,7 +95,7 @@ public class CategoryController
 
     private String lst(int page, Model model)
     {
-        model.addAttribute("categoryVoList", iCategoryDao.fullLstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        model.addAttribute("categoryVoList", iCategoryDao.fullLstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/category/lst");
         model.addAttribute("jsp_title","Category List");

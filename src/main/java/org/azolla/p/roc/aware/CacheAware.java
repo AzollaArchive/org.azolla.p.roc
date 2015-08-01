@@ -11,11 +11,9 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.lang.String0;
-import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
-import org.azolla.p.roc.service.ITagService;
 import org.azolla.p.roc.vo.CategoryVo;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,7 @@ import java.util.concurrent.ConcurrentMap;
  * @since ADK1.0
  */
 @Component
-@Scope(value="singleton")
+@Scope(value = "singleton")
 public class CacheAware
 {
     //CACHE
@@ -47,11 +45,10 @@ public class CacheAware
     public static final String LEFT_CATEGORY_LST  = "LEFT_CATEGORY_LST";
     public static final String RIGHT_CATEGORY_LST = "RIGHT_CATEGORY_LST";
 
-    public static final String ROC_CONFIG_KEY_POSTSIZE = "ROC_CONFIG_KEY_POSTSIZE";
-    public static final String ROC_CONFIG_KEY_ROCDESC  = "ROC_CONFIG_KEY_ROCDESC";
-    public static final String ROC_CONFIG_KEY_ROCEMAIL = "ROC_CONFIG_KEY_ROCEMAIL";
-    public static final String ROC_CONFIG_KEY_ROCTITLE = "ROC_CONFIG_KEY_ROCTITLE";
-
+    public static final String ROC_POST_SIZE           = "ROC_POST_SIZE";
+    public static final String ROC_DESC                = "ROC_DESC";//WEB
+    public static final String ROC_EMAIL               = "ROC_EMAIL";//WEB
+    public static final String ROC_TITLE               = "ROC_TITLE";//WEB
 
     private static ConcurrentMap<String, List<CategoryVo>> CATEGORY_MAP = new ConcurrentHashMap<String, List<CategoryVo>>();
     private static ConcurrentMap<String, String>           CONFIG_MAP   = new ConcurrentHashMap<String, String>();
@@ -67,80 +64,6 @@ public class CacheAware
 
     @Autowired
     private ITagDao iTagDao;
-
-    @PostConstruct
-    private void pre()
-    {
-        load();
-    }
-
-    public void load()
-    {
-        load(CATEGORY_CACHE);
-        load(CONFIG_CACHE);
-        load(TAG_CACHE);
-    }
-
-    public void load(String cache)
-    {
-        clear(cache);
-        switch (cache)
-        {
-            case CATEGORY_CACHE:
-                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
-//                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryDao.fullLstByIdWithoutVOD(CategoryVo.LEFT_ROOT_ID,new RowBounds(1, 50)).get(0).getSubCategoryVoList());
-                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
-                CATEGORY_ID_VO_MAP.clear();
-                for(CategoryVo categoryVo : CATEGORY_MAP.get(LEFT_CATEGORY_LST))
-                {
-                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(),categoryVo);
-                }
-                for(CategoryVo categoryVo : CATEGORY_MAP.get(RIGHT_CATEGORY_LST))
-                {
-                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(),categoryVo);
-                }
-                break;
-            case CONFIG_CACHE:
-                CONFIG_MAP.putAll(iConfigService.map());
-                break;
-            case TAG_CACHE:
-                TAG_LIST.addAll(iTagDao.lst());
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void reload()
-    {
-        reload(CATEGORY_CACHE);
-        reload(CONFIG_CACHE);
-        reload(TAG_CACHE);
-    }
-
-    public void reload(String cache)
-    {
-        clear(cache);
-        load(cache);
-    }
-
-    public void clear()
-    {
-        clear(CATEGORY_CACHE);
-        clear(CONFIG_CACHE);
-        clear(TAG_CACHE);
-    }
-
-    public void clear(String cache)
-    {
-        switch (cache)
-        {
-            case CATEGORY_CACHE : CATEGORY_MAP.clear();break;
-            case CONFIG_CACHE : CONFIG_MAP.clear();break;
-            case TAG_CACHE : TAG_LIST.clear();break;
-            default:break;
-        }
-    }
 
     public static List<CategoryVo> getCategoryList(String key)
     {
@@ -178,6 +101,87 @@ public class CacheAware
     public static CategoryVo getCategoryVoById(Integer categoryId)
     {
         return CATEGORY_ID_VO_MAP.get(categoryId);
+    }
+
+    @PostConstruct
+    private void pre()
+    {
+        load();
+    }
+
+    public void load()
+    {
+        load(CATEGORY_CACHE);
+        load(CONFIG_CACHE);
+        load(TAG_CACHE);
+    }
+
+    public void load(String cache)
+    {
+        clear(cache);
+        switch (cache)
+        {
+            case CATEGORY_CACHE:
+                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
+//                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryDao.fullLstByIdWithoutVOD(CategoryVo.LEFT_ROOT_ID,new RowBounds(1, 50)).get(0).getSubCategoryVoList());
+                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
+                CATEGORY_ID_VO_MAP.clear();
+                for (CategoryVo categoryVo : CATEGORY_MAP.get(LEFT_CATEGORY_LST))
+                {
+                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
+                }
+                for (CategoryVo categoryVo : CATEGORY_MAP.get(RIGHT_CATEGORY_LST))
+                {
+                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
+                }
+                break;
+            case CONFIG_CACHE:
+                CONFIG_MAP.putAll(iConfigService.map());
+                break;
+            case TAG_CACHE:
+                TAG_LIST.addAll(iTagDao.lst());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void reload()
+    {
+        reload(CATEGORY_CACHE);
+        reload(CONFIG_CACHE);
+        reload(TAG_CACHE);
+    }
+
+    public void reload(String cache)
+    {
+        clear(cache);
+        load(cache);
+    }
+
+    public void clear()
+    {
+        clear(CATEGORY_CACHE);
+        clear(CONFIG_CACHE);
+        clear(TAG_CACHE);
+    }
+
+    public void clear(String cache)
+    {
+        switch (cache)
+        {
+            case CATEGORY_CACHE:
+                CATEGORY_MAP.clear();
+                break;
+            case CONFIG_CACHE:
+                CONFIG_MAP.clear();
+                break;
+            case TAG_CACHE:
+                TAG_LIST.clear();
+                break;
+            default:
+                break;
+        }
     }
 
     @PreDestroy

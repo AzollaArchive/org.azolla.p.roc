@@ -92,7 +92,7 @@ public class ConfigController
 
     private String lst(int page, Model model)
     {
-        model.addAttribute("configVoList", iConfigDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        model.addAttribute("configVoList", iConfigDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/config/lst");
         model.addAttribute("jsp_title","Config List");

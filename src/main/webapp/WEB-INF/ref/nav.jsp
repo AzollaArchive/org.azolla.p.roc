@@ -13,7 +13,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</a>
+                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_TITLE"]}</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="navbar" class="navbar-collapse collapse">
@@ -52,7 +52,7 @@
                     </ul>
                     <form class="navbar-form navbar-right" role="search" method="post" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="search" name="search" placeholder="${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCDESC"]}" required>
+                            <input type="text" class="form-control" id="search" name="search" placeholder="${applicationScope.CONFIG_MAP["ROC_DESC"]}" required>
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default">Search</button>
                             </span>

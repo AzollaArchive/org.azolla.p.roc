@@ -12,5 +12,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface ICommentService
 {
-    public CommentVo add(Integer postId, String commentName, String commentEmail, String commentContent,HttpServletRequest request);
+    public CommentVo add(Integer postId, String commentName, String commentEmail, String photoUrl, String commentContent,HttpServletRequest request);
 }

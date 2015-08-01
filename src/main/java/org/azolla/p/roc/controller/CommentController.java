@@ -51,7 +51,7 @@ public class CommentController
 
     private String lst(int page, Model model)
     {
-        model.addAttribute("commentVoList",iCommentDao.fullLstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        model.addAttribute("commentVoList",iCommentDao.fullLstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/comment/lst");
         model.addAttribute("jsp_title","Comment List");

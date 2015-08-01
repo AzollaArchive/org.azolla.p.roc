@@ -14,7 +14,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_CONFIG_KEY_ROCTITLE"]}</a>
+                    <a class="navbar-brand" href="/">${applicationScope.CONFIG_MAP["ROC_TITLE"]}</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="navbar" class="navbar-collapse collapse">

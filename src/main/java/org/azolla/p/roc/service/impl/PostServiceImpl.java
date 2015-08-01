@@ -58,12 +58,12 @@ public class PostServiceImpl implements IPostService
     @Override
     public List<PostVo> lst(int page)
     {
-        return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
     }
 
     public List<PostVo> lstWithoutVOD(int page)
     {
-        List<PostVo> rtnList = iPostDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE))));
+        List<PostVo> rtnList = iPostDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))));
         for(PostVo postVo : rtnList)
         {
             postVo.setCategoryVo(CacheAware.getCategoryVoById(postVo.getCategoryId()));
@@ -74,18 +74,18 @@ public class PostServiceImpl implements IPostService
     @Override
     public List<PostVo> lstByCategoryUrlName(String categoryUrlName, int page)
     {
-        return more(iPostDao.lstByCategoryUrlName(categoryUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lstByCategoryUrlName(categoryUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
     }
 
     @Override
     public List<PostVo> lstByTagUrlName(String tagUrlName, int page)
     {
-        return more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
     }
 
     public List<PostVo> search(String search, int page)
     {
-        return more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_CONFIG_KEY_POSTSIZE)))));
+        return more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
     }
 
     private List<PostVo> more(List<PostVo> lst)
