@@ -6,11 +6,13 @@
  */
 package org.azolla.p.roc.controller;
 
+import com.google.common.collect.Maps;
 import org.azolla.l.ling.img.Img0;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
 import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.String0;
+import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.Log0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.service.ICommentService;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.Map;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -48,6 +51,9 @@ public class AjaxController
     @Autowired
     private CacheAware      cacheAware;
 
+    private Map<String, String> ipDateMap  = Maps.newHashMap();
+    private String              dateFormat = "yyyyMMddHHmm";
+
     @RequestMapping("/ajax/comment/add")
     public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, HttpServletRequest request, HttpServletResponse response)
     {
@@ -57,39 +63,51 @@ public class AjaxController
         {
             out = response.getWriter();
             JSONObject obj = new JSONObject();
-
-            File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
-            if (!qrcodeFolder.exists())
-            {
-                qrcodeFolder.mkdirs();
-            }
-            File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
-            CommentVo commentVo = null;
-            String photoUrl = null;
-            if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
-            {
-                photoUrl = AliOss.IMG.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
-            }
-            else
-            {
-                photoUrl = AliOss.IMG.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
-            }
-            commentVo = iCommentService.add(postId, commentName, commentEmail, photoUrl, commentContent, request);
-
-            if (commentVo == null)
+            String ip = request.getRemoteHost();
+            String date = ipDateMap.get(ip);
+            String nowDate = Date0.toString(Date0.now(), dateFormat);
+            if (nowDate.equals(date))
             {
                 obj.put("err", 1);
-                obj.put("msg", "add failed!");
+                obj.put("msg", "Please wait moment !");
             }
             else
             {
+                ipDateMap.put(ip, nowDate);
 
-                commentVo.setUsername(String0.html(commentVo.getUsername()));
-                commentVo.setEmail(String0.html(commentVo.getEmail()));
-                commentVo.setContent(String0.html(commentVo.getContent()));
+                File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+                if (!qrcodeFolder.exists())
+                {
+                    qrcodeFolder.mkdirs();
+                }
+                File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
+                CommentVo commentVo = null;
+                String photoUrl = null;
+                if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
+                {
+                    photoUrl = AliOss.IMG.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+                }
+                else
+                {
+                    photoUrl = AliOss.IMG.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
+                }
 
-                obj.put("err", 0);
-                obj.put("rst", commentVo);
+                commentVo = iCommentService.add(postId, commentName, commentEmail, photoUrl, commentContent, request);
+
+                if (commentVo == null)
+                {
+                    obj.put("err", 1);
+                    obj.put("msg", "Add failed !");
+                }
+                else
+                {
+                    commentVo.setUsername(String0.html(commentVo.getUsername()));
+                    commentVo.setEmail(String0.html(commentVo.getEmail()));
+                    commentVo.setContent(String0.html(commentVo.getContent()));
+
+                    obj.put("err", 0);
+                    obj.put("rst", commentVo);
+                }
             }
             out.println(Json0.object2String(obj));
             out.flush();

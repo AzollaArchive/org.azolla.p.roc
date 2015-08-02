@@ -116,7 +116,7 @@
                 var list_comment = "";
                 list_comment = list_comment + "<li class=\"media\">";
                 list_comment = list_comment + "<div class=\"media-left\">";
-                list_comment = list_comment + "<img class=\"media-object\" src=\"data.rst.photoUrl\" />";
+                list_comment = list_comment + "<img class=\"media-object\" src=\""+data.rst.photoUrl+"\" />";
                 list_comment = list_comment + "</div>";
                 list_comment = list_comment + "<div class=\"media-body\">";
                 list_comment = list_comment + "<h4 class=\"media-heading\">"+data.rst.username+"</h4>";
