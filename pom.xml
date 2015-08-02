@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.azolla.p</groupId>
 		<artifactId>org.azolla.p</artifactId>
-		<version>1.0.4</version>
+		<version>1.0.5</version>
 		<relativePath>../org.azolla.p</relativePath>
 	</parent>
 
@@ -173,10 +173,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>netbeans</groupId>
-            <artifactId>nbantext</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
