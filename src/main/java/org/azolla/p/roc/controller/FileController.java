@@ -17,6 +17,7 @@ import org.azolla.l.ling.util.Log0;
 import org.azolla.w.alioss.AliOss;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,7 @@ import java.util.Map;
  * @since ADK1.0
  */
 @Controller
+@Transactional
 public class FileController
 {
 

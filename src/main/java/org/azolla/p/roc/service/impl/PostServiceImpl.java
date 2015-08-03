@@ -198,7 +198,9 @@ public class PostServiceImpl implements IPostService
                     return new PostRTagVo(postVo.getId(),input);
                 }
             });
-            iPostRTagDao.btAdd(postRTagVoList);
+            if(postRTagVoList.size() > 0){
+                iPostRTagDao.btAdd(postRTagVoList);
+            }
         }
 
         return rtnResult;

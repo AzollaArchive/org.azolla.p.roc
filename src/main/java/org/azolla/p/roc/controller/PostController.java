@@ -16,6 +16,7 @@ import org.azolla.p.roc.vo.PostVo;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since ADK1.0
  */
 @Controller
+@Transactional
 public class PostController
 {
     @Autowired
