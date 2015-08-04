@@ -12,14 +12,14 @@
                 <article class="roc-c-article-post">
                     <c:forEach var="post" items="${postList}">
                         <section class="bs-docs-section">
-                            <h2 class="page-header" id="${post.urlTitle}">${post.title}
+                            <h3 class="page-header" id="${post.urlTitle}">${post.title}
                                 <small>
                                     <time><fmt:formatDate value="${post.addDate}" type="both" pattern="yyyy-MM-dd" /></time>
                                 </small>
                                 <a class="anchorjs-link" href="/post/${post.urlTitle}">
                                     <span class="anchorjs-icon"></span>
                                 </a>
-                            </h2>
+                            </h3>
                             ${post.content}
                             <p> <a href="/post/${post.urlTitle}">阅读详细 »</a></p>
                         </section>
