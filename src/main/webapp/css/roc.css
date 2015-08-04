@@ -11,6 +11,9 @@ img{
     max-width: 100%;
     height: auto;
 }
+blockquote {
+    font-size: 14px;
+}
 /*custom*/
 .roc-c-article-post {
     font-family: "Microsoft Yahei", Tahoma, Helvetica, Arial, "SimSun", sans-serif;
