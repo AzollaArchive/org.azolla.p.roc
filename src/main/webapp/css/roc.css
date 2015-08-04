@@ -45,8 +45,8 @@ img{
 .bs-docs-section > p, .bs-docs-section > ul,
 .bs-docs-section > ol, .bs-callout > p,
 .bs-callout > ol, .bs-callout > ul {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.428571429;
 }
 .bs-example:after {
     content: "示例：" !important;
