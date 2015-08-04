@@ -12,11 +12,11 @@
                 <article class="roc-c-article-post">
                     <section class="bs-docs-section">
                         <input type="hidden" id="postId" name="postId" value="${post.id}" />
-                        <h2 class="page-header" id="${post.urlTitle}">${post.title}
+                        <h3 class="page-header" id="${post.urlTitle}">${post.title}
                             <small>
                                 <time><fmt:formatDate value="${post.addDate}" type="both" pattern="yyyy-MM-dd" /></time>
                             </small>
-                        </h2>
+                        </h3>
                         ${post.content}
                         <c:if test="${fn:length(post.tagVoList) > 0}">
                             <div class="bs-callout bs-callout-info">
