@@ -10,3 +10,5 @@
 <script src="/3th/beautify/js/beautify-html.js"></script>
 <script src="/3th/simditor/scripts/simditor-html.js"></script>
 <script src="/3th/simditor/scripts/simditor-dropzone.js"></script>
+<script src="/3th/simditor/scripts/simditor-mark.js"></script>
+<script src="/js/simditor-kbd.js"></script>
