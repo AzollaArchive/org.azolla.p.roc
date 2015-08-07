@@ -131,3 +131,15 @@ blockquote {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.simditor-icon-kbd:before {
+    content: 'K';
+}
+.simditor-icon-coded:before {
+    content: 'C';
+}
+.simditor-icon-small:before {
+    content: 'S';
+}
+.simditor-icon-more:before {
+    content: 'M';
+}

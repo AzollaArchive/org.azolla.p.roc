@@ -27,7 +27,7 @@
 
         SimditorKbd.prototype.name = 'kbd';
 
-        SimditorKbd.prototype.icon = 'caret-down';//times,chain-broken,caret-down,caret-right,undo,font-minus
+        SimditorKbd.prototype.icon = 'kbd';//times,chain-broken,caret-down,caret-right,undo,font-minus
 
         SimditorKbd.prototype.htmlTag = 'kbd';
 

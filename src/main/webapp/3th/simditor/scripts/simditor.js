@@ -582,11 +582,11 @@ Formatter = (function(superClass) {
     return $contents.each(function(i, el) {
       var $el, invalid;
       $el = $(el);
-      invalid = $el.is(':not(img, br, col, td, hr, [class^="simditor-"]):empty');
+      invalid = $el.is(':not(img, br, col, td, hr, more, [class^="simditor-"]):empty');
       if (invalid || uselessP($el)) {
         $el.remove();
       }
-      return $el.find(':not(img, br, col, td, hr, [class^="simditor-"]):empty').remove();
+      return $el.find(':not(img, br, col, td, hr, more, [class^="simditor-"]):empty').remove();
     });
   };
 
@@ -663,7 +663,7 @@ InputManager = (function(superClass) {
           _this.editor.formatter.format();
           _this.editor.selection.restore();
         }
-        _this.editor.body.find('hr, pre, .simditor-table').each(function(i, el) {
+        _this.editor.body.find('hr, more, pre, .simditor-table').each(function(i, el) {
           var $el, formatted;
           $el = $(el);
           if ($el.parent().is('blockquote') || $el.parent()[0] === _this.editor.body[0]) {
@@ -1097,6 +1097,12 @@ Keystroke = (function(superClass) {
           _this.editor.selection.restore();
           return true;
         }
+          if ($prevBlockEl.is('more') && _this.editor.selection.rangeAtStartOf($rootBlock)) {
+              _this.editor.selection.save();
+              $prevBlockEl.remove();
+              _this.editor.selection.restore();
+              return true;
+          }
         $blockEl = _this.editor.util.closestBlockEl();
         if (_this.editor.util.browser.webkit && _this.editor.selection.rangeAtStartOf($blockEl)) {
           _this.editor.selection.save();
@@ -1645,7 +1651,7 @@ Util = (function(superClass) {
     return $node.is(':empty') || (!$node.text() && !$node.find(':not(br, span, div)').length);
   };
 
-  Util.prototype.blockNodes = ["div", "p", "ul", "ol", "li", "blockquote", "hr", "pre", "h1", "h2", "h3", "h4", "table"];
+  Util.prototype.blockNodes = ["div", "p", "ul", "ol", "li", "blockquote", "hr", "more", "pre", "h1", "h2", "h3", "h4", "table"];
 
   Util.prototype.isBlockNode = function(node) {
     node = $(node)[0];

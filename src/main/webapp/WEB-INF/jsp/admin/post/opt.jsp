@@ -137,7 +137,7 @@
     var simditor = new Simditor({
         textarea: $('#content'),
         placeholder:'Please input...',
-        toolbar:['bold','italic','underline','strikethrough','color','ol','ul','blockquote','code','table','link','image','hr','emoji','html','mark','kbd','coded'],
+        toolbar:['bold','italic','underline','strikethrough','color','ol','ul','blockquote','code','table','link','image','hr','emoji','html','mark','kbd','coded','small','more'],
         defaultImage:'/img/favicon.png',
         upload: {url:'/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
         pasteImage: true,

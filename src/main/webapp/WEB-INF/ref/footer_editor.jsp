@@ -13,3 +13,5 @@
 <script src="/3th/simditor/scripts/simditor-mark.js"></script>
 <script src="/js/simditor-kbd.js"></script>
 <script src="/js/simditor-coded.js"></script>
+<script src="/js/simditor-small.js"></script>
+<script src="/js/simditor-more.js"></script>
