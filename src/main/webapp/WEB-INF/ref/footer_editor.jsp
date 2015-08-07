@@ -12,3 +12,4 @@
 <script src="/3th/simditor/scripts/simditor-dropzone.js"></script>
 <script src="/3th/simditor/scripts/simditor-mark.js"></script>
 <script src="/js/simditor-kbd.js"></script>
+<script src="/js/simditor-coded.js"></script>

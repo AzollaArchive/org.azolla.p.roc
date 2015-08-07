@@ -1885,7 +1885,7 @@ Toolbar = (function(superClass) {
     toolbar: true,
     toolbarFloat: true,
     toolbarHidden: false,
-    toolbarFloatOffset: 0
+    toolbarFloatOffset: 50
   };
 
   Toolbar.prototype._tpl = {
