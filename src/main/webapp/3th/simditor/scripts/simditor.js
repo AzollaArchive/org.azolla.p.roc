@@ -322,7 +322,7 @@ Formatter = (function(superClass) {
 
   Formatter.prototype._init = function() {
     this.editor = this._module;
-    this._allowedTags = this.opts.allowedTags || ['a', 'abbr', 'b', 'blockquote', 'br', 'code', 'del', 'em', 'font', 'footer', 'h1', 'h2', 'h3', 'h4', 'hr', 'i', 'img', 'ins', 'kbd', 'li', 'mark', 'more', 'ol', 'p', 'pre', 's', 'samp', 'small', 'strong', 'u', 'ul', 'var'];
+    this._allowedTags = this.opts.allowedTags || ['a', 'abbr', 'b', 'blockquote', 'code', 'del', 'em', 'font', 'footer', 'h1', 'h2', 'h3', 'h4', 'hr', 'i', 'img', 'ins', 'kbd', 'li', 'mark', 'more', 'ol', 'p', 'pre', 's', 'samp', 'small', 'strong', 'u', 'ul', 'var'];//'br',
     this._allowedAttributes = this.opts.allowedAttributes || {
       img: ['src', 'alt', 'width', 'height', 'data-non-image'],
       a: ['href', 'target'],
