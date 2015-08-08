@@ -9,6 +9,7 @@ package org.azolla.p.roc.service.impl;
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.vo.CategoryVo;
@@ -28,6 +29,9 @@ public class CategoryServiceImpl implements ICategoryService
 {
     @Autowired
     private ICategoryDao iCategoryDao;
+
+    @Autowired
+    private CacheAware cacheAware;
 
     @Override
     public List<CategoryVo> lst(String parentUrlName)
@@ -68,6 +72,7 @@ public class CategoryServiceImpl implements ICategoryService
                 categoryVo.setId(id);
                 iCategoryDao.mod(categoryVo);
             }
+            cacheAware.reload(CacheAware.CATEGORY_CACHE);
         }
         catch (Exception e)
         {

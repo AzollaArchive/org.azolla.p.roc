@@ -38,8 +38,7 @@
                                         <c:forEach var="leftCategory" items="${applicationScope.LEFT_CATEGORY_LST }">
                                             <c:choose>
                                                 <c:when test="${(leftCategory.subCategoryVoList)!= null && fn:length(leftCategory.subCategoryVoList) > 0}">
-                                                    <%--<option value="${leftCategory.id}" disabled>${leftCategory.displayName}</option>--%>
-                                                    <optgroup label="${leftCategory.displayName}" />
+                                                    <option value="${leftCategory.id}" <c:if test="${leftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>${leftCategory.displayName}</option>
                                                     <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
                                                         <option value="${subLeftCategory.id}" <c:if test="${subLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>
                                                         <c:if test="${subLeftCategory.group == 1}">
@@ -57,8 +56,7 @@
                                         <c:forEach var="rightCategory" items="${applicationScope.RIGHT_CATEGORY_LST }">
                                             <c:choose>
                                                 <c:when test="${(rightCategory.subCategoryVoList)!= null && fn:length(rightCategory.subCategoryVoList) > 0}">
-                                                    <%--<option value="${rightCategory.id}" disabled>${rightCategory.displayName}</option>--%>
-                                                    <optgroup label="${rightCategory.displayName}" />
+                                                    <option value="${rightCategory.id}" <c:if test="${rightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>${rightCategory.displayName}</option>
                                                     <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
                                                         <option value="${subRightCategory.id}" <c:if test="${subRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>
                                                         <c:if test="${subRightCategory.group == 1}">
