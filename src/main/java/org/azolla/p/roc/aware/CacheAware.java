@@ -10,7 +10,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.azolla.l.ling.lang.String0;
+import org.azolla.l.ling.lang.Char0;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
@@ -45,10 +45,10 @@ public class CacheAware
     public static final String LEFT_CATEGORY_LST  = "LEFT_CATEGORY_LST";
     public static final String RIGHT_CATEGORY_LST = "RIGHT_CATEGORY_LST";
 
-    public static final String ROC_POST_SIZE           = "ROC_POST_SIZE";
-    public static final String ROC_DESC                = "ROC_DESC";//WEB
-    public static final String ROC_EMAIL               = "ROC_EMAIL";//WEB
-    public static final String ROC_TITLE               = "ROC_TITLE";//WEB
+    public static final String ROC_POST_SIZE = "ROC_POST_SIZE";
+    public static final String ROC_DESC      = "ROC_DESC";//WEB
+    public static final String ROC_EMAIL     = "ROC_EMAIL";//WEB
+    public static final String ROC_TITLE     = "ROC_TITLE";//WEB
 
     private static ConcurrentMap<String, List<CategoryVo>> CATEGORY_MAP = new ConcurrentHashMap<String, List<CategoryVo>>();
     private static ConcurrentMap<String, String>           CONFIG_MAP   = new ConcurrentHashMap<String, String>();
@@ -87,7 +87,7 @@ public class CacheAware
 
     public static String getTagDisplayNameString()
     {
-        return Joiner.on(String0.ALPHABET).join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
+        return Joiner.on(Char0.COMMA).join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
         {
             @Nullable
             @Override
