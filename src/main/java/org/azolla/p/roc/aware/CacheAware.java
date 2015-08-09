@@ -11,6 +11,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.lang.Char0;
+import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ICategoryService;
 import org.azolla.p.roc.service.IConfigService;
@@ -64,6 +65,9 @@ public class CacheAware
 
     @Autowired
     private ITagDao iTagDao;
+
+    @Autowired
+    private ICategoryDao iCategoryDao;
 
     public static List<CategoryVo> getCategoryList(String key)
     {
@@ -126,11 +130,7 @@ public class CacheAware
 //                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryDao.fullLstByIdWithoutVOD(CategoryVo.LEFT_ROOT_ID,new RowBounds(1, 50)).get(0).getSubCategoryVoList());
                 CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
                 CATEGORY_ID_VO_MAP.clear();
-                for (CategoryVo categoryVo : CATEGORY_MAP.get(LEFT_CATEGORY_LST))
-                {
-                    CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
-                }
-                for (CategoryVo categoryVo : CATEGORY_MAP.get(RIGHT_CATEGORY_LST))
+                for (CategoryVo categoryVo : iCategoryDao.lst())
                 {
                     CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
                 }
