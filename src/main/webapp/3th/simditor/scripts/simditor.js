@@ -461,11 +461,12 @@ Formatter = (function(superClass) {
     contents = $node.contents();
     isDecoration = $node.is('[class^="simditor-"]');
     if ($node.is(this._allowedTags.join(',')) || isDecoration) {
-      if ($node.is('a') && ($childImg = $node.find('img')).length > 0) {
-        $node.replaceWith($childImg);
-        $node = $childImg;
-        contents = null;
-      }
+        //disabled by shaneking at 1.0.7.3
+      //if ($node.is('a') && ($childImg = $node.find('img')).length > 0) {
+      //  $node.replaceWith($childImg);
+      //  $node = $childImg;
+      //  contents = null;
+      //}
       if ($node.is('img') && $node.hasClass('uploading')) {
         $node.remove();
       }

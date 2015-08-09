@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>org.azolla.p.roc</artifactId>
-	<version>1.0.7.2</version>
+	<version>1.0.7.3</version>
 	<packaging>war</packaging>
 	<name>Roc: Azolla.org Blog</name>
 	<description>Roc is a blog system.</description>
