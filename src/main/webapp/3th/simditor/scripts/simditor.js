@@ -327,7 +327,8 @@ Formatter = (function(superClass) {
       img: ['src', 'alt', 'width', 'height', 'data-non-image'],
       a: ['href', 'target'],
       font: ['color'],
-      code: ['class']
+      code: ['class'],
+        pre: ['class']
     };
     this._allowedStyles = this.opts.allowedStyles || {
       p: ['margin-left', 'text-align'],
@@ -3718,7 +3719,7 @@ CodePopover = (function(superClass) {
           _this.target.attr('data-lang', _this.lang);
         }
         if (selected) {
-          _this.target.addClass('selected');
+          _this.target.addClass('selected').addClass('prettyprint');//modify by shaneking at 1.0.7.4
         }
         return _this.editor.trigger('valuechanged');
       };

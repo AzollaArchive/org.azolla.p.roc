@@ -24,3 +24,9 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/3th/bootstrap/js/bootstrap.min.js"></script>
 <script src="/3th/bootcss/js/docs.min.js"></script>
+<script src="/3th/prettify/prettify.js"></script>
+<script>
+    $(document).ready(function() {
+        prettyPrint();
+    });
+</script>
