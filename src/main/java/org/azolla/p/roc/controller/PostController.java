@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
  * @since ADK1.0
  */
 @Controller
-@Transactional
 public class PostController
 {
     @Autowired

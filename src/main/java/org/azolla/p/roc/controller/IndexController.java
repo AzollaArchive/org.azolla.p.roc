@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
  * @since ADK1.0
  */
 @Controller
-@Transactional
 public class IndexController
 {
     @Autowired

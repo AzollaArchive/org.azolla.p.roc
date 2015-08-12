@@ -3,7 +3,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><c:if test="${jsp_title != null && jsp_title.trim() != ''}">${jsp_title} - </c:if>${applicationScope.CONFIG_MAP["ROC_TITLE"]}</title>
+    <title><c:if test="${jsp_title != null && jsp_title.trim() != '' && jsp_title != 'Index'}">${jsp_title} - </c:if>${applicationScope.CONFIG_MAP["ROC_TITLE"]}</title>
     <meta name="keywords" content="${applicationScope.TAG4KEYWORD}"/>
     <meta name="Description" content="${applicationScope.CONFIG_MAP["ROC_DESC"]}"/>
     <meta name="Author" content="${applicationScope.CONFIG_MAP["ROC_EMAIL"]}"/>

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since ADK1.0
  */
 @Controller
-@Transactional
 public class UserController
 {
     @Autowired

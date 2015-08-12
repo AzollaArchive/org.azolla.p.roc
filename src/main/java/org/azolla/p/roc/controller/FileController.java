@@ -36,7 +36,6 @@ import java.util.Map;
  * @since ADK1.0
  */
 @Controller
-@Transactional
 public class FileController
 {
 

@@ -42,7 +42,6 @@ import java.util.Map;
  * @since ADK1.0
  */
 @Controller
-@Transactional
 public class AjaxController
 {
     public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";

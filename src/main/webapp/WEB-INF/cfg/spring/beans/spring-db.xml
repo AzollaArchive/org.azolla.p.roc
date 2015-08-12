@@ -24,13 +24,17 @@
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes >
-            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="rmv*" propagation="REQUIRED" />
+            <tx:method name="mod*" propagation="REQUIRED" />
+            <tx:method name="opt*" propagation="REQUIRED" />
+            <tx:method name="bt*" propagation="REQUIRED" />
         </tx:attributes>
     </tx:advice>
 
     <aop:config >
-        <aop:pointcut expression="execution(* org.azolla.p.roc.controller.*.*(..))" id="controller"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="controller"/>
+        <aop:pointcut expression="execution(* org.azolla.p.roc.service..*.*(..))" id="service"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="service"/>
     </aop:config>
 
     <!-- 与mybatis集成  -->
@@ -45,6 +49,6 @@
         <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
 
 </beans>
