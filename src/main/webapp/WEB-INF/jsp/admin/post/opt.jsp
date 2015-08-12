@@ -139,7 +139,7 @@
         placeholder:'Please input...',
         toolbar:['bold','italic','underline','strikethrough','color','ol','ul','blockquote','code','table','link','image','hr','emoji','html','mark','kbd','coded','small','more'],
         defaultImage:'/img/favicon.png',
-        upload: {url:'/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
+        upload: {url:'/admin/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
         pasteImage: true,
         emoji: {imagePath: '/3th/simditor/images/emoji/'},
         autosave: 'editor-content'

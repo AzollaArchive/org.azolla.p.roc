@@ -41,7 +41,7 @@ public class FileController
 
     private static final String OSS_ROC_UPLOAD_FOLDER = "roc/upload/";
 
-    @RequestMapping(value = "/simditor", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/simditor", method = RequestMethod.POST)
     public void simditor(MultipartHttpServletRequest request, HttpServletResponse response)
     {
         File attachmentFolder = File0.newFile(request.getServletContext().getRealPath("/"), OSS_ROC_UPLOAD_FOLDER);
