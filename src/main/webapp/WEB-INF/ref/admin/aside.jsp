@@ -9,6 +9,7 @@
             <a href="/admin/comment/lst" class="list-group-item">Comment</a>
             <a href="/admin/config/lst" class="list-group-item">Config</a>
             <a href="/admin/post/lst" class="list-group-item">Post</a>
+            <a href="/admin/professional/lst" class="list-group-item">Professional</a>
             <a href="/admin/tag/lst" class="list-group-item">Tag</a>
         </ul>
     </div>

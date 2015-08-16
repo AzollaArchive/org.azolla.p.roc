@@ -14,10 +14,9 @@ import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.Byte0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
-import org.azolla.w.alioss.AliOss;
+import org.azolla.w.alioss.Oss;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,7 +77,7 @@ public class FileController
                             try
                             {
                                 multipartFile.transferTo(uploadedFile);
-                                String url = AliOss.IMG.putObject(uploadedFile, OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH);
+                                String url = Oss.Ali.putObject(uploadedFile, OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH);
                                 out.println(simditor(true, url, null));
                             }
                             catch (Exception e)
@@ -88,7 +87,7 @@ public class FileController
                         }
                         else
                         {
-                            out.println(simditor(true, AliOss.IMG.getOssDomain() + OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH + originalFilename, null));
+                            out.println(simditor(true, Oss.Ali.getOssDomain() + OSS_ROC_UPLOAD_FOLDER + md5 + String0.SLASH + originalFilename, null));
                         }
                     }
                 }

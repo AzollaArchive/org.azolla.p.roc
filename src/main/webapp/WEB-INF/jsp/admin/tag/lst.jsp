@@ -29,6 +29,7 @@
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
                                     <th nowrap="nowrap">Deleted</th>
+                                    <th nowrap="nowrap">Professional</th>
                                     <th nowrap="nowrap">Operation</th>
                                 </tr>
                                 <c:forEach var="tagVo" items="${tagVoList}">
@@ -42,6 +43,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.deleted == 1}">checked="checked"</c:if> /></td>
+                                        <td><input type="checkbox" disabled <c:if test="${tagVo.professional == 1}">checked="checked"</c:if> /></td>
                                         <td><a href="/admin/tag/opt/${tagVo.urlName}">MOD</a> <a href="/admin/tag/rmv/${tagVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>

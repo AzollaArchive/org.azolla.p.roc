@@ -8,6 +8,7 @@ package org.azolla.p.roc.service.impl;
 
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
+import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.dao.IConfigDao;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.vo.ConfigVo;
@@ -30,18 +31,21 @@ public class ConfigServiceImpl implements IConfigService
     @Autowired
     private IConfigDao iConfigDao;
 
+    @Autowired
+    private CacheAware cacheAware;
+
     @Override
     public ConcurrentMap<String, String> map()
     {
         ConcurrentMap<String, String> concurrentMap = new ConcurrentHashMap<String, String>();
-        for(ConfigVo configVo : iConfigDao.lst())
+        for (ConfigVo configVo : iConfigDao.lst())
         {
-            concurrentMap.put(configVo.getRocKey(),configVo.getRocValue());
+            concurrentMap.put(configVo.getRocKey(), configVo.getRocValue());
         }
         return concurrentMap;
     }
 
-    public Tuple.Triple<Boolean,String,ConfigVo> opt(int id, String rocKey, String rocValue, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean, String, ConfigVo> opt(int id, String rocKey, String rocValue, Integer visible, Integer operable)
     {
         ConfigVo configVo = new ConfigVo();
         configVo.setRocKey(rocKey);
@@ -49,10 +53,10 @@ public class ConfigServiceImpl implements IConfigService
         configVo.setVisible(Integer0.nullToZero(visible));
         configVo.setOperable(Integer0.nullToZero(operable));
 
-        Tuple.Triple<Boolean,String,ConfigVo> rtnResult = Tuple.of(true,null,configVo);
+        Tuple.Triple<Boolean, String, ConfigVo> rtnResult = Tuple.of(true, null, configVo);
         try
         {
-            if(id == 0)
+            if (id == 0)
             {
                 iConfigDao.add(configVo);
             }
@@ -61,6 +65,7 @@ public class ConfigServiceImpl implements IConfigService
                 configVo.setId(id);
                 iConfigDao.mod(configVo);
             }
+            cacheAware.reload(CacheAware.CONFIG_CACHE);
         }
         catch (Exception e)
         {

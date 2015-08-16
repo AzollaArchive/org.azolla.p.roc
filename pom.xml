@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.azolla.p</groupId>
 		<artifactId>org.azolla.p</artifactId>
-		<version>1.0.7</version>
+		<version>1.0.8</version>
 		<relativePath>../org.azolla.p</relativePath>
 	</parent>
 
 	<artifactId>org.azolla.p.roc</artifactId>
-	<version>1.0.7.5</version>
+	<version>1.0.8</version>
 	<packaging>war</packaging>
 	<name>Roc: Azolla.org Blog</name>
 	<description>Roc is a blog system.</description>
@@ -157,6 +157,10 @@
             <artifactId>javax.inject</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
@@ -252,6 +256,10 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
         </dependency>
 
         <dependency>

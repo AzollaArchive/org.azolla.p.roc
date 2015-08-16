@@ -11,6 +11,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.lang.Char0;
+import org.azolla.l.ling.lang.String0;
 import org.azolla.p.roc.dao.ICategoryDao;
 import org.azolla.p.roc.dao.ITagDao;
 import org.azolla.p.roc.service.ICategoryService;
@@ -57,6 +58,8 @@ public class CacheAware
 
     private static ConcurrentMap<Integer, CategoryVo> CATEGORY_ID_VO_MAP = Maps.newConcurrentMap();
 
+    private static ConcurrentMap<Integer, TagVo> TAG_ID_VO_MAP = Maps.newConcurrentMap();
+
     @Autowired
     private ICategoryService iCategoryService;
 
@@ -89,22 +92,35 @@ public class CacheAware
         return TAG_LIST;
     }
 
-    public static String getTagDisplayNameString()
+    public static String getKeywordsString()
     {
-        return Joiner.on(Char0.COMMA).join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
+        return new StringBuffer().append(Joiner.on(String0.COMMA).join(Lists.transform(Lists.newArrayList(CATEGORY_ID_VO_MAP.values().iterator()), new Function<CategoryVo, String>()
         {
             @Nullable
             @Override
-            public String apply(TagVo input)
+            public String apply(@Nullable CategoryVo input)
             {
-                return input.getDisplayName();
+                return input == null ? "" : input.getDisplayName();
             }
-        }));
+        }))).append(String0.COMMA).append(Joiner.on(String0.COMMA).join(Lists.transform(TAG_LIST, new Function<TagVo, String>()
+        {
+            @Nullable
+            @Override
+            public String apply(@Nullable TagVo input)
+            {
+                return input == null ? "" : input.getDisplayName();
+            }
+        }))).toString();
     }
 
     public static CategoryVo getCategoryVoById(Integer categoryId)
     {
         return CATEGORY_ID_VO_MAP.get(categoryId);
+    }
+
+    public static TagVo getTagVoById(Integer tagId)
+    {
+        return TAG_ID_VO_MAP.get(tagId);
     }
 
     @PostConstruct
@@ -140,6 +156,11 @@ public class CacheAware
                 break;
             case TAG_CACHE:
                 TAG_LIST.addAll(iTagDao.lst());
+                TAG_ID_VO_MAP.clear();
+                for(TagVo tagVo : TAG_LIST)
+                {
+                    TAG_ID_VO_MAP.put(tagVo.getId(), tagVo);
+                }
                 break;
             default:
                 break;

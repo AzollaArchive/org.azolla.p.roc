@@ -62,8 +62,23 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-offset-1 col-sm-11">
+                                            <label for="commentContent" class="col-sm-1 control-label">Content</label>
+                                            <div class="col-sm-11">
                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required="required"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label class="col-sm-1 control-label">Score</label>
+                                            <div class="col-sm-11">
+                                                <c:forEach var="tag" items="${post.tagVoList}">
+                                                    <c:if test="${tag.professional == 1}">
+                                                        ${tag.displayName} : <select class="form-control tagProfessionalSelectCss" id="tagProfessionalId${tag.id}">
+                                                        <c:forEach var="tagProfessionalScoreValue" begin="0" end="10" step="1">
+                                                            <option value="${tagProfessionalScoreValue}">${tagProfessionalScoreValue}</option>
+                                                        </c:forEach>
+                                                        </select>
+                                                    </c:if>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -110,7 +125,11 @@
 <%@ include file="/WEB-INF/ref/footer.jsp" %>
 <script>
     function onSubmitButton(){
-        $.post("/ajax/comment/add",{postId:$("#postId").val(),commentName:$("#commentName").val(),commentEmail:$("#commentEmail").val(),commentContent:$("#commentContent").val()},function(result){
+        var professionalStr = "";
+        $(".tagProfessionalSelectCss").each(function (idx, tagProfessionalSelect) {
+            professionalStr = professionalStr + "," + $(tagProfessionalSelect).attr("id").split("tagProfessionalId")[1]+":"+$(tagProfessionalSelect).val();
+        });
+        $.post("/ajax/comment/add",{postId:$("#postId").val(),commentName:$("#commentName").val(),commentEmail:$("#commentEmail").val(),commentContent:$("#commentContent").val(),professionalStr:professionalStr},function(result){
             var data = eval("("+result+")");
             if (data.err === 0) {
                 var list_comment = "";

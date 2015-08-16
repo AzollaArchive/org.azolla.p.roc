@@ -30,6 +30,8 @@ public class TagVo
     private int    operable;
     private int    deleted;
 
+    private int professional;
+
     public TagVo(){}
 
     public TagVo(String displayName, String urlName)
@@ -126,5 +128,15 @@ public class TagVo
     public void setDeleted(int deleted)
     {
         this.deleted = deleted;
+    }
+
+    public int getProfessional()
+    {
+        return professional;
+    }
+
+    public void setProfessional(int professional)
+    {
+        this.professional = professional;
     }
 }

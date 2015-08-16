@@ -17,5 +17,5 @@ public interface ITagService
 
     public List<TagVo> btAddByTagDisplayName(List<String> tagDisplayNameList);
 
-    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable, Integer professional);
 }

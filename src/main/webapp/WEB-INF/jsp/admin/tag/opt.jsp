@@ -35,7 +35,8 @@
                                 <label for="permission" class="col-xs-2 control-label">Permission</label>
                                 <div class="col-xs-9">
                                     <input type="checkbox" id="permission" name="visible" value="1" <c:if test="${tagVo.visible == 1}">checked</c:if>/> Visible <br/>
-                                    <input type="checkbox" name="operable" value="1" <c:if test="${tagVo.operable == 1}">checked</c:if>/> Operable
+                                    <input type="checkbox" name="operable" value="1" <c:if test="${tagVo.operable == 1}">checked</c:if>/> Operable <br/>
+                                    <input type="checkbox" name="professional" value="1" <c:if test="${tagVo.professional == 1}">checked</c:if>/> Professional
                                 </div>
                             </div>
                             <div class="form-group">

@@ -12,6 +12,7 @@
         <result property="visible" column="t_v" />
         <result property="operable" column="t_o" />
         <result property="deleted" column="t_d" />
+        <result property="professional" column="t_p" />
     </resultMap>
 
 
@@ -37,14 +38,14 @@
     </select>
 
     <insert id="add" parameterType="org.azolla.p.roc.vo.TagVo">
-        insert into roc_t_tag(displayName,urlName,addDate) values(#{displayName},#{urlName},now())
+        insert into roc_t_tag(displayName,urlName,addDate,visible,operable,professional) values(#{displayName},#{urlName},now(),#{visible},#{operable},#{professional})
     </insert>
 
     <!--http://mybatis.github.io/mybatis-3/zh/dynamic-sql.html#foreach-->
     <insert id="btAdd" parameterType="java.util.List">
-        insert into roc_t_tag(displayName,urlName,addDate) values
+        insert into roc_t_tag(displayName,urlName,addDate,visible,operable,professional) values
         <foreach collection="list" item="item" index="index" separator="," >
-            (#{item.displayName},#{item.urlName},now())
+            (#{item.displayName},#{item.urlName},now(),#{visible},#{operable},#{item.professional})
         </foreach>
     </insert>
 
@@ -56,7 +57,7 @@
     </select>
 
     <update id="mod" parameterType="org.azolla.p.roc.vo.TagVo">
-        update roc_t_tag set displayName=#{displayName},urlName=#{urlName},modDate=now() where id=#{id}
+        update roc_t_tag set displayName=#{displayName},urlName=#{urlName},modDate=now(),visible=#{visible},operable=#{operable},professional=#{professional} where id=#{id}
     </update>
 
     <update id="rmvById" parameterType="int">

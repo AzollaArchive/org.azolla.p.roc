@@ -56,10 +56,10 @@ public class TagController
     }
 
     @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.POST)
-    public String opt(int id, String displayName, Integer visible, Integer operable, Model model)
+    public String opt(int id, String displayName, Integer visible, Integer operable, Integer professional, Model model)
     {
         String rtnString = "redirect:/admin/tag/lst";
-        Tuple.Triple<Boolean,String,TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable);
+        Tuple.Triple<Boolean,String,TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, professional);
         if(!Tuple.getFirst(serviceResult))
         {
             rtnString = "admin/tag/opt";

@@ -3,6 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <div id="roc-id-professional-chart"></div>
                 <p>
                     <a href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备12006026号</a>
                     . © ShaneKing
@@ -25,8 +26,50 @@
 <script src="/3th/bootstrap/js/bootstrap.min.js"></script>
 <script src="/3th/bootcss/js/docs.min.js"></script>
 <script src="/3th/prettify/prettify.js"></script>
+<script src="/3th/highcharts/js/highcharts.js"></script>
 <script>
     $(document).ready(function() {
         prettyPrint();
+        var options = {
+            chart: {renderTo: 'roc-id-professional-chart', type: 'spline'},
+            title: {text: 'Professional Score'},
+            xAxis: {type: 'datetime', labels : {formatter : function() {return  Highcharts.dateFormat('%Y-%m-%d', this.value);}}},
+            yAxis: {min: 0, title :{text :null}},
+            tooltip: {xDateFormat: '%Y-%m-%d %H:%M:%S'},
+            plotOptions: {spline: {lineWidth: 1,states: {hover: {lineWidth: 1}},marker: {enabled: false}}},
+            credits: {enabled : false},
+            series: []
+        };
+        $.get('${applicationScope.OSS_DOMAIN}roc/professional/lst.csv',function (csvData) {
+            var lines = csvData.split('\n');
+            var seriesArray = new Array();
+            $.each(lines, function(lineNo, line) {
+                var items = line.split(',');
+                if (lineNo == 0) {
+                    $.each(items, function(itemNo, item) {
+                        if (itemNo > 0){
+                            seriesArray[itemNo] = {data: []};
+                            seriesArray[itemNo].name = item;
+                        }
+                    });
+                }else {
+                    $.each(items, function(itemNo, item) {
+                        if (itemNo > 0){
+                            var itemFloat = parseFloat(item);
+                            if(!isNaN(itemFloat)){
+                                seriesArray[itemNo].data.push(new Array([new Date(items[0]),itemFloat]));
+                            }
+                        }
+                    });
+                }
+            });
+            $.each(seriesArray, function(itemNo, item){
+                if (itemNo > 0){
+                    options.series.push(item);
+                }
+            });
+            new Highcharts.Chart(options);
+        });
+
     });
 </script>

@@ -6,26 +6,26 @@
  */
 package org.azolla.p.roc.controller;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.img.Img0;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
 import org.azolla.l.ling.json.Json0;
+import org.azolla.l.ling.lang.Char0;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.Log0;
-import org.azolla.p.roc.aware.CacheAware;
+import org.azolla.p.roc.mapper.ProfessionalMapper;
 import org.azolla.p.roc.service.ICommentService;
-import org.azolla.p.roc.service.ITagService;
+import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.vo.CommentVo;
-import org.azolla.p.roc.vo.TagVo;
-import org.azolla.w.alioss.AliOss;
-import org.json.simple.JSONArray;
+import org.azolla.p.roc.vo.ProfessionalVo;
+import org.azolla.w.alioss.Oss;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,18 +45,17 @@ import java.util.Map;
 public class AjaxController
 {
     public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";
-    @Autowired
-    private ITagService     iTagService;
+
     @Autowired
     private ICommentService iCommentService;
     @Autowired
-    private CacheAware      cacheAware;
+    private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
     private Map<String, String> ipDateMap  = Maps.newHashMap();
     private String              dateFormat = "yyyyMMddHHmm";
 
     @RequestMapping("/ajax/comment/add")
-    public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, HttpServletRequest request, HttpServletResponse response)
+    public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, String professionalStr, HttpServletRequest request, HttpServletResponse response)
     {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;
@@ -86,11 +85,11 @@ public class AjaxController
                 String photoUrl = null;
                 if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
                 {
-                    photoUrl = AliOss.IMG.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+                    photoUrl = Oss.Ali.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
                 }
                 else
                 {
-                    photoUrl = AliOss.IMG.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
+                    photoUrl = Oss.Ali.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
                 }
 
                 commentVo = iCommentService.add(postId, commentName, commentEmail, photoUrl, commentContent, request);
@@ -108,8 +107,45 @@ public class AjaxController
 
                     obj.put("err", 0);
                     obj.put("rst", commentVo);
+
+                    if(!Strings.isNullOrEmpty(professionalStr))
+                    {
+                        String[] professionalArray = professionalStr.split(String0.COMMA);
+                        if(professionalArray != null && professionalArray.length > 1){
+                            for(int i = 1; i < professionalArray.length; i ++)
+                            {
+                                String[] professionalScore = professionalArray[i].split(String.valueOf(Char0.COLON));
+                                if(professionalScore != null && professionalScore.length == 2  && Integer0.isInt(professionalScore[0]) && Integer0.isInt(professionalScore[1]) && !"0".equalsIgnoreCase(professionalScore[1]))
+                                {
+                                    iProfessionalMapperService.add(ProfessionalMapper.class, new ProfessionalVo(Integer.valueOf(professionalScore[0]),Integer.valueOf(professionalScore[1]),ip));
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            out.println(Json0.object2String(obj));
+            out.flush();
+        }
+        catch (Exception e)
+        {
+            Log0.error(this.getClass(), e.toString(), e);
+        }
+        finally
+        {
+            Close0.close(out);
+        }
+    }
+
+    public void lstProfessional(HttpServletResponse response)
+    {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = null;
+        try
+        {
+            out = response.getWriter();
+            JSONObject obj = new JSONObject();
+
             out.println(Json0.object2String(obj));
             out.flush();
         }

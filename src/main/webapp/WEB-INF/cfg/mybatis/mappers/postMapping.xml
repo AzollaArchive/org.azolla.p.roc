@@ -67,6 +67,7 @@
                t.visible t_v,
                t.operable t_o,
                t.deleted t_d,
+               t.professional t_p,
                cmt.id cmt_id,
                cmt.username cmt_u,
                cmt.email cmt_e,

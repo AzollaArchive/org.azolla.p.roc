@@ -48,6 +48,7 @@ public class TagServiceImpl implements ITagService
             if(iTagDao.add(rtnTagVo) > 0)
             {
                 rtnTagVo = iTagDao.getByUrlName(urlName);
+                cacheAware.reload(CacheAware.TAG_CACHE);
             }
             else
             {
@@ -94,13 +95,14 @@ public class TagServiceImpl implements ITagService
         return rtnTagVoList;
     }
 
-    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable, Integer professional)
     {
         TagVo tagVo = new TagVo();
         tagVo.setDisplayName(displayName);
         tagVo.setUrlName(String0.pinyin(displayName));
         tagVo.setVisible(Integer0.nullToZero(visible));
         tagVo.setOperable(Integer0.nullToZero(operable));
+        tagVo.setProfessional(Integer0.nullToZero(professional));
 
         Tuple.Triple<Boolean,String,TagVo> rtnResult = Tuple.of(true,null,tagVo);
         try
@@ -114,6 +116,7 @@ public class TagServiceImpl implements ITagService
                 tagVo.setId(id);
                 iTagDao.mod(tagVo);
             }
+            cacheAware.reload(CacheAware.TAG_CACHE);
         }
         catch (Exception e)
         {
