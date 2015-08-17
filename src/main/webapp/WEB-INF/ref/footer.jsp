@@ -30,8 +30,8 @@
 <script>
     $(document).ready(function() {
         prettyPrint();
-	$.get('http://oss.shaneking.org/roc/professional/highcharts.json', function (jsonData) {
-            $('#container').highcharts({
+	    $.getJSON('http://oss.shaneking.org/roc/professional/highcharts.json', function (jsonData) {
+            $('#roc-id-professional-chart').highcharts({
                 chart:{renderTo:'container',type:'spline'},
                 title:{text:'Professional Score'},
                 xAxis:{type:'datetime',labels:{formatter:function(){return Highcharts.dateFormat('%Y-%m-%d',this.value);}}},
@@ -40,8 +40,8 @@
                 plotOptions:{spline:{lineWidth:1,states:{hover:{lineWidth:1}},marker:{enabled:false}}},
                 //credits: {enabled : true,href:'http://shaneking.org',text:'shaneking.org'},
                 credits:{enabled:false},
-		exporting:{enabled:false},
-                series:jsonData
+		        exporting:{enabled:false},
+                series: jsonData
             });         
         });
     });

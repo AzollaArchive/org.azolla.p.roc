@@ -7,14 +7,17 @@
 package org.azolla.p.roc.task;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
+import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.Log0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.aware.ServletAware;
+import org.azolla.p.roc.highcharts.HighChartsJsonVo;
 import org.azolla.p.roc.mapper.ProfessionalMapper;
 import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.vo.ProfessionalVo;
@@ -49,47 +52,45 @@ public class ProfessionalTask
     @Scheduled(cron = "1 * * * * ?")
     public void lst()
     {
-        File lstCsvFoler = File0.newFile(servletAware.getRealPath(), OSS_ROC_PROFESSIONAL_FOLDER);
-        if (!lstCsvFoler.exists())
+        File professoinalFoler = File0.newFile(servletAware.getRealPath(), OSS_ROC_PROFESSIONAL_FOLDER);
+        if (!professoinalFoler.exists())
         {
-            lstCsvFoler.mkdirs();
+            professoinalFoler.mkdirs();
         }
-        File lstCsvFile = File0.newFile(lstCsvFoler, "lst.csv");
+        File highchartsJsonFile = File0.newFile(professoinalFoler, "highcharts.json");
         List<TagVo> tagVoList = CacheAware.getTagList();
-        StringBuffer stringBufferProfessionalTitle = new StringBuffer("datetime");
-        int i = 0;
-        Map<Integer, Integer> idSeqMap = Maps.newHashMap();
+        Map<Integer, HighChartsJsonVo> idHighChartsJsonVoMap = Maps.newHashMap();
         for (TagVo tagVo : tagVoList)
         {
             if (tagVo.getProfessional() == 1)
             {
-                idSeqMap.put(tagVo.getId(), i++);
-                stringBufferProfessionalTitle.append(String0.COMMA).append(tagVo.getDisplayName());
+                idHighChartsJsonVoMap.put(tagVo.getId(), new HighChartsJsonVo(tagVo.getDisplayName()));
             }
         }
-        i--;
-        List<ProfessionalVo> professionalVoList = iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo(0));
+        for (ProfessionalVo professionalVo : iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo(0)))
+        {
+            idHighChartsJsonVoMap.get(professionalVo.getScoreId()).getData().add(Lists.newArrayList(professionalVo.getAddDate().getTime(),professionalVo.getScoreValue()));
+        }
+        List<Integer> needRmvKeyList = Lists.newArrayList();
+        for(Map.Entry<Integer, HighChartsJsonVo> entry : idHighChartsJsonVoMap.entrySet())
+        {
+            if(entry.getValue().getData().size() == 0)
+            {
+                needRmvKeyList.add(entry.getKey());
+            }
+        }
+        for(Integer needRmvKey : needRmvKeyList)
+        {
+            idHighChartsJsonVoMap.remove(needRmvKey);
+        }
         FileWriter fw = null;
         BufferedWriter bw = null;
         StringBuffer stringBuffer = null;
         try
         {
-            fw = new FileWriter(lstCsvFile, false);
+            fw = new FileWriter(highchartsJsonFile, false);
             bw = new BufferedWriter(fw);
-
-            bw.write(stringBufferProfessionalTitle.toString());
-            for (ProfessionalVo professionalVo : professionalVoList)
-            {
-                stringBuffer = new StringBuffer();
-                stringBuffer.append(File0.BR_LINUX);
-                stringBuffer.append(Date0.toString(professionalVo.getAddDate(), Date0.DATETIME_WITH_DASH_AND_COLON));
-                stringBuffer.append(String0.COMMA);
-                int seq = idSeqMap.get(professionalVo.getScoreId());
-                stringBuffer.append(Strings.repeat(String0.COMMA, seq));
-                stringBuffer.append(professionalVo.getScoreValue());
-                stringBuffer.append(Strings.repeat(String0.COMMA, i - seq));
-                bw.write(stringBuffer.toString());
-            }
+            bw.write(Json0.object2String(idHighChartsJsonVoMap.values()));
             bw.flush();
         }
         catch (Exception e)
@@ -101,6 +102,6 @@ public class ProfessionalTask
             Close0.close(bw);
             Close0.close(fw);
         }
-        Oss.Ali.putObject(lstCsvFile, OSS_ROC_PROFESSIONAL_FOLDER);
+        Oss.Ali.putObject(highchartsJsonFile, OSS_ROC_PROFESSIONAL_FOLDER);
     }
 }

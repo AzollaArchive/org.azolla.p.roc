@@ -67,20 +67,28 @@
                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required="required"></textarea>
                                             </div>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label class="col-sm-1 control-label">Score</label>
-                                            <div class="col-sm-11">
-                                                <c:forEach var="tag" items="${post.tagVoList}">
-                                                    <c:if test="${tag.professional == 1}">
-                                                        ${tag.displayName} : <select class="form-control tagProfessionalSelectCss" id="tagProfessionalId${tag.id}">
-                                                        <c:forEach var="tagProfessionalScoreValue" begin="0" end="10" step="1">
-                                                            <option value="${tagProfessionalScoreValue}">${tagProfessionalScoreValue}</option>
-                                                        </c:forEach>
-                                                        </select>
-                                                    </c:if>
-                                                </c:forEach>
+                                        <c:set var="needProfessional" value="${false}" />
+                                        <c:forEach var="tag" items="${post.tagVoList}">
+                                            <c:if test="${tag.professional == 1}">
+                                                <c:set var="needProfessional" value="${true}" />
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:if test="${needProfessional}">
+                                            <div class="form-group form-inline">
+                                                <label class="col-sm-1 control-label">Score</label>
+                                                <div class="col-sm-11">
+                                                    <c:forEach var="tag" items="${post.tagVoList}">
+                                                        <c:if test="${tag.professional == 1}">
+                                                            ${tag.displayName} : <select class="form-control tagProfessionalSelectCss" id="tagProfessionalId${tag.id}">
+                                                            <c:forEach var="tagProfessionalScoreValue" begin="0" end="10" step="1">
+                                                                <option value="${tagProfessionalScoreValue}">${tagProfessionalScoreValue}</option>
+                                                            </c:forEach>
+                                                            </select>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <div class="col-sm-offset-1 col-sm-11">
                                                 <button type="submit" class="btn btn-default">Submit</button>
