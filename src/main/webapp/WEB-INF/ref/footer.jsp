@@ -38,7 +38,7 @@
             yAxis: {min: 0, max: 10, tickInterval: 2, title :{text :null}},
             tooltip: {xDateFormat: '%Y-%m-%d %H:%M:%S'},
             plotOptions: {spline: {lineWidth: 1,states: {hover: {lineWidth: 1}},marker: {enabled: false}}},
-            credits: {enabled : false},
+            credits: {enabled : true,href:'http://shaneking.org',text:'shaneking.org'},
             series: jsonData
         });         
     });
