@@ -30,17 +30,17 @@
 <script>
     $(document).ready(function() {
         prettyPrint();
-		$.get('${applicationScope.OSS_DOMAIN}roc/professional/highcharts.json', function (jsonData) {
-			$('#container').highcharts({
-				chart: {renderTo: 'container', type: 'spline'},
-				title: {text: 'Professional Score'},
-				xAxis: {type: 'datetime', labels : {formatter : function() {return  Highcharts.dateFormat('%Y-%m-%d', this.value);}}},
-				yAxis: {min: 0, max: 10, title :{text :null}},
-				tooltip: {xDateFormat: '%Y-%m-%d %H:%M:%S'},
-				plotOptions: {spline: {lineWidth: 1,states: {hover: {lineWidth: 1}},marker: {enabled: false}}},
-				credits: {enabled : false},
-				series: jsonData
-			});         
-		});
+	$.get('http://oss.shaneking.org/roc/professional/highcharts.json', function (jsonData) {
+        $('#container').highcharts({
+            chart: {renderTo: 'container', type: 'spline'},
+            title: {text: 'Professional Score'},
+            xAxis: {type: 'datetime', labels : {formatter : function() {return  Highcharts.dateFormat('%Y-%m-%d', this.value);}}},
+            yAxis: {min: 0, max: 10, tickInterval: 2, title :{text :null}},
+            tooltip: {xDateFormat: '%Y-%m-%d %H:%M:%S'},
+            plotOptions: {spline: {lineWidth: 1,states: {hover: {lineWidth: 1}},marker: {enabled: false}}},
+            credits: {enabled : false},
+            series: jsonData
+        });         
+    });
     });
 </script>
