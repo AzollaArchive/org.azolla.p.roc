@@ -22,7 +22,7 @@ import org.azolla.p.roc.service.ICommentService;
 import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.vo.CommentVo;
 import org.azolla.p.roc.vo.ProfessionalVo;
-import org.azolla.w.alioss.Oss;
+import org.azolla.w.leon.oss.Oss;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

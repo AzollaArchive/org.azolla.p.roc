@@ -14,7 +14,7 @@ import org.azolla.l.ling.json.Json0;
 import org.azolla.l.ling.lang.Byte0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Log0;
-import org.azolla.w.alioss.Oss;
+import org.azolla.w.leon.oss.Oss;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

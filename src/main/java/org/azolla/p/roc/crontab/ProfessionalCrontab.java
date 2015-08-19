@@ -4,16 +4,13 @@
  * Copyright (c) azolla.org All rights reserved.
  * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
  */
-package org.azolla.p.roc.task;
+package org.azolla.p.roc.crontab;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.io.Close0;
 import org.azolla.l.ling.io.File0;
 import org.azolla.l.ling.json.Json0;
-import org.azolla.l.ling.lang.String0;
-import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.Log0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.aware.ServletAware;
@@ -22,7 +19,7 @@ import org.azolla.p.roc.mapper.ProfessionalMapper;
 import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.vo.ProfessionalVo;
 import org.azolla.p.roc.vo.TagVo;
-import org.azolla.w.alioss.Oss;
+import org.azolla.w.leon.oss.Oss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -40,7 +37,7 @@ import java.util.Map;
  * @since ADK1.0
  */
 @Service
-public class ProfessionalTask
+public class ProfessionalCrontab
 {
     public static final String OSS_ROC_PROFESSIONAL_FOLDER = "roc/professional/";
     @Autowired

@@ -10,7 +10,7 @@ import org.azolla.l.ling.io.File0;
 import org.azolla.l.ling.lang.Char0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.lang.System0;
-import org.azolla.w.alioss.Oss;
+import org.azolla.w.leon.oss.Oss;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

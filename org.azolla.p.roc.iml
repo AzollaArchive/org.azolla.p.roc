@@ -92,7 +92,6 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper:3.1.2" level="project" />
     <orderEntry type="module" module-name="org.azolla.l.ling" />
-    <orderEntry type="module" module-name="org.azolla.w.alioss" />
-    <orderEntry type="module" module-name="org.azolla.w.cfg" />
+    <orderEntry type="module" module-name="org.azolla.w.leon" />
   </component>
 </module>

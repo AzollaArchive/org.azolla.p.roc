@@ -4,15 +4,15 @@
 	<parent>
 		<groupId>org.azolla.p</groupId>
 		<artifactId>org.azolla.p</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.9</version>
 		<relativePath>../org.azolla.p</relativePath>
 	</parent>
 
 	<artifactId>org.azolla.p.roc</artifactId>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<packaging>war</packaging>
-	<name>Roc: Azolla.org Blog</name>
-	<description>Roc is a blog system.</description>
+	<name>Azolla.org Blog System</name>
+	<description>Azolla.org Blog System</description>
 	<url>https://github.com/Azollas/org.azolla.p.roc</url>
 	<inceptionYear>2011</inceptionYear>
 	<organization>
@@ -268,7 +268,7 @@
         </dependency>
         <dependency>
             <groupId>org.azolla.w</groupId>
-            <artifactId>org.azolla.w.alioss</artifactId>
+            <artifactId>org.azolla.w.leon</artifactId>
         </dependency>
 	</dependencies>
 
