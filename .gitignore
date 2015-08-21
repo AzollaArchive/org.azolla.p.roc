@@ -21,6 +21,9 @@ target
 *.Azolla.Cfg.properties
 *.Azolla.Cfg.xml
 
+# model
+*.mwb
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
