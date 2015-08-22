@@ -23,12 +23,12 @@ public class ProfessionalVo
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
     private Integer id;
-
-    private Integer scoreId;
-    private Integer scoreValue;
-
+    private Integer tagId;
+    private Integer score;
     private String  ip;
+    @OrderBy
     private Date    addDate;
     private Date    modDate;
     private Date    rmvDate;
@@ -37,50 +37,39 @@ public class ProfessionalVo
     private Integer deleted;
 
     @Transient
-    private String scoreName;
-
-    public ProfessionalVo(){}
-
-    public ProfessionalVo(Integer scoreId, Integer scoreValue, String ip)
-    {
-        this.scoreId = scoreId;
-        this.scoreValue = scoreValue;
-        this.ip = ip;
-    }
-
-    public ProfessionalVo(Integer deleted)
-    {
-        this.deleted = deleted;
-    }
+    private String tagName;
 
     public Integer getId()
     {
         return id;
     }
 
-    public void setId(Integer id)
+    public ProfessionalVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
-    public Integer getScoreId()
+    public Integer getTagId()
     {
-        return scoreId;
+        return tagId;
     }
 
-    public void setScoreId(Integer scoreId)
+    public ProfessionalVo setTagId(Integer tagId)
     {
-        this.scoreId = scoreId;
+        this.tagId = tagId;
+        return this;
     }
 
-    public Integer getScoreValue()
+    public Integer getScore()
     {
-        return scoreValue;
+        return score;
     }
 
-    public void setScoreValue(Integer scoreValue)
+    public ProfessionalVo setScore(Integer score)
     {
-        this.scoreValue = scoreValue;
+        this.score = score;
+        return this;
     }
 
     public String getIp()
@@ -88,9 +77,10 @@ public class ProfessionalVo
         return ip;
     }
 
-    public void setIp(String ip)
+    public ProfessionalVo setIp(String ip)
     {
         this.ip = ip;
+        return this;
     }
 
     public Date getAddDate()
@@ -108,9 +98,10 @@ public class ProfessionalVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public ProfessionalVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -118,9 +109,10 @@ public class ProfessionalVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public ProfessionalVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
     public Integer getVisible()
@@ -128,9 +120,10 @@ public class ProfessionalVo
         return visible;
     }
 
-    public void setVisible(Integer visible)
+    public ProfessionalVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
     public Integer getOperable()
@@ -138,9 +131,10 @@ public class ProfessionalVo
         return operable;
     }
 
-    public void setOperable(Integer operable)
+    public ProfessionalVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
     public Integer getDeleted()
@@ -148,18 +142,20 @@ public class ProfessionalVo
         return deleted;
     }
 
-    public void setDeleted(Integer deleted)
+    public ProfessionalVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 
-    public String getScoreName()
+    public String getTagName()
     {
-        return scoreName;
+        return tagName;
     }
 
-    public void setScoreName(String scoreName)
+    public ProfessionalVo setTagName(String tagName)
     {
-        this.scoreName = scoreName;
+        this.tagName = tagName;
+        return this;
     }
 }

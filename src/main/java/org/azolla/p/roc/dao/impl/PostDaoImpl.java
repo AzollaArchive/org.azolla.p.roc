@@ -13,6 +13,7 @@ import org.azolla.p.roc.vo.PostVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -28,52 +29,14 @@ public class PostDaoImpl implements IPostDao
     private SqlSession sqlSession;
 
     @Override
-    public List<PostVo> lstWithoutVOD(RowBounds rowBounds)
-    {
-        return sqlSession.selectList("mapper.post.lstWithoutVOD",null,rowBounds);
-    }
-
-    @Override
-    public List<PostVo> lst(RowBounds rowBounds)
-    {
-        return sqlSession.selectList("mapper.post.lst",null,rowBounds);
-    }
-
-    @Override
-    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, RowBounds rowBounds)
-    {
-        return sqlSession.selectList("mapper.post.lstByCategoryUrlName",categoryUrlName,rowBounds);
-    }
-
-    @Override
     public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds)
     {
-        return sqlSession.selectList("mapper.post.lstByTagUrlName",tagUrlName,rowBounds);
+        return sqlSession.selectList("mapper.post.lstByTagUrlName", tagUrlName, rowBounds);
     }
 
     @Override
-    public List<PostVo> search(String search, RowBounds rowBounds)
+    public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds)
     {
-        return sqlSession.selectList("mapper.post.search",search,rowBounds);
-    }
-
-    public PostVo getByUrlTitle(String urlTitle)
-    {
-        return  sqlSession.selectOne("mapper.post.getByUrlTitle",urlTitle);
-    }
-
-    public int add(PostVo postVo)
-    {
-        return sqlSession.insert("mapper.post.add",postVo);
-    }
-
-    public int mod(PostVo postVo)
-    {
-        return sqlSession.update("mapper.post.mod",postVo);
-    }
-
-    public int rmvById(int id)
-    {
-        return sqlSession.update("mapper.post.rmvById",id);
+        return sqlSession.selectList("mapper.post.search", search, rowBounds);
     }
 }

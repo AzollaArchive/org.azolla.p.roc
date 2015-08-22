@@ -8,6 +8,7 @@ package org.azolla.p.roc.vo;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -16,59 +17,60 @@ import java.util.Date;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_post_r_tag")
 @Component
 public class PostRTagVo
 {
-    //db column
-    private int    id;
-    private int    postId;
-    private int    tagId;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    operable;
-    private int    deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private Integer postId;
+    private Integer tagId;
+    @OrderBy
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
+    @Transient
     private PostVo postVo;
+    @Transient
     private TagVo  tagVo;
 
-    public PostRTagVo(){}
 
-    public PostRTagVo(int postId,int tagId)
-    {
-        this.postId = postId;
-        this.tagId = tagId;
-    }
-
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
         this.id = id;
     }
 
-    public int getPostId()
+    public Integer getPostId()
     {
         return postId;
     }
 
-    public void setPostId(int postId)
+    public PostRTagVo setPostId(Integer postId)
     {
         this.postId = postId;
+        return this;
     }
 
-    public int getTagId()
+    public Integer getTagId()
     {
         return tagId;
     }
 
-    public void setTagId(int tagId)
+    public PostRTagVo setTagId(Integer tagId)
     {
         this.tagId = tagId;
+        return this;
     }
 
     public Date getAddDate()
@@ -86,9 +88,10 @@ public class PostRTagVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public PostRTagVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -96,39 +99,43 @@ public class PostRTagVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public PostRTagVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public PostRTagVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public PostRTagVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public PostRTagVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 
     public PostVo getPostVo()
@@ -136,9 +143,10 @@ public class PostRTagVo
         return postVo;
     }
 
-    public void setPostVo(PostVo postVo)
+    public PostRTagVo setPostVo(PostVo postVo)
     {
         this.postVo = postVo;
+        return this;
     }
 
     public TagVo getTagVo()
@@ -146,8 +154,9 @@ public class PostRTagVo
         return tagVo;
     }
 
-    public void setTagVo(TagVo tagVo)
+    public PostRTagVo setTagVo(TagVo tagVo)
     {
         this.tagVo = tagVo;
+        return this;
     }
 }

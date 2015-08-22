@@ -8,6 +8,7 @@ package org.azolla.p.roc.vo;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -16,28 +17,33 @@ import java.util.Date;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_config")
 @Component
 public class ConfigVo
 {
-    //db column
-    private int    id;
-    private String rocKey;
-    private String rocValue;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    operable;
-    private int    deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private String  rocKey;
+    private String  rocValue;
+    @OrderBy
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public ConfigVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
     public String getRocKey()
@@ -45,9 +51,10 @@ public class ConfigVo
         return rocKey;
     }
 
-    public void setRocKey(String rocKey)
+    public ConfigVo setRocKey(String rocKey)
     {
         this.rocKey = rocKey;
+        return this;
     }
 
     public String getRocValue()
@@ -55,9 +62,10 @@ public class ConfigVo
         return rocValue;
     }
 
-    public void setRocValue(String rocValue)
+    public ConfigVo setRocValue(String rocValue)
     {
         this.rocValue = rocValue;
+        return this;
     }
 
     public Date getAddDate()
@@ -75,9 +83,10 @@ public class ConfigVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public ConfigVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -85,38 +94,42 @@ public class ConfigVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public ConfigVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public ConfigVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public ConfigVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public ConfigVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 }

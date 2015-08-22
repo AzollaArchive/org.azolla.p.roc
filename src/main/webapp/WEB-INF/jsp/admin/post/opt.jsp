@@ -42,7 +42,7 @@
                                                     <optgroup label="${leftCategory.displayName}" />
                                                     <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
                                                         <c:choose>
-                                                            <c:when test="${subLeftCategory.group == 1}">
+                                                            <c:when test="${subLeftCategory.grouped == 1}">
                                                                 <%--<option value="${subLeftCategory.id}" disabled>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>--%>
                                                                 <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}" />
                                                                 <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
@@ -67,7 +67,7 @@
                                                     <optgroup label="${rightCategory.displayName}" />
                                                     <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
                                                         <c:choose>
-                                                            <c:when test="${subRightCategory.group == 1}">
+                                                            <c:when test="${subRightCategory.grouped == 1}">
                                                                 <%--<option value="${subRightCategory.id}" disabled>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>--%>
                                                                 <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}" />
                                                                 <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">

@@ -19,19 +19,11 @@ import java.util.List;
  */
 public interface IPostService
 {
-    public static final String MORE = "<more>";
-    
-    public List<PostVo> lst(int page);
-
-    public List<PostVo> lstWithoutVOD(int page);
-
-    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, int page);
-
-    public List<PostVo> lstByTagUrlName(String tagUrlName, int page);
-
-    public List<PostVo> search(String search, int page);
-
     public PostVo getByUrlTitle(String urlTitle);
 
-    public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable);
+    public List<PostVo> lstByTagUrlName(String tagUrlName, Integer page);
+
+    public List<PostVo> search(String search, Integer page);
+
+    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable);
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -22,27 +23,31 @@ import java.util.List;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_user")
 @Component
 public class UserDetailsImpl implements UserDetails
 {
-    //db column
-    private int id;
-    private String username;
-    private String email;
-    private String password;
-    private Date addDate;
-    private Date modDate;
-    private Date rmvDate;
-    private int visible;
-    private int operable;
-    private int deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private String  username;
+    private String  email;
+    private String  password;
+    @OrderBy
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
         this.id = id;
     }
@@ -53,9 +58,10 @@ public class UserDetailsImpl implements UserDetails
         return username;
     }
 
-    public void setUsername(String username)
+    public UserDetailsImpl setUsername(String username)
     {
         this.username = username;
+        return this;
     }
 
     public String getEmail()
@@ -109,32 +115,32 @@ public class UserDetailsImpl implements UserDetails
         this.rmvDate = rmvDate;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public void setVisible(Integer visible)
     {
         this.visible = visible;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public void setOperable(Integer operable)
     {
         this.operable = operable;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public void setDeleted(Integer deleted)
     {
         this.deleted = deleted;
     }

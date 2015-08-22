@@ -6,6 +6,9 @@
  */
 package org.azolla.p.roc.vo;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -14,33 +17,40 @@ import java.util.Date;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_comment")
+@Component
 public class CommentVo
 {
-    //db column
-    private int    id;
-    private String username;
-    private String email;
-    private String photoUrl;
-    private String content;
-    private int postId;
-    private String ip;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    operable;
-    private int    deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private String  username;
+    private String  email;
+    private String  photoUrl;
+    private String  content;
+    private Integer postId;
+    private String  ip;
+    @OrderBy
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
+    @Transient
     private PostVo postVo;
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public CommentVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
     public String getUsername()
@@ -48,9 +58,10 @@ public class CommentVo
         return username;
     }
 
-    public void setUsername(String username)
+    public CommentVo setUsername(String username)
     {
         this.username = username;
+        return this;
     }
 
     public String getEmail()
@@ -58,9 +69,21 @@ public class CommentVo
         return email;
     }
 
-    public void setEmail(String email)
+    public CommentVo setEmail(String email)
     {
         this.email = email;
+        return this;
+    }
+
+    public String getPhotoUrl()
+    {
+        return photoUrl;
+    }
+
+    public CommentVo setPhotoUrl(String photoUrl)
+    {
+        this.photoUrl = photoUrl;
+        return this;
     }
 
     public String getContent()
@@ -68,19 +91,21 @@ public class CommentVo
         return content;
     }
 
-    public void setContent(String content)
+    public CommentVo setContent(String content)
     {
         this.content = content;
+        return this;
     }
 
-    public int getPostId()
+    public Integer getPostId()
     {
         return postId;
     }
 
-    public void setPostId(int postId)
+    public CommentVo setPostId(Integer postId)
     {
         this.postId = postId;
+        return this;
     }
 
     public String getIp()
@@ -88,9 +113,10 @@ public class CommentVo
         return ip;
     }
 
-    public void setIp(String ip)
+    public CommentVo setIp(String ip)
     {
         this.ip = ip;
+        return this;
     }
 
     public Date getAddDate()
@@ -108,9 +134,10 @@ public class CommentVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public CommentVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -118,39 +145,43 @@ public class CommentVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public CommentVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public CommentVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public CommentVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public CommentVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 
     public PostVo getPostVo()
@@ -158,18 +189,9 @@ public class CommentVo
         return postVo;
     }
 
-    public void setPostVo(PostVo postVo)
+    public CommentVo setPostVo(PostVo postVo)
     {
         this.postVo = postVo;
-    }
-
-    public String getPhotoUrl()
-    {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl)
-    {
-        this.photoUrl = photoUrl;
+        return this;
     }
 }

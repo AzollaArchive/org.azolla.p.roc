@@ -9,9 +9,6 @@ package org.azolla.p.roc.service;
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.p.roc.vo.ConfigVo;
 
-import java.util.List;
-import java.util.concurrent.ConcurrentMap;
-
 /**
  * The coder is very lazy, nothing to write for this class
  *
@@ -20,7 +17,5 @@ import java.util.concurrent.ConcurrentMap;
  */
 public interface IConfigService
 {
-    public ConcurrentMap<String,String> map();
-
-    public Tuple.Triple<Boolean,String,ConfigVo> opt(int id, String rocKey, String rocValue, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable);
 }

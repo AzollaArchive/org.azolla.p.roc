@@ -9,6 +9,7 @@ package org.azolla.p.roc.vo;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -18,34 +19,42 @@ import java.util.List;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_post")
 @Component
 public class PostVo
 {
-    //db column
-    private int    id;
-    private String title;
-    private String urlTitle;
-    private String content;
-    private int    categoryId;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    operable;
-    private int    deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy(value = "desc")
+    private Integer id;
+    private String  title;
+    private String  urlTitle;
+    private String  content;
+    private Integer categoryId;
+    @OrderBy(value = "desc")
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
+    @Transient
     private CategoryVo categoryVo;
-    private List<TagVo> tagVoList = Lists.newArrayList();
+    @Transient
+    private List<TagVo>     tagVoList     = Lists.newArrayList();
+    @Transient
     private List<CommentVo> commentVoList = Lists.newArrayList();
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public PostVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
     public String getTitle()
@@ -53,9 +62,10 @@ public class PostVo
         return title;
     }
 
-    public void setTitle(String title)
+    public PostVo setTitle(String title)
     {
         this.title = title;
+        return this;
     }
 
     public String getUrlTitle()
@@ -63,9 +73,10 @@ public class PostVo
         return urlTitle;
     }
 
-    public void setUrlTitle(String urlTitle)
+    public PostVo setUrlTitle(String urlTitle)
     {
         this.urlTitle = urlTitle;
+        return this;
     }
 
     public String getContent()
@@ -73,19 +84,21 @@ public class PostVo
         return content;
     }
 
-    public void setContent(String content)
+    public PostVo setContent(String content)
     {
         this.content = content;
+        return this;
     }
 
-    public int getCategoryId()
+    public Integer getCategoryId()
     {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId)
+    public PostVo setCategoryId(Integer categoryId)
     {
         this.categoryId = categoryId;
+        return this;
     }
 
     public Date getAddDate()
@@ -103,9 +116,10 @@ public class PostVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public PostVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -113,39 +127,43 @@ public class PostVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public PostVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public PostVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public PostVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public PostVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 
     public CategoryVo getCategoryVo()
@@ -153,9 +171,10 @@ public class PostVo
         return categoryVo;
     }
 
-    public void setCategoryVo(CategoryVo categoryVo)
+    public PostVo setCategoryVo(CategoryVo categoryVo)
     {
         this.categoryVo = categoryVo;
+        return this;
     }
 
     public List<TagVo> getTagVoList()
@@ -163,9 +182,10 @@ public class PostVo
         return tagVoList;
     }
 
-    public void setTagVoList(List<TagVo> tagVoList)
+    public PostVo setTagVoList(List<TagVo> tagVoList)
     {
         this.tagVoList = tagVoList;
+        return this;
     }
 
     public List<CommentVo> getCommentVoList()
@@ -173,8 +193,9 @@ public class PostVo
         return commentVoList;
     }
 
-    public void setCommentVoList(List<CommentVo> commentVoList)
+    public PostVo setCommentVoList(List<CommentVo> commentVoList)
     {
         this.commentVoList = commentVoList;
+        return this;
     }
 }

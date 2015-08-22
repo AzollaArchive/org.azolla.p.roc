@@ -56,6 +56,13 @@
 
     <mappers>
         <mapper class="tk.mybatis.mapper.common.Mapper" />
+        <mapper class="org.azolla.p.roc.mapper.CategoryMapper" />
+        <mapper class="org.azolla.p.roc.mapper.CommentMapper" />
+        <mapper class="org.azolla.p.roc.mapper.ConfigMapper" />
+        <mapper class="org.azolla.p.roc.mapper.PostMapper" />
+        <mapper class="org.azolla.p.roc.mapper.PostRTagMapper" />
         <mapper class="org.azolla.p.roc.mapper.ProfessionalMapper" />
+        <mapper class="org.azolla.p.roc.mapper.TagMapper" />
+        <mapper class="org.azolla.p.roc.mapper.UserDetailsMapper" />
     </mappers>
 </configuration>

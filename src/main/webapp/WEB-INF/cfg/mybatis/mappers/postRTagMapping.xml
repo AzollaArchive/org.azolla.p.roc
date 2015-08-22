@@ -2,38 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.postRTag">
 
-    <resultMap id="postRTag" type="PostRTagVo">
-        <id property="id" column="prt_id" />
-        <result property="postId" column="prt_pId" />
-        <result property="tagId" column="prt_tId" />
-        <result property="addDate" javaType="java.util.Date" column="prt_aD" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="prt_mD" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="prt_rD" jdbcType="DATE" />
-        <result property="visible" column="prt_v" />
-        <result property="operable" column="prt_o" />
-        <result property="deleted" column="prt_d" />
-    </resultMap>
-
-    <insert id="add" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        insert into roc_t_post_r_tag(postId,tagId,addDate) values(#{postId},#{tagId},now())
-    </insert>
-
-    <delete id="rmv" parameterType="org.azolla.p.roc.vo.PostRTagVo">
-        delete from roc_t_post_r_tag where postId=#{postId},tagId=#{tagId}
-    </delete>
-
-    <select id="lstByPostId" parameterType="Integer" resultType="PostRTagVo">
-        select * from roc_t_post_r_tag where postId=#{postId}
-    </select>
-
-    <delete id="rmvByPostId" parameterType="Integer">
-        delete from roc_t_post_r_tag where postId=#{postId}
-    </delete>
-
     <insert id="btAdd" parameterType="java.util.List">
-        insert into roc_t_post_r_tag(postId,tagId,addDate) values
+        insert into roc_t_post_r_tag(post_id,tag_id) values
         <foreach collection="list" item="item" index="index" separator="," >
-            (#{item.postId},#{item.tagId},now())
+            (#{item.postId},#{item.tagId})
         </foreach>
     </insert>
 

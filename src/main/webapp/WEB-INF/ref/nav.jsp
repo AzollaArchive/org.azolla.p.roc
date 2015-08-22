@@ -29,7 +29,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
                                                 <c:choose>
-                                                    <c:when test="${subLeftCategory.group == 1}">
+                                                    <c:when test="${subLeftCategory.grouped == 1}">
                                                         <li class="divider"></li>
                                                         <li class="dropdown-header">${subLeftCategory.displayName}</li>
                                                         <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
@@ -70,7 +70,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
                                                 <c:choose>
-                                                    <c:when test="${subRightCategory.group == 1}">
+                                                    <c:when test="${subRightCategory.grouped == 1}">
                                                         <li class="divider"></li>
                                                         <li class="dropdown-header">${subRightCategory.displayName}</li>
                                                         <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">

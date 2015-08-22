@@ -2,8 +2,8 @@ package org.azolla.p.roc.service;
 
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.p.roc.vo.CategoryVo;
-import org.azolla.p.roc.vo.PostVo;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ICategoryService
 {
-    public List<CategoryVo> lst(String parentUrlName);
+    public List<CategoryVo> loop(@Nonnull Integer parentId);
 
-    public Tuple.Triple<Boolean,String,CategoryVo> opt(int id, String displayName, int parentId, String controllerName, Integer group, int sequence, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean, String, CategoryVo> opt(Integer id, String displayName, Integer parentId, String controllerName, Integer group, Integer sequence, Integer visible, Integer operable);
 }

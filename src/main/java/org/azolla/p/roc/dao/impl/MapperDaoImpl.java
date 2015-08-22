@@ -9,12 +9,11 @@ package org.azolla.p.roc.dao.impl;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.azolla.p.roc.dao.IMapperDao;
-import org.azolla.p.roc.mapper.ProfessionalMapper;
-import org.azolla.p.roc.vo.ProfessionalVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -29,23 +28,33 @@ public class MapperDaoImpl<T> implements IMapperDao<T>
     @Autowired
     private SqlSession sqlSession;
 
-    public int add(Class<? extends Mapper<T>> mapperClass, T t)
+    public int add(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t)
     {
         return sqlSession.getMapper(mapperClass).insertSelective(t);
     }
 
-    public int rmv(Class<? extends Mapper<T>> mapperClass, T t)
+    public int rmv(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t)
+    {
+        return sqlSession.getMapper(mapperClass).delete(t);
+    }
+
+    public int mod(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t)
     {
         return sqlSession.getMapper(mapperClass).updateByPrimaryKeySelective(t);
     }
 
-    public List<T> lst(Class<? extends Mapper<T>> mapperClass, T t)
+    public List<T> lst(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t)
     {
         return sqlSession.getMapper(mapperClass).select(t);
     }
 
-    public List<T> lst(Class<? extends Mapper<T>> mapperClass, T t, RowBounds rowBounds)
+    public List<T> lst(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t, @Nonnull RowBounds rowBounds)
     {
         return sqlSession.getMapper(mapperClass).selectByRowBounds(t, rowBounds);
+    }
+
+    public T selectOne(@Nonnull Class<? extends Mapper<T>> mapperClass, @Nonnull T t)
+    {
+        return sqlSession.getMapper(mapperClass).selectOne(t);
     }
 }

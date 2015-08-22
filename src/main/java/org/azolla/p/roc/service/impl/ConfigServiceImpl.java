@@ -8,16 +8,14 @@ package org.azolla.p.roc.service.impl;
 
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
+import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
-import org.azolla.p.roc.dao.IConfigDao;
+import org.azolla.p.roc.dao.IMapperDao;
+import org.azolla.p.roc.mapper.ConfigMapper;
 import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.vo.ConfigVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -29,23 +27,11 @@ import java.util.concurrent.ConcurrentMap;
 public class ConfigServiceImpl implements IConfigService
 {
     @Autowired
-    private IConfigDao iConfigDao;
-
+    private CacheAware           cacheAware;
     @Autowired
-    private CacheAware cacheAware;
+    private IMapperDao<ConfigVo> iConfigMapperDao;
 
-    @Override
-    public ConcurrentMap<String, String> map()
-    {
-        ConcurrentMap<String, String> concurrentMap = new ConcurrentHashMap<String, String>();
-        for (ConfigVo configVo : iConfigDao.lst())
-        {
-            concurrentMap.put(configVo.getRocKey(), configVo.getRocValue());
-        }
-        return concurrentMap;
-    }
-
-    public Tuple.Triple<Boolean, String, ConfigVo> opt(int id, String rocKey, String rocValue, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable)
     {
         ConfigVo configVo = new ConfigVo();
         configVo.setRocKey(rocKey);
@@ -56,20 +42,20 @@ public class ConfigServiceImpl implements IConfigService
         Tuple.Triple<Boolean, String, ConfigVo> rtnResult = Tuple.of(true, null, configVo);
         try
         {
-            if (id == 0)
+            if (id == null || id == 0)
             {
-                iConfigDao.add(configVo);
+                iConfigMapperDao.add(ConfigMapper.class, configVo);
             }
             else
             {
                 configVo.setId(id);
-                iConfigDao.mod(configVo);
+                iConfigMapperDao.mod(ConfigMapper.class, configVo.setModDate(Date0.now()));
             }
             cacheAware.reload(CacheAware.CONFIG_CACHE);
         }
         catch (Exception e)
         {
-            rtnResult = Tuple.of(false,e.toString(),configVo);
+            rtnResult = Tuple.of(false, e.toString(), configVo);
         }
         return rtnResult;
     }

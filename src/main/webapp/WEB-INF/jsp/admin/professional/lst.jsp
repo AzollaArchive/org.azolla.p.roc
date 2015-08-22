@@ -34,8 +34,8 @@
                                 <c:forEach var="professionalVo" items="${professionalVoList}">
                                     <tr>
                                         <td>${professionalVo.id}</td>
-                                        <td>${professionalVo.scoreName}</td>
-                                        <td>${professionalVo.scoreValue}</td>
+                                        <td>${professionalVo.tagName}</td>
+                                        <td>${professionalVo.score}</td>
                                         <td><fmt:formatDate value="${professionalVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${professionalVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${professionalVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>

@@ -12,6 +12,7 @@ import org.azolla.p.roc.vo.PostRTagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -26,30 +27,8 @@ public class PostRTagDaoImpl implements IPostRTagDao
     @Autowired
     private SqlSession sqlSession;
 
-    @Override
-    public int add(PostRTagVo postRTagVo)
+    public int btAdd(@Nonnull List<PostRTagVo> list)
     {
-        return sqlSession.insert("mapper.postRTag.add", postRTagVo);
-    }
-
-    @Override
-    public int rmv(PostRTagVo postRTagVo)
-    {
-        return sqlSession.delete("mapper.postRTag.rmv", postRTagVo);
-    }
-
-    public List<PostRTagVo> lstByPostId(int postId)
-    {
-        return sqlSession.selectList("mapper.postRTag.lstByPostId",postId);
-    }
-
-    public int rmvByPostId(int postId)
-    {
-        return sqlSession.delete("mapper.postRTag.rmvByPostId",postId);
-    }
-
-    public int btAdd(List<PostRTagVo> list)
-    {
-        return sqlSession.insert("mapper.postRTag.btAdd",list);
+        return sqlSession.insert("mapper.postRTag.btAdd", list);
     }
 }

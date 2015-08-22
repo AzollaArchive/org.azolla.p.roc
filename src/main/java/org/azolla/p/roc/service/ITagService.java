@@ -13,9 +13,7 @@ import java.util.List;
  */
 public interface ITagService
 {
-    public TagVo addByTagDisplayName(String tagDisplayName);
-
     public List<TagVo> btAddByTagDisplayName(List<String> tagDisplayNameList);
 
-    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable, Integer professional);
+    public Tuple.Triple<Boolean, String, TagVo> opt(Integer id, String displayName, Integer visible, Integer operable, Integer professional);
 }

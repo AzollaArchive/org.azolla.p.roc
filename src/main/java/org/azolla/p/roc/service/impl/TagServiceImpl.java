@@ -11,8 +11,11 @@ import com.google.common.collect.Lists;
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
+import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
+import org.azolla.p.roc.dao.IMapperDao;
 import org.azolla.p.roc.dao.ITagDao;
+import org.azolla.p.roc.mapper.TagMapper;
 import org.azolla.p.roc.service.ITagService;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,32 +34,11 @@ import java.util.List;
 public class TagServiceImpl implements ITagService
 {
     @Autowired
-    private ITagDao iTagDao;
-
+    private CacheAware        cacheAware;
     @Autowired
-    private CacheAware cacheAware;
-
-    public TagVo addByTagDisplayName(String tagDisplayName)
-    {
-        String urlName = String0.pinyin(tagDisplayName);
-        TagVo rtnTagVo = iTagDao.getByUrlName(urlName);
-        if(rtnTagVo == null)
-        {
-            rtnTagVo = new TagVo();
-            rtnTagVo.setUrlName(urlName);
-            rtnTagVo.setDisplayName(tagDisplayName);
-            if(iTagDao.add(rtnTagVo) > 0)
-            {
-                rtnTagVo = iTagDao.getByUrlName(urlName);
-                cacheAware.reload(CacheAware.TAG_CACHE);
-            }
-            else
-            {
-                rtnTagVo = null;
-            }
-        }
-        return rtnTagVo;
-    }
+    private IMapperDao<TagVo> iTagMapperDao;
+    @Autowired
+    private ITagDao           iTagDao;
 
     public List<TagVo> btAddByTagDisplayName(List<String> tagDisplayNameList)
     {
@@ -70,11 +52,11 @@ public class TagServiceImpl implements ITagService
             public TagVo apply(@Nullable String displayName)
             {
                 String urlName = String0.pinyin(displayName);
-                TagVo tagVo = iTagDao.getByUrlName(urlName);
-                if(tagVo == null)
+                TagVo tagVo = iTagMapperDao.selectOne(TagMapper.class, new TagVo().setUrlName(urlName));
+                if (tagVo == null)
                 {
                     newTagUrlNameList.add(urlName);
-                    return new TagVo(displayName, urlName);
+                    return new TagVo().setDisplayName(displayName).setUrlName(urlName);
                 }
                 else
                 {
@@ -83,44 +65,43 @@ public class TagServiceImpl implements ITagService
                 }
             }
         });
-        if(needAddTagVoList.size() > 0)
+        if (needAddTagVoList.size() > 0)
         {
             iTagDao.btAdd(needAddTagVoList);
             cacheAware.reload(CacheAware.TAG_CACHE);
         }
-        if(newTagUrlNameList.size() > 0)
+        if (newTagUrlNameList.size() > 0)
         {
-            rtnTagVoList.addAll(iTagDao.btLstByUrlNameList(newTagUrlNameList));
+            rtnTagVoList.addAll(iTagDao.lstByUrlNameList(newTagUrlNameList));
         }
         return rtnTagVoList;
     }
 
-    public Tuple.Triple<Boolean,String,TagVo> opt(int id, String displayName, Integer visible, Integer operable, Integer professional)
+    public Tuple.Triple<Boolean, String, TagVo> opt(Integer id, String displayName, Integer visible, Integer operable, Integer professional)
     {
         TagVo tagVo = new TagVo();
         tagVo.setDisplayName(displayName);
         tagVo.setUrlName(String0.pinyin(displayName));
         tagVo.setVisible(Integer0.nullToZero(visible));
         tagVo.setOperable(Integer0.nullToZero(operable));
-        tagVo.setProfessional(Integer0.nullToZero(professional));
 
-        Tuple.Triple<Boolean,String,TagVo> rtnResult = Tuple.of(true,null,tagVo);
+        Tuple.Triple<Boolean, String, TagVo> rtnResult = Tuple.of(true, null, tagVo);
         try
         {
-            if(id == 0)
+            if (id == null || id == 0)
             {
-                iTagDao.add(tagVo);
+                iTagMapperDao.add(TagMapper.class, tagVo);
             }
             else
             {
                 tagVo.setId(id);
-                iTagDao.mod(tagVo);
+                iTagMapperDao.mod(TagMapper.class, tagVo.setModDate(Date0.now()));
             }
             cacheAware.reload(CacheAware.TAG_CACHE);
         }
         catch (Exception e)
         {
-            rtnResult = Tuple.of(false,e.toString(),tagVo);
+            rtnResult = Tuple.of(false, e.toString(), tagVo);
         }
         return rtnResult;
     }

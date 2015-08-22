@@ -7,9 +7,6 @@
 package org.azolla.p.roc.service;
 
 import org.apache.ibatis.session.RowBounds;
-import org.azolla.p.roc.vo.ProfessionalVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -26,8 +23,12 @@ public interface IMapperService<T>
 
     public int rmv(Class<? extends Mapper<T>> mapperClass, T t);
 
+    public int mod(Class<? extends Mapper<T>> mapperClass, T t);
+
     public List<T> lst(Class<? extends Mapper<T>> mapperClass, T t);
 
     public List<T> lst(Class<? extends Mapper<T>> mapperClass, T t, RowBounds rowBounds);
+
+    public T selectOne(Class<? extends Mapper<T>> mapperClass, T t);
 
 }

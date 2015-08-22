@@ -3,135 +3,30 @@
 <mapper namespace="mapper.post">
 
     <resultMap id="post" type="PostVo">
-        <id property="id" column="p_id" />
-        <result property="title" column="p_t" />
-        <result property="urlTitle" column="p_uT" />
-        <result property="content" column="p_c" />
-        <result property="categoryId" column="p_cId" />
-        <result property="addDate" javaType="java.util.Date" column="p_aD" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="p_mD" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="p_rD" jdbcType="DATE" />
-        <result property="visible" column="p_v" />
-        <result property="operable" column="p_o" />
-        <result property="deleted" column="p_d" />
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="urlTitle" column="url_title" />
+        <result property="content" column="content" />
+        <result property="categoryId" column="category_id" />
+        <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE" />
+        <result property="visible" column="visible" />
+        <result property="operable" column="operable" />
+        <result property="deleted" column="deleted" />
     </resultMap>
 
-    <resultMap id="postForSelf" type="PostVo">
-        <id property="id" column="p_id" />
-        <result property="title" column="p_t" />
-        <result property="urlTitle" column="p_uT" />
-        <result property="content" column="p_c" />
-        <result property="categoryId" column="p_cId" />
-        <result property="addDate" javaType="java.util.Date" column="p_aD" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="p_mD" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="p_rD" jdbcType="DATE" />
-        <result property="visible" column="p_v" />
-        <result property="operable" column="p_o" />
-        <result property="deleted" column="p_d" />
-        <association property="categoryVo" javaType="CategoryVo" resultMap="mapper.category.category"/>
-        <collection property="tagVoList" resultMap="mapper.tag.tag"/>
-        <collection property="commentVoList" resultMap="mapper.comment.comment"/>
-    </resultMap>
-
-    <select id="fullLstByUrlTitle" parameterType="String" resultMap="postForSelf">
-        select p.id p_id,
-               p.title p_t,
-               p.urlTitle p_uT,
-               p.content p_c,
-               p.categoryId p_cId,
-               p.addDate p_aD,
-               p.modDate p_mD,
-               p.rmvDate p_rD,
-               p.visible p_v,
-               p.operable p_o,
-               p.deleted p_d,
-               ctg.id ctg_id,
-               ctg.displayName ctg_dN,
-               ctg.urlName ctg_uN,
-               ctg.parentId ctg_pId,
-               ctg.controllerName ctg_cN,
-               ctg.`group` ctg_g,
-               ctg.sequence ctg_s,
-               ctg.addDate ctg_aD,
-               ctg.modDate ctg_mD,
-               ctg.rmvDate ctg_rD,
-               ctg.visible ctg_v,
-               ctg.operable ctg_o,
-               ctg.deleted ctg_d,
-               t.id t_id,
-               t.displayName t_dN,
-               t.urlName t_uN,
-               t.addDate t_aD,
-               t.modDate t_mD,
-               t.rmvDate t_rD,
-               t.visible t_v,
-               t.operable t_o,
-               t.deleted t_d,
-               t.professional t_p,
-               cmt.id cmt_id,
-               cmt.username cmt_u,
-               cmt.email cmt_e,
-               cmt.photoUrl cmt_pU,
-               cmt.content cmt_c,
-               cmt.postId cmt_pId,
-               cmt.ip cmt_ip,
-               cmt.addDate cmt_aD,
-               cmt.modDate cmt_mD,
-               cmt.rmvDate cmt_rD,
-               cmt.visible cmt_v,
-               cmt.operable cmt_o,
-               cmt.deleted cmt_d
-        from roc_t_post p
-        join roc_t_category ctg on ctg.id = p.categoryId
-        join roc_t_post_r_tag prt on prt.postId = p.id
-        join roc_t_tag t on t.id = prt.tagId
-        join roc_t_comment cmt on cmt.postId = p.id
-        where p.urlTitle=#{urlTitle}
-        order by p.addDate desc
-    </select>
-
-    <select id="lstWithoutVOD" resultType="PostVo">
-        select * from roc_t_post order by addDate desc
-    </select>
-
-    <select id="lst" resultType="PostVo">
-        select * from roc_t_post where visible=1 and deleted=0 order by addDate desc
-    </select>
-
-    <select id="lstByCategoryUrlName" parameterType="String" resultType="PostVo">
+    <select id="lstByTagUrlName" parameterType="String" resultMap="post">
         select p.*
         from (select * from roc_t_post where visible=1 and deleted=0) p
-        join roc_t_category c on c.id = p.categoryId
-        where c.urlName = #{categoryUrlName}
-        order by p.addDate desc
+        join roc_t_post_r_tag r on r.post_id = p.id
+        join roc_t_tag t on t.id = r.tag_id
+        where t.url_name=#{tagUrlName}
+        order by p.add_date desc
     </select>
 
-    <select id="lstByTagUrlName" parameterType="String" resultType="PostVo">
-        select p.*
-        from (select * from roc_t_post where visible=1 and deleted=0) p
-        join roc_t_post_r_tag r on r.postId = p.id
-        join roc_t_tag t on t.id = r.tagId
-        where t.urlName=#{tagUrlName}
-        order by p.addDate desc
+    <select id="search" parameterType="String" resultMap="post">
+        select * from roc_t_post where content like CONCAT(CONCAT('%',#{search}),'%') or title like CONCAT(CONCAT('%',#{search}),'%') order by add_date desc
     </select>
 
-    <select id="search" parameterType="String" resultType="PostVo">
-        select * from roc_t_post where content like CONCAT(CONCAT('%',#{search}),'%') or title like CONCAT(CONCAT('%',#{search}),'%') order by addDate desc
-    </select>
-
-    <select id="getByUrlTitle" parameterType="String" resultType="PostVo">
-        select * from roc_t_post where urlTitle=#{urlTitle}
-    </select>
-
-    <insert id="add" parameterType="org.azolla.p.roc.vo.PostVo">
-        insert into roc_t_post(title,urlTitle,content,categoryId,addDate,visible,operable) values(#{title},#{urlTitle},#{content},#{categoryId},now(),#{visible},#{operable})
-    </insert>
-
-    <update id="mod" parameterType="org.azolla.p.roc.vo.PostVo">
-        update roc_t_post set title=#{title}, urlTitle=#{urlTitle}, content=#{content}, categoryId=#{categoryId}, visible=#{visible}, operable=#{operable}, modDate=now() where id=#{id}
-    </update>
-
-    <update id="rmvById" parameterType="int">
-        update roc_t_post set deleted=1,rmvDate=now() where id=#{id}
-    </update>
 </mapper>

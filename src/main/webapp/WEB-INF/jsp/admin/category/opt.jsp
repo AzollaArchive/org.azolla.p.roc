@@ -41,7 +41,7 @@
                                                     <option value="${leftCategory.id}" <c:if test="${leftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>${leftCategory.displayName}</option>
                                                     <c:forEach var="subLeftCategory" items="${leftCategory.subCategoryVoList}">
                                                         <option value="${subLeftCategory.id}" <c:if test="${subLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subLeftCategory.displayName}</option>
-                                                        <c:if test="${subLeftCategory.group == 1}">
+                                                        <c:if test="${subLeftCategory.grouped == 1}">
                                                             <c:forEach var="lastLeftCategory" items="${subLeftCategory.subCategoryVoList}">
                                                                 <option value="${lastLeftCategory.id}" <c:if test="${lastLeftCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastLeftCategory.displayName}</option>
                                                             </c:forEach>
@@ -59,7 +59,7 @@
                                                     <option value="${rightCategory.id}" <c:if test="${rightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>${rightCategory.displayName}</option>
                                                     <c:forEach var="subRightCategory" items="${rightCategory.subCategoryVoList}">
                                                         <option value="${subRightCategory.id}" <c:if test="${subRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;${subRightCategory.displayName}</option>
-                                                        <c:if test="${subRightCategory.group == 1}">
+                                                        <c:if test="${subRightCategory.grouped == 1}">
                                                             <c:forEach var="lastRightCategory" items="${subRightCategory.subCategoryVoList}">
                                                                 <option value="${lastRightCategory.id}" <c:if test="${lastRightCategory.id == categoryVo.parentId}">selected="selected"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lastRightCategory.displayName}</option>
                                                             </c:forEach>
@@ -81,15 +81,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="group" class="col-xs-2 control-label">Group</label>
+                                <label for="grouped" class="col-xs-2 control-label">Group</label>
                                 <div class="col-xs-9">
-                                    <input type="checkbox" id="group" name="group" value="1" <c:if test="${categoryVo.group == 1}">checked</c:if>/>
+                                    <input type="checkbox" id="grouped" name="grouped" value="1" <c:if test="${categoryVo.grouped == 1}">checked</c:if>/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="sequence" class="col-xs-2 control-label">Sequence</label>
+                                <label for="seq" class="col-xs-2 control-label">Sequence</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="sequence" name="sequence" placeholder="Sequence" required="required" value="${categoryVo.sequence}">
+                                    <input class="form-control" type="text" id="seq" name="seq" placeholder="Sequence" required="required" value="${categoryVo.seq}">
                                 </div>
                             </div>
                             <div class="form-group">

@@ -17,8 +17,8 @@ import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.Log0;
+import org.azolla.p.roc.mapper.CommentMapper;
 import org.azolla.p.roc.mapper.ProfessionalMapper;
-import org.azolla.p.roc.service.ICommentService;
 import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.vo.CommentVo;
 import org.azolla.p.roc.vo.ProfessionalVo;
@@ -47,7 +47,7 @@ public class AjaxController
     public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";
 
     @Autowired
-    private ICommentService iCommentService;
+    private IMapperService<CommentVo>      iCommentMapperService;
     @Autowired
     private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
@@ -81,7 +81,6 @@ public class AjaxController
                     qrcodeFolder.mkdirs();
                 }
                 File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
-                CommentVo commentVo = null;
                 String photoUrl = null;
                 if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
                 {
@@ -92,9 +91,9 @@ public class AjaxController
                     photoUrl = Oss.Ali.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
                 }
 
-                commentVo = iCommentService.add(postId, commentName, commentEmail, photoUrl, commentContent, request);
+                CommentVo commentVo = new CommentVo().setPostId(postId).setUsername(commentName).setEmail(commentEmail).setPhotoUrl(photoUrl).setContent(commentContent).setIp(request.getRemoteHost());
 
-                if (commentVo == null)
+                if (iCommentMapperService.add(CommentMapper.class, commentVo) <= 0)
                 {
                     obj.put("err", 1);
                     obj.put("msg", "Add failed !");
@@ -108,16 +107,17 @@ public class AjaxController
                     obj.put("err", 0);
                     obj.put("rst", commentVo);
 
-                    if(!Strings.isNullOrEmpty(professionalStr))
+                    if (!Strings.isNullOrEmpty(professionalStr))
                     {
                         String[] professionalArray = professionalStr.split(String0.COMMA);
-                        if(professionalArray != null && professionalArray.length > 1){
-                            for(int i = 1; i < professionalArray.length; i ++)
+                        if (professionalArray != null && professionalArray.length > 1)
+                        {
+                            for (int i = 1; i < professionalArray.length; i++)
                             {
                                 String[] professionalScore = professionalArray[i].split(String.valueOf(Char0.COLON));
-                                if(professionalScore != null && professionalScore.length == 2  && Integer0.isInt(professionalScore[0]) && Integer0.isInt(professionalScore[1]) && !"0".equalsIgnoreCase(professionalScore[1]))
+                                if (professionalScore != null && professionalScore.length == 2 && Integer0.isInt(professionalScore[0]) && Integer0.isInt(professionalScore[1]) && !"0".equalsIgnoreCase(professionalScore[1]))
                                 {
-                                    iProfessionalMapperService.add(ProfessionalMapper.class, new ProfessionalVo(Integer.valueOf(professionalScore[0]),Integer.valueOf(professionalScore[1]),ip));
+                                    iProfessionalMapperService.add(ProfessionalMapper.class, new ProfessionalVo().setTagId(Integer.valueOf(professionalScore[0])).setScore(Integer.valueOf(professionalScore[1])).setIp(ip));
                                 }
                             }
                         }
@@ -137,25 +137,4 @@ public class AjaxController
         }
     }
 
-    public void lstProfessional(HttpServletResponse response)
-    {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = null;
-        try
-        {
-            out = response.getWriter();
-            JSONObject obj = new JSONObject();
-
-            out.println(Json0.object2String(obj));
-            out.flush();
-        }
-        catch (Exception e)
-        {
-            Log0.error(this.getClass(), e.toString(), e);
-        }
-        finally
-        {
-            Close0.close(out);
-        }
-    }
 }

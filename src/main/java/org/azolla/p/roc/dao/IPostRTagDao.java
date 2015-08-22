@@ -2,6 +2,7 @@ package org.azolla.p.roc.dao;
 
 import org.azolla.p.roc.vo.PostRTagVo;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -12,13 +13,5 @@ import java.util.List;
  */
 public interface IPostRTagDao
 {
-    public int add(PostRTagVo postRTagVo);
-
-    public int rmv(PostRTagVo postRTagVo);
-
-    public List<PostRTagVo> lstByPostId(int postId);
-
-    public int rmvByPostId(int postId);
-
-    public int btAdd(List<PostRTagVo> list);
+    public int btAdd(@Nonnull List<PostRTagVo> list);
 }

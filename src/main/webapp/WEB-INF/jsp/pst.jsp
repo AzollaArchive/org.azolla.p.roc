@@ -69,7 +69,7 @@
                                         </div>
                                         <c:set var="needProfessional" value="${false}" />
                                         <c:forEach var="tag" items="${post.tagVoList}">
-                                            <c:if test="${tag.professional == 1}">
+                                            <c:if test="${tag.operable == 1}">
                                                 <c:set var="needProfessional" value="${true}" />
                                             </c:if>
                                         </c:forEach>
@@ -78,7 +78,7 @@
                                                 <label class="col-sm-1 control-label">Score</label>
                                                 <div class="col-sm-11">
                                                     <c:forEach var="tag" items="${post.tagVoList}">
-                                                        <c:if test="${tag.professional == 1}">
+                                                        <c:if test="${tag.operable == 1}">
                                                             ${tag.displayName} : <select class="form-control tagProfessionalSelectCss" id="tagProfessionalId${tag.id}">
                                                             <c:forEach var="tagProfessionalScoreValue" begin="0" end="10" step="1">
                                                                 <option value="${tagProfessionalScoreValue}">${tagProfessionalScoreValue}</option>

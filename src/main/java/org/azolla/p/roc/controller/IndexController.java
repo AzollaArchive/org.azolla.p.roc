@@ -6,10 +6,15 @@
  */
 package org.azolla.p.roc.controller;
 
+import org.apache.ibatis.session.RowBounds;
+import org.azolla.p.roc.aware.CacheAware;
+import org.azolla.p.roc.mapper.PostMapper;
+import org.azolla.p.roc.service.IMapperService;
 import org.azolla.p.roc.service.IPostService;
+import org.azolla.p.roc.simditor.Simditor;
+import org.azolla.p.roc.vo.PostVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +32,15 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController
 {
     @Autowired
-    private IPostService iPostService;
+    private IMapperService<PostVo> iPostMapperService;
+    @Autowired
+    private IPostService           iPostService;
 
     @RequestMapping({"/", "/index"})
     public String index(Model model)
     {
-        model.addAttribute("postList",iPostService.lst(1));
-        model.addAttribute("current_page",1);
+        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(1).setDeleted(0), new RowBounds(1, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
+        model.addAttribute("current_page", 1);
 
         setting(model);
 
@@ -41,32 +48,32 @@ public class IndexController
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(String search,Model model,HttpServletRequest request)
+    public String search(String search, Model model, HttpServletRequest request)
     {
-        request.getSession().setAttribute("search",search);
-        model.addAttribute("postList", iPostService.search(search,1));
+        request.getSession().setAttribute("search", search);
+        model.addAttribute("postList", iPostService.search(search, 1));
         model.addAttribute("current_page", 1);
-        model.addAttribute("jsp_title","Search");
-        model.addAttribute("current_request","search");
+        model.addAttribute("jsp_title", "Search");
+        model.addAttribute("current_request", "search");
         return "lst";
     }
 
     @RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
-    public String search(@PathVariable int page,Model model,HttpServletRequest request)
+    public String search(@PathVariable Integer page, Model model, HttpServletRequest request)
     {
-        model.addAttribute("postList", iPostService.search(request.getSession().getAttribute("search").toString(),page));
+        model.addAttribute("postList", iPostService.search(request.getSession().getAttribute("search").toString(), page));
         model.addAttribute("current_page", page);
-        model.addAttribute("jsp_title","Search");
-        model.addAttribute("current_request","search");
+        model.addAttribute("jsp_title", "Search");
+        model.addAttribute("current_request", "search");
         return "lst";
     }
 
     @RequestMapping("/index/{page}")
-    public String index(@PathVariable String page,Model model)
+    public String index(@PathVariable String page, Model model)
     {
-        int requestPage = Integer.parseInt(page);
+        Integer requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postList",iPostService.lst(requestPage));
+        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(1).setDeleted(0), new RowBounds(requestPage, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
         model.addAttribute("current_page", requestPage);
 
         setting(model);
@@ -76,8 +83,8 @@ public class IndexController
 
     private void setting(Model model)
     {
-        model.addAttribute("jsp_title","Index");
-        model.addAttribute("current_request","index");
+        model.addAttribute("jsp_title", "Index");
+        model.addAttribute("current_request", "index");
     }
 
 

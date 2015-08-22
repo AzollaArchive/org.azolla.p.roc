@@ -9,6 +9,7 @@ package org.azolla.p.roc.vo;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -18,41 +19,51 @@ import java.util.List;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_category")
 @Component
 public class CategoryVo
 {
-    public static final int LEFT_ROOT_ID  = 1;
-    public static final int RIGHT_ROOT_ID = 2;
+    @Transient
+    public static final Integer LEFT_ROOT_ID   = 2;
+    @Transient
+    public static final Integer RIGHT_ROOT_ID  = 3;
+    @Transient
+    public static final String  LEFT_ROOT_URL  = "left";
+    @Transient
+    public static final String  RIGHT_ROOT_URL = "right";
 
-    public static final String LEFT_ROOT_URL  = "left";
-    public static final String RIGHT_ROOT_URL = "right";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private String  displayName;
+    private String  urlName;
+    private Integer parentId;
+    private String  controllerName;
+    private Integer grouped;
+    @OrderBy
+    private Integer seq;
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
-    //db column
-    private int        id;
-    private String     displayName;
-    private String     urlName;
-    private int        parentId;
-    private String     controllerName;
-    private int        group;
-    private int        sequence;
-    private Date       addDate;
-    private Date       modDate;
-    private Date       rmvDate;
-    private int        visible;
-    private int        operable;
-    private int        deleted;
-
+    @Transient
     private CategoryVo parentCategoryVo;
+    @Transient
     private List<CategoryVo> subCategoryVoList = Lists.newArrayList();
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public CategoryVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
     public String getDisplayName()
@@ -60,9 +71,10 @@ public class CategoryVo
         return displayName;
     }
 
-    public void setDisplayName(String displayName)
+    public CategoryVo setDisplayName(String displayName)
     {
         this.displayName = displayName;
+        return this;
     }
 
     public String getUrlName()
@@ -70,19 +82,21 @@ public class CategoryVo
         return urlName;
     }
 
-    public void setUrlName(String urlName)
+    public CategoryVo setUrlName(String urlName)
     {
         this.urlName = urlName;
+        return this;
     }
 
-    public int getParentId()
+    public Integer getParentId()
     {
         return parentId;
     }
 
-    public void setParentId(int parentId)
+    public CategoryVo setParentId(Integer parentId)
     {
         this.parentId = parentId;
+        return this;
     }
 
     public String getControllerName()
@@ -90,29 +104,32 @@ public class CategoryVo
         return controllerName;
     }
 
-    public void setControllerName(String controllerName)
+    public CategoryVo setControllerName(String controllerName)
     {
         this.controllerName = controllerName;
+        return this;
     }
 
-    public int getGroup()
+    public Integer getGrouped()
     {
-        return group;
+        return grouped;
     }
 
-    public void setGroup(int group)
+    public CategoryVo setGrouped(Integer grouped)
     {
-        this.group = group;
+        this.grouped = grouped;
+        return this;
     }
 
-    public int getSequence()
+    public Integer getSeq()
     {
-        return sequence;
+        return seq;
     }
 
-    public void setSequence(int sequence)
+    public CategoryVo setSeq(Integer seq)
     {
-        this.sequence = sequence;
+        this.seq = seq;
+        return this;
     }
 
     public Date getAddDate()
@@ -130,9 +147,10 @@ public class CategoryVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public CategoryVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -140,39 +158,43 @@ public class CategoryVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public CategoryVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public CategoryVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public CategoryVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public CategoryVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
+        return this;
     }
 
     public CategoryVo getParentCategoryVo()
@@ -180,9 +202,10 @@ public class CategoryVo
         return parentCategoryVo;
     }
 
-    public void setParentCategoryVo(CategoryVo parentCategoryVo)
+    public CategoryVo setParentCategoryVo(CategoryVo parentCategoryVo)
     {
         this.parentCategoryVo = parentCategoryVo;
+        return this;
     }
 
     public List<CategoryVo> getSubCategoryVoList()
@@ -190,8 +213,9 @@ public class CategoryVo
         return subCategoryVoList;
     }
 
-    public void setSubCategoryVoList(List<CategoryVo> subCategoryVoList)
+    public CategoryVo setSubCategoryVoList(List<CategoryVo> subCategoryVoList)
     {
         this.subCategoryVoList = subCategoryVoList;
+        return this;
     }
 }

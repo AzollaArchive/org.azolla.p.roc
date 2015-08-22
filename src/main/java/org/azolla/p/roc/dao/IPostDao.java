@@ -9,6 +9,7 @@ package org.azolla.p.roc.dao;
 import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.PostVo;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -19,21 +20,7 @@ import java.util.List;
  */
 public interface IPostDao
 {
-    public List<PostVo> lstWithoutVOD(RowBounds rowBounds);
-
-    public List<PostVo> lst(RowBounds rowBounds);
-
-    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, RowBounds rowBounds);
-
     public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds);
 
-    public List<PostVo> search(String search, RowBounds rowBounds);
-
-    public PostVo getByUrlTitle(String urlTitle);
-
-    public int add(PostVo postVo);
-
-    public int mod(PostVo postVo);
-
-    public int rmvById(int id);
+    public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds);
 }

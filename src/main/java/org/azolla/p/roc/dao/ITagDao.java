@@ -1,8 +1,8 @@
 package org.azolla.p.roc.dao;
 
-import org.apache.ibatis.session.RowBounds;
 import org.azolla.p.roc.vo.TagVo;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -13,21 +13,9 @@ import java.util.List;
  */
 public interface ITagDao
 {
-    public List<TagVo> lstWithoutVOD(RowBounds rowBounds);
-
-    public List<TagVo> lst();
+    public int btAdd(@Nonnull List<TagVo> tagVoList);
 
     public List<TagVo> lstByPostUrlTitle(String postUrlTitle);
 
-    public TagVo getByUrlName(String urlName);
-
-    public int add(TagVo tagVo);
-
-    public int btAdd(List<TagVo> tagVoList);
-
-    public List<TagVo> btLstByUrlNameList(List<String> urlNameList);
-
-    public int mod(TagVo tagVo);
-
-    public int rmvById(int id);
+    public List<TagVo> lstByUrlNameList(@Nonnull List<String> urlNameList);
 }

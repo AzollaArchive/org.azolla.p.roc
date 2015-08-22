@@ -13,20 +13,27 @@ import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.lang.String0;
+import org.azolla.l.ling.util.Date0;
 import org.azolla.l.ling.util.List0;
 import org.azolla.p.roc.aware.CacheAware;
-import org.azolla.p.roc.dao.ICommentDao;
+import org.azolla.p.roc.dao.IMapperDao;
 import org.azolla.p.roc.dao.IPostDao;
 import org.azolla.p.roc.dao.IPostRTagDao;
 import org.azolla.p.roc.dao.ITagDao;
+import org.azolla.p.roc.mapper.CommentMapper;
+import org.azolla.p.roc.mapper.PostMapper;
+import org.azolla.p.roc.mapper.PostRTagMapper;
 import org.azolla.p.roc.service.IPostService;
 import org.azolla.p.roc.service.ITagService;
+import org.azolla.p.roc.simditor.Simditor;
+import org.azolla.p.roc.vo.CommentVo;
 import org.azolla.p.roc.vo.PostRTagVo;
 import org.azolla.p.roc.vo.PostVo;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
@@ -41,79 +48,43 @@ import java.util.List;
 public class PostServiceImpl implements IPostService
 {
     @Autowired
-    private IPostDao iPostDao;
-
+    private IMapperDao<CommentVo>  iCommentMapperDao;
     @Autowired
-    private ITagDao iTagDao;
-
+    private IMapperDao<PostRTagVo> iPostRTagMapperDao;
     @Autowired
-    private ICommentDao iCommentDao;
-
+    private IMapperDao<PostVo>     iPostMapperDao;
     @Autowired
-    private IPostRTagDao iPostRTagDao;
-
+    private IPostDao               iPostDao;
     @Autowired
-    private ITagService iTagService;
-
-    @Override
-    public List<PostVo> lst(int page)
-    {
-        return more(iPostDao.lst(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
-    }
-
-    public List<PostVo> lstWithoutVOD(int page)
-    {
-        List<PostVo> rtnList = iPostDao.lstWithoutVOD(new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))));
-        for(PostVo postVo : rtnList)
-        {
-            postVo.setCategoryVo(CacheAware.getCategoryVoById(postVo.getCategoryId()));
-        }
-        return rtnList;
-    }
-
-    @Override
-    public List<PostVo> lstByCategoryUrlName(String categoryUrlName, int page)
-    {
-        return more(iPostDao.lstByCategoryUrlName(categoryUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
-    }
-
-    @Override
-    public List<PostVo> lstByTagUrlName(String tagUrlName, int page)
-    {
-        return more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
-    }
-
-    public List<PostVo> search(String search, int page)
-    {
-        return more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
-    }
-
-    private List<PostVo> more(List<PostVo> lst)
-    {
-        return Lists.transform(lst, new Function<PostVo, PostVo>()
-        {
-            @Nullable
-            @Override
-            public PostVo apply(PostVo input)
-            {
-                input.setContent(input.getContent().split(MORE)[0]);
-                return input;
-            }
-        });
-    }
+    private IPostRTagDao           iPostRTagDao;
+    @Autowired
+    private ITagDao                iTagDao;
+    @Autowired
+    private ITagService            iTagService;
 
     @Override
     public PostVo getByUrlTitle(String urlTitle)
     {
-        PostVo postVo = iPostDao.getByUrlTitle(urlTitle);
+        PostVo postVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle));
         postVo.getTagVoList().addAll(iTagDao.lstByPostUrlTitle(urlTitle));
-        postVo.getCommentVoList().addAll(iCommentDao.lstByPostId(postVo.getId()));
+        postVo.getCommentVoList().addAll(iCommentMapperDao.lst(CommentMapper.class, new CommentVo().setPostId(postVo.getId())));
         return postVo;
     }
 
-    public Tuple.Triple<Boolean,String,PostVo> opt(int id, String title, int category, String tag, String content, Integer visible, Integer operable)
+    @Override
+    public List<PostVo> lstByTagUrlName(@Nonnull String tagUrlName, Integer page)
     {
-        Tuple.Triple<Boolean,String,PostVo> rtnResult = null;
+        return Simditor.more(iPostDao.lstByTagUrlName(tagUrlName, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+    }
+
+    public List<PostVo> search(String search, Integer page)
+    {
+        return Simditor.more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+    }
+
+    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable)
+    {
+        Tuple.Triple<Boolean, String, PostVo> rtnResult = null;
 
         String urlTitle = String0.pinyin(title);
         final PostVo postVo = new PostVo();
@@ -125,34 +96,35 @@ public class PostServiceImpl implements IPostService
         postVo.setVisible(Integer0.nullToZero(visible));
         postVo.setOperable(Integer0.nullToZero(operable));
 
-        rtnResult = Tuple.of(true,null,postVo);
+        rtnResult = Tuple.of(true, null, postVo);
 
-        if(id == 0)
+        if (id == null || id == 0)
         {
             //add
-            if(iPostDao.getByUrlTitle(urlTitle) != null)
+            PostVo existPostVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle));
+            if (existPostVo != null)
             {
-                rtnResult = Tuple.of(false,"Title exist!",postVo);
+                rtnResult = Tuple.of(false, "Title exist!", postVo);
             }
             else
             {
-                iPostDao.add(postVo);
-                postVo.setId(iPostDao.getByUrlTitle(urlTitle).getId());
+                iPostMapperDao.add(PostMapper.class, postVo);
+                postVo.setId(iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle)).getId());
             }
         }
         else
         {
             //delete all exist tag
-            iPostRTagDao.rmvByPostId(id);
+            iPostRTagMapperDao.rmv(PostRTagMapper.class, new PostRTagVo().setPostId(id));
 
             postVo.setId(id);
             //mod
-            iPostDao.mod(postVo);
+            iPostMapperDao.mod(PostMapper.class, postVo.setModDate(Date0.now()));
         }
 
-        if(Tuple.getFirst(rtnResult))
+        if (Tuple.getFirst(rtnResult))
         {
-            List<String> cachedTagIdList = Lists.transform(CacheAware.getTagList(), new Function<TagVo, String>()
+            List<String> allCachedTagIdList = Lists.transform(CacheAware.getTagList(), new Function<TagVo, String>()
             {
                 @Nullable
                 @Override
@@ -162,12 +134,12 @@ public class PostServiceImpl implements IPostService
                 }
             });
 
-            List<Integer> tagIdList = Lists.newArrayList();
-            List<String> optTagList = Lists.newArrayList();
-            if(!Strings.isNullOrEmpty(tag))
+            List<Integer> optExistTagIdList = Lists.newArrayList();
+            List<String> allOptTagIdList = Lists.newArrayList();
+            if (!Strings.isNullOrEmpty(tag))
             {
-                optTagList.addAll(Arrays.asList(tag.split(",")));
-                tagIdList.addAll(Lists.transform(List0.listExistInOther(optTagList, cachedTagIdList), new Function<String, Integer>()
+                allOptTagIdList.addAll(Arrays.asList(tag.split(",")));
+                optExistTagIdList.addAll(Lists.transform(List0.listExistInOther(allOptTagIdList, allCachedTagIdList), new Function<String, Integer>()
                 {
                     @Nullable
                     @Override
@@ -177,7 +149,7 @@ public class PostServiceImpl implements IPostService
                     }
                 }));
             }
-            tagIdList.addAll(Lists.transform(iTagService.btAddByTagDisplayName(List0.listNotExistInOther(optTagList, cachedTagIdList)), new Function<TagVo, Integer>()
+            optExistTagIdList.addAll(Lists.transform(iTagService.btAddByTagDisplayName(List0.listNotExistInOther(allOptTagIdList, allCachedTagIdList)), new Function<TagVo, Integer>()
             {
                 @Nullable
                 @Override
@@ -187,18 +159,17 @@ public class PostServiceImpl implements IPostService
                 }
             }));
 
-
-            //all tag existed in db,ajax added to db
-            List<PostRTagVo> postRTagVoList = Lists.transform(tagIdList, new Function<Integer, PostRTagVo>()
+            List<PostRTagVo> postRTagVoList = Lists.transform(optExistTagIdList, new Function<Integer, PostRTagVo>()
             {
                 @Nullable
                 @Override
                 public PostRTagVo apply(@Nullable Integer input)
                 {
-                    return new PostRTagVo(postVo.getId(),input);
+                    return new PostRTagVo().setPostId(postVo.getId()).setTagId(input);
                 }
             });
-            if(postRTagVoList.size() > 0){
+            if (postRTagVoList.size() > 0)
+            {
                 iPostRTagDao.btAdd(postRTagVoList);
             }
         }

@@ -1,6 +1,7 @@
-package org.azolla.p.roc.dao;
+package org.azolla.p.roc.mapper;
 
 import org.azolla.p.roc.vo.impl.UserDetailsImpl;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -8,7 +9,6 @@ import org.azolla.p.roc.vo.impl.UserDetailsImpl;
  * @author sk@azolla.org
  * @since ADK1.0
  */
-public interface IUserDetailsDao
+public interface UserDetailsMapper extends Mapper<UserDetailsImpl>
 {
-    public UserDetailsImpl getByUsername(String username);
 }

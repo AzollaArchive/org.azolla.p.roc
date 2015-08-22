@@ -41,7 +41,7 @@ public class ProfessionalCrontab
 {
     public static final String OSS_ROC_PROFESSIONAL_FOLDER = "roc/professional/";
     @Autowired
-    private ServletAware servletAware;
+    private ServletAware                   servletAware;
     @Autowired
     private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
@@ -59,24 +59,24 @@ public class ProfessionalCrontab
         Map<Integer, HighChartsJsonVo> idHighChartsJsonVoMap = Maps.newHashMap();
         for (TagVo tagVo : tagVoList)
         {
-            if (tagVo.getProfessional() == 1)
+            if (tagVo.getOperable() == 1)
             {
                 idHighChartsJsonVoMap.put(tagVo.getId(), new HighChartsJsonVo(tagVo.getDisplayName()));
             }
         }
-        for (ProfessionalVo professionalVo : iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo(0)))
+        for (ProfessionalVo professionalVo : iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setDeleted(0)))
         {
-            idHighChartsJsonVoMap.get(professionalVo.getScoreId()).getData().add(Lists.newArrayList(professionalVo.getAddDate().getTime(),professionalVo.getScoreValue()));
+            idHighChartsJsonVoMap.get(professionalVo.getTagId()).getData().add(Lists.newArrayList(professionalVo.getAddDate().getTime(), professionalVo.getScore()));
         }
         List<Integer> needRmvKeyList = Lists.newArrayList();
-        for(Map.Entry<Integer, HighChartsJsonVo> entry : idHighChartsJsonVoMap.entrySet())
+        for (Map.Entry<Integer, HighChartsJsonVo> entry : idHighChartsJsonVoMap.entrySet())
         {
-            if(entry.getValue().getData().size() == 0)
+            if (entry.getValue().getData().size() == 0)
             {
                 needRmvKeyList.add(entry.getKey());
             }
         }
-        for(Integer needRmvKey : needRmvKeyList)
+        for (Integer needRmvKey : needRmvKeyList)
         {
             idHighChartsJsonVoMap.remove(needRmvKey);
         }

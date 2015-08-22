@@ -3,65 +3,39 @@
 <mapper namespace="mapper.tag">
 
     <resultMap id="tag" type="TagVo">
-        <id property="id" column="t_id" />
-        <result property="displayName" column="t_dN" />
-        <result property="urlName" column="t_uN" />
-        <result property="addDate" javaType="java.util.Date" column="t_aD" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="t_mD" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="t_rD" jdbcType="DATE" />
-        <result property="visible" column="t_v" />
-        <result property="operable" column="t_o" />
-        <result property="deleted" column="t_d" />
-        <result property="professional" column="t_p" />
+        <id property="id" column="id" />
+        <result property="displayName" column="display_name" />
+        <result property="urlName" column="url_name" />
+        <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE" />
+        <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE" />
+        <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE" />
+        <result property="visible" column="visible" />
+        <result property="operable" column="operable" />
+        <result property="deleted" column="deleted" />
     </resultMap>
-
-
-    <select id="lstWithoutVOD" resultType="TagVo">
-        select * from roc_t_tag order by displayName
-    </select>
-
-    <select id="lst" resultType="TagVo">
-        select * from roc_t_tag where visible=1 and operable=1 and deleted=0 order by displayName
-    </select>
-
-    <select id="lstByPostUrlTitle" parameterType="String" resultType="TagVo">
-        select t.*
-        from (select * from roc_t_tag where visible=1 and operable=1 and deleted=0) t
-        join roc_t_post_r_tag r on r.tagId = t.id
-        join roc_t_post p on p.id = r.postId
-        where p.urlTitle = #{postUrlTitle}
-        order by t.displayName
-    </select>
-
-    <select id="getByUrlName" parameterType="String" resultType="TagVo">
-        select * from roc_t_tag where visible=1 and operable=1 and deleted=0 and urlName = #{urlName} order by displayName
-    </select>
-
-    <insert id="add" parameterType="org.azolla.p.roc.vo.TagVo">
-        insert into roc_t_tag(displayName,urlName,addDate,visible,operable,professional) values(#{displayName},#{urlName},now(),#{visible},#{operable},#{professional})
-    </insert>
 
     <!--http://mybatis.github.io/mybatis-3/zh/dynamic-sql.html#foreach-->
     <insert id="btAdd" parameterType="java.util.List">
-        insert into roc_t_tag(displayName,urlName,addDate,visible,operable,professional) values
+        insert into roc_t_tag(display_name,url_name) values
         <foreach collection="list" item="item" index="index" separator="," >
-            (#{item.displayName},#{item.urlName},now(),#{visible},#{operable},#{item.professional})
+            (#{item.displayName},#{item.urlName})
         </foreach>
     </insert>
 
-    <select id="btLstByUrlNameList" parameterType="java.util.List" resultType="TagVo">
-        select * from roc_t_tag where urlName in
+    <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
+        select t.*
+        from (select * from roc_t_tag where visible=1 and operable=1 and deleted=0) t
+        join roc_t_post_r_tag r on r.tag_id = t.id
+        join roc_t_post p on p.id = r.post_id
+        where p.url_title = #{postUrlTitle}
+        order by t.display_name
+    </select>
+
+    <select id="lstByUrlNameList" parameterType="java.util.List" resultMap="tag">
+        select * from roc_t_tag where url_name in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
-
-    <update id="mod" parameterType="org.azolla.p.roc.vo.TagVo">
-        update roc_t_tag set displayName=#{displayName},urlName=#{urlName},modDate=now(),visible=#{visible},operable=#{operable},professional=#{professional} where id=#{id}
-    </update>
-
-    <update id="rmvById" parameterType="int">
-        update roc_t_tag set deleted=1,rmvDate=now() where id=#{id}
-    </update>
 
 </mapper>

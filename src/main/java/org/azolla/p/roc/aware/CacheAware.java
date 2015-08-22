@@ -10,18 +10,20 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.azolla.l.ling.lang.Char0;
 import org.azolla.l.ling.lang.String0;
-import org.azolla.p.roc.dao.ICategoryDao;
-import org.azolla.p.roc.dao.ITagDao;
+import org.azolla.p.roc.dao.IMapperDao;
+import org.azolla.p.roc.mapper.CategoryMapper;
+import org.azolla.p.roc.mapper.ConfigMapper;
+import org.azolla.p.roc.mapper.TagMapper;
 import org.azolla.p.roc.service.ICategoryService;
-import org.azolla.p.roc.service.IConfigService;
 import org.azolla.p.roc.vo.CategoryVo;
+import org.azolla.p.roc.vo.ConfigVo;
 import org.azolla.p.roc.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,7 +37,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author sk@azolla.org
  * @since ADK1.0
  */
-@Component
+@Service
 @Scope(value = "singleton")
 public class CacheAware
 {
@@ -56,28 +58,26 @@ public class CacheAware
     private static ConcurrentMap<String, String>           CONFIG_MAP   = new ConcurrentHashMap<String, String>();
     private static List<TagVo>                             TAG_LIST     = Lists.newArrayList();
 
-    private static ConcurrentMap<Integer, CategoryVo> CATEGORY_ID_VO_MAP = Maps.newConcurrentMap();
-
-    private static ConcurrentMap<Integer, TagVo> TAG_ID_VO_MAP = Maps.newConcurrentMap();
-
-    @Autowired
-    private ICategoryService iCategoryService;
+    private static ConcurrentMap<Integer, CategoryVo> CATEGORY_ID_VO_MAP  = Maps.newConcurrentMap();
+    private static ConcurrentMap<String, CategoryVo>  CATEGORY_URL_VO_MAP = Maps.newConcurrentMap();
+    private static ConcurrentMap<Integer, TagVo>      TAG_ID_VO_MAP       = Maps.newConcurrentMap();
+    private static ConcurrentMap<String, TagVo>       TAG_URL_VO_MAP      = Maps.newConcurrentMap();
 
     @Autowired
-    private IConfigService iConfigService;
-
+    private ICategoryService       iCategoryService;
     @Autowired
-    private ITagDao iTagDao;
-
+    private IMapperDao<CategoryVo> iCategoryMapperDao;
     @Autowired
-    private ICategoryDao iCategoryDao;
+    private IMapperDao<ConfigVo>   iConfigMapperDao;
+    @Autowired
+    private IMapperDao<TagVo>      iTagMapperDao;
 
-    public static List<CategoryVo> getCategoryList(String key)
+    public static List<CategoryVo> getCategoryList(@Nonnull String key)
     {
         return CATEGORY_MAP.get(key);
     }
 
-    public static String getConfigValue(String key)
+    public static String getConfigValue(@Nonnull String key)
     {
         return CONFIG_MAP.get(key);
     }
@@ -113,14 +113,24 @@ public class CacheAware
         }))).toString();
     }
 
-    public static CategoryVo getCategoryVoById(Integer categoryId)
+    public static CategoryVo getCategoryVoById(@Nonnull Integer categoryId)
     {
         return CATEGORY_ID_VO_MAP.get(categoryId);
     }
 
-    public static TagVo getTagVoById(Integer tagId)
+    public static CategoryVo getCategoryVoByUrl(@Nonnull String urlName)
+    {
+        return CATEGORY_URL_VO_MAP.get(urlName);
+    }
+
+    public static TagVo getTagVoById(@Nonnull Integer tagId)
     {
         return TAG_ID_VO_MAP.get(tagId);
+    }
+
+    public static TagVo getTagVoByUrl(@Nonnull String urlName)
+    {
+        return TAG_URL_VO_MAP.get(urlName);
     }
 
     @PostConstruct
@@ -136,30 +146,38 @@ public class CacheAware
         load(TAG_CACHE);
     }
 
-    public void load(String cache)
+    public void load(@Nonnull String cache)
     {
         clear(cache);
         switch (cache)
         {
             case CATEGORY_CACHE:
-                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.lst(CategoryVo.LEFT_ROOT_URL));
-//                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryDao.fullLstByIdWithoutVOD(CategoryVo.LEFT_ROOT_ID,new RowBounds(1, 50)).get(0).getSubCategoryVoList());
-                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.lst(CategoryVo.RIGHT_ROOT_URL));
+                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.loop(CategoryVo.LEFT_ROOT_ID));
+                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.loop(CategoryVo.RIGHT_ROOT_ID));
                 CATEGORY_ID_VO_MAP.clear();
-                for (CategoryVo categoryVo : iCategoryDao.lst())
+                CATEGORY_URL_VO_MAP.clear();
+                for (CategoryVo categoryVo : iCategoryMapperDao.lst(CategoryMapper.class, new CategoryVo()))
                 {
                     CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
+                    CATEGORY_URL_VO_MAP.put(categoryVo.getUrlName(), categoryVo);
                 }
                 break;
             case CONFIG_CACHE:
-                CONFIG_MAP.putAll(iConfigService.map());
+                CONFIG_MAP.clear();
+                ;
+                for (ConfigVo configVo : iConfigMapperDao.lst(ConfigMapper.class, new ConfigVo()))
+                {
+                    CONFIG_MAP.put(configVo.getRocKey(), configVo.getRocValue());
+                }
                 break;
             case TAG_CACHE:
-                TAG_LIST.addAll(iTagDao.lst());
+                TAG_LIST.addAll(iTagMapperDao.lst(TagMapper.class, new TagVo()));
                 TAG_ID_VO_MAP.clear();
-                for(TagVo tagVo : TAG_LIST)
+                TAG_URL_VO_MAP.clear();
+                for (TagVo tagVo : TAG_LIST)
                 {
                     TAG_ID_VO_MAP.put(tagVo.getId(), tagVo);
+                    TAG_URL_VO_MAP.put(tagVo.getUrlName(), tagVo);
                 }
                 break;
             default:
@@ -174,7 +192,7 @@ public class CacheAware
         reload(TAG_CACHE);
     }
 
-    public void reload(String cache)
+    public void reload(@Nonnull String cache)
     {
         clear(cache);
         load(cache);
@@ -187,7 +205,7 @@ public class CacheAware
         clear(TAG_CACHE);
     }
 
-    public void clear(String cache)
+    public void clear(@Nonnull String cache)
     {
         switch (cache)
         {

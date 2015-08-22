@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Nullable;
-import java.sql.Date;
 
 /**
  * The coder is very lazy, nothing to write for this class
@@ -36,17 +35,10 @@ public class ProfessionalController
     @Autowired
     private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
-//    @Autowired
-//    private ProfessionalMapperService professionalMapperService;
-
     @RequestMapping(value = "/admin/professional/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable int id, Model model)
+    public String rmv(@PathVariable Integer id, Model model)
     {
-        ProfessionalVo professionalVo = new ProfessionalVo();
-        professionalVo.setId(id);
-        professionalVo.setDeleted(1);
-        professionalVo.setRmvDate(Date0.now());
-        iProfessionalMapperService.rmv(ProfessionalMapper.class, professionalVo);
+        iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
         return "redirect:/admin/professional/lst";
     }
 
@@ -59,12 +51,12 @@ public class ProfessionalController
     @RequestMapping(value = "/admin/professional/lst/{page}", method = RequestMethod.GET)
     public String lst(@PathVariable String page, Model model)
     {
-        int requestPage = Integer.valueOf(page);
+        Integer requestPage = Integer.valueOf(page);
 
         return lst(requestPage, model);
     }
 
-    private String lst(int page, Model model)
+    private String lst(Integer page, Model model)
     {
 
         model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
@@ -75,7 +67,7 @@ public class ProfessionalController
             {
                 if (input != null)
                 {
-                    input.setScoreName(CacheAware.getTagVoById(input.getScoreId()).getDisplayName());
+                    input.setTagName(CacheAware.getTagVoById(input.getTagId()).getDisplayName());
                 }
                 return input;
             }

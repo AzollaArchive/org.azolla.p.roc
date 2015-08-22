@@ -6,7 +6,8 @@
  */
 package org.azolla.p.roc.service.impl;
 
-import org.azolla.p.roc.dao.IUserDetailsDao;
+import org.azolla.p.roc.dao.IMapperDao;
+import org.azolla.p.roc.mapper.UserDetailsMapper;
 import org.azolla.p.roc.vo.impl.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,14 +26,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService
 {
     @Autowired
-    private IUserDetailsDao iUserDetailsDao;
+    private IMapperDao<UserDetailsImpl> iUserDetailsMapDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        UserDetailsImpl userDetailsImpl = iUserDetailsDao.getByUsername(username);
-
-//        System.out.println(username+":"+userDetailsImpl);
-        return userDetailsImpl;
+        return iUserDetailsMapDao.selectOne(UserDetailsMapper.class, new UserDetailsImpl().setUsername(username));
     }
 }

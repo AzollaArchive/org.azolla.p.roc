@@ -42,8 +42,8 @@
                                         <td>${categoryVo.urlName}</td>
                                         <td>${categoryVo.parentId}</td>
                                         <td>${categoryVo.controllerName}</td>
-                                        <td>${categoryVo.group}</td>
-                                        <td>${categoryVo.sequence}</td>
+                                        <td>${categoryVo.grouped}</td>
+                                        <td>${categoryVo.seq}</td>
                                         <td><fmt:formatDate value="${categoryVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${categoryVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${categoryVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>

@@ -25,12 +25,12 @@ public class RocExceptionResolver implements HandlerExceptionResolver
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
     {
         ModelAndView rtn = new ModelAndView("500");
-        if(ex instanceof NullPointerException)
+        if (ex instanceof NullPointerException)
         {
             rtn = new ModelAndView("404");
         }
-        Log0.error(this.getClass(),ex.toString(),ex);
-        request.setAttribute("exception",ex);
+        Log0.error(this.getClass(), ex.toString(), ex);
+        request.setAttribute("exception", ex);
         return rtn;
     }
 }

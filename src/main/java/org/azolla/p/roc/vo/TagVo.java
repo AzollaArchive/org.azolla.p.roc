@@ -8,6 +8,7 @@ package org.azolla.p.roc.vo;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -16,38 +17,33 @@ import java.util.Date;
  * @author sk@azolla.org
  * @since ADK1.0
  */
+@Table(name = "roc_t_tag")
 @Component
 public class TagVo
 {
-    //db column
-    private int    id;
-    private String displayName;
-    private String urlName;
-    private Date   addDate;
-    private Date   modDate;
-    private Date   rmvDate;
-    private int    visible;
-    private int    operable;
-    private int    deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy
+    private Integer id;
+    private String  displayName;
+    private String  urlName;
+    @OrderBy
+    private Date    addDate;
+    private Date    modDate;
+    private Date    rmvDate;
+    private Integer visible;
+    private Integer operable;
+    private Integer deleted;
 
-    private int professional;
-
-    public TagVo(){}
-
-    public TagVo(String displayName, String urlName)
-    {
-        this.displayName = displayName;
-        this.urlName = urlName;
-    }
-
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public TagVo setId(Integer id)
     {
         this.id = id;
+        return this;
     }
 
     public String getDisplayName()
@@ -55,9 +51,10 @@ public class TagVo
         return displayName;
     }
 
-    public void setDisplayName(String displayName)
+    public TagVo setDisplayName(String displayName)
     {
         this.displayName = displayName;
+        return this;
     }
 
     public String getUrlName()
@@ -65,9 +62,10 @@ public class TagVo
         return urlName;
     }
 
-    public void setUrlName(String urlName)
+    public TagVo setUrlName(String urlName)
     {
         this.urlName = urlName;
+        return this;
     }
 
     public Date getAddDate()
@@ -85,9 +83,10 @@ public class TagVo
         return modDate;
     }
 
-    public void setModDate(Date modDate)
+    public TagVo setModDate(Date modDate)
     {
         this.modDate = modDate;
+        return this;
     }
 
     public Date getRmvDate()
@@ -95,48 +94,42 @@ public class TagVo
         return rmvDate;
     }
 
-    public void setRmvDate(Date rmvDate)
+    public TagVo setRmvDate(Date rmvDate)
     {
         this.rmvDate = rmvDate;
+        return this;
     }
 
-    public int getVisible()
+    public Integer getVisible()
     {
         return visible;
     }
 
-    public void setVisible(int visible)
+    public TagVo setVisible(Integer visible)
     {
         this.visible = visible;
+        return this;
     }
 
-    public int getOperable()
+    public Integer getOperable()
     {
         return operable;
     }
 
-    public void setOperable(int operable)
+    public TagVo setOperable(Integer operable)
     {
         this.operable = operable;
+        return this;
     }
 
-    public int getDeleted()
+    public Integer getDeleted()
     {
         return deleted;
     }
 
-    public void setDeleted(int deleted)
+    public TagVo setDeleted(Integer deleted)
     {
         this.deleted = deleted;
-    }
-
-    public int getProfessional()
-    {
-        return professional;
-    }
-
-    public void setProfessional(int professional)
-    {
-        this.professional = professional;
+        return this;
     }
 }
