@@ -49,16 +49,16 @@ public class ConfigController
     public String opt(@PathVariable String key, Model model)
     {
         model.addAttribute("jsp_title", "New Config");
-        model.addAttribute("configVo", iConfigMapperService.selectOne(ConfigMapper.class, new ConfigVo().setRocKey(key)));
+        model.addAttribute("configVo", iConfigMapperService.selectOne(ConfigMapper.class, new ConfigVo().setRocKey(key).setVisible(null).setDeleted(null)));
         return "/admin/config/opt";
     }
 
     @RequestMapping(value = "/admin/config/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Model model)
+    public String opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Integer deleted, Model model)
     {
         String rtnString = "redirect:/admin/config/lst";
 
-        Tuple.Triple<Boolean, String, ConfigVo> serviceResult = iConfigService.opt(id, rocKey, rocValue, visible, operable);
+        Tuple.Triple<Boolean, String, ConfigVo> serviceResult = iConfigService.opt(id, rocKey, rocValue, visible, operable, deleted);
         if (!Tuple.getFirst(serviceResult))
         {
             rtnString = "admin/config/opt";
@@ -69,14 +69,6 @@ public class ConfigController
         }
 
         return rtnString;
-    }
-
-    @RequestMapping(value = "/admin/config/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable Integer id)
-    {
-        iConfigMapperService.mod(ConfigMapper.class, new ConfigVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
-        cacheAware.reload(CacheAware.CONFIG_CACHE);
-        return "redirect:/admin/config/lst";
     }
 
     @RequestMapping(value = "/admin/config/lst", method = RequestMethod.GET)
@@ -95,7 +87,7 @@ public class ConfigController
 
     private String lst(Integer page, Model model)
     {
-        model.addAttribute("configVoList", iConfigMapperService.lst(ConfigMapper.class, new ConfigVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+        model.addAttribute("configVoList", iConfigMapperService.lst(ConfigMapper.class, new ConfigVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/config/lst");
         model.addAttribute("jsp_title", "Config List");

@@ -38,7 +38,7 @@ public class ProfessionalController
     @RequestMapping(value = "/admin/professional/rmv/{id}", method = RequestMethod.GET)
     public String rmv(@PathVariable Integer id, Model model)
     {
-        iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
+        iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
         return "redirect:/admin/professional/lst";
     }
 
@@ -59,7 +59,7 @@ public class ProfessionalController
     private String lst(Integer page, Model model)
     {
 
-        model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
+        model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
         {
             @Nullable
             @Override
@@ -67,7 +67,7 @@ public class ProfessionalController
             {
                 if (input != null)
                 {
-                    input.setTagName(CacheAware.getTagVoById(input.getTagId()).getDisplayName());
+                    input.setTagVo(CacheAware.getTagVoById(input.getTagId()));
                 }
                 return input;
             }

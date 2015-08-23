@@ -25,5 +25,5 @@ public interface IPostService
 
     public List<PostVo> search(String search, Integer page);
 
-    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Integer deleted);
 }

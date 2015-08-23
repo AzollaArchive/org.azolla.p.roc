@@ -25,7 +25,6 @@
                                     <th nowrap="nowrap">UrlName</th>
                                     <th nowrap="nowrap">AddDate</th>
                                     <th nowrap="nowrap">ModDate</th>
-                                    <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
                                     <th nowrap="nowrap">Deleted</th>
@@ -38,11 +37,10 @@
                                         <td>${tagVo.urlName}</td>
                                         <td><fmt:formatDate value="${tagVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${tagVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${tagVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${tagVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/tag/opt/${tagVo.urlName}">MOD</a> <a href="/admin/tag/rmv/${tagVo.id}">RMV</a></td>
+                                        <td><a href="/admin/tag/opt/${tagVo.urlName}">MOD</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

@@ -17,5 +17,5 @@ import org.azolla.p.roc.vo.ConfigVo;
  */
 public interface IConfigService
 {
-    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Integer deleted);
 }

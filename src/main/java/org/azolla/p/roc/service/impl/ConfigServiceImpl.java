@@ -31,13 +31,14 @@ public class ConfigServiceImpl implements IConfigService
     @Autowired
     private IMapperDao<ConfigVo> iConfigMapperDao;
 
-    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean, String, ConfigVo> opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Integer deleted)
     {
         ConfigVo configVo = new ConfigVo();
         configVo.setRocKey(rocKey);
         configVo.setRocValue(rocValue);
         configVo.setVisible(Integer0.nullToZero(visible));
         configVo.setOperable(Integer0.nullToZero(operable));
+        configVo.setDeleted(Integer0.nullToZero(deleted));
 
         Tuple.Triple<Boolean, String, ConfigVo> rtnResult = Tuple.of(true, null, configVo);
         try

@@ -29,7 +29,6 @@
                                     <th nowrap="nowrap">Sequence</th>
                                     <th nowrap="nowrap">AddDate</th>
                                     <th nowrap="nowrap">ModDate</th>
-                                    <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
                                     <th nowrap="nowrap">Deleted</th>
@@ -46,11 +45,10 @@
                                         <td>${categoryVo.seq}</td>
                                         <td><fmt:formatDate value="${categoryVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${categoryVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${categoryVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${categoryVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/category/opt/${categoryVo.id}">MOD</a> <a href="/admin/category/rmv/${categoryVo.id}">RMV</a></td>
+                                        <td><a href="/admin/category/opt/${categoryVo.id}">MOD</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

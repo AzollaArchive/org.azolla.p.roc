@@ -52,7 +52,7 @@ public class TagServiceImpl implements ITagService
             public TagVo apply(@Nullable String displayName)
             {
                 String urlName = String0.pinyin(displayName);
-                TagVo tagVo = iTagMapperDao.selectOne(TagMapper.class, new TagVo().setUrlName(urlName));
+                TagVo tagVo = iTagMapperDao.selectOne(TagMapper.class, new TagVo().setUrlName(urlName).setVisible(null).setDeleted(null));
                 if (tagVo == null)
                 {
                     newTagUrlNameList.add(urlName);
@@ -77,13 +77,14 @@ public class TagServiceImpl implements ITagService
         return rtnTagVoList;
     }
 
-    public Tuple.Triple<Boolean, String, TagVo> opt(Integer id, String displayName, Integer visible, Integer operable, Integer professional)
+    public Tuple.Triple<Boolean, String, TagVo> opt(Integer id, String displayName, Integer visible, Integer operable, Integer deleted)
     {
         TagVo tagVo = new TagVo();
         tagVo.setDisplayName(displayName);
         tagVo.setUrlName(String0.pinyin(displayName));
         tagVo.setVisible(Integer0.nullToZero(visible));
         tagVo.setOperable(Integer0.nullToZero(operable));
+        tagVo.setDeleted(Integer0.nullToZero(deleted));
 
         Tuple.Triple<Boolean, String, TagVo> rtnResult = Tuple.of(true, null, tagVo);
         try

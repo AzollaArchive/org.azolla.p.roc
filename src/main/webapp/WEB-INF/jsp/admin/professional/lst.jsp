@@ -21,10 +21,9 @@
                             <table class="table table-bordered table-hover table-condensed" style="border-bottom: solid 1px #ddd">
                                 <tr>
                                     <th>#</th>
-                                    <th nowrap="nowrap">ScoreName</th>
-                                    <th nowrap="nowrap">ScoreValue</th>
+                                    <th nowrap="nowrap">TagDisplayName</th>
+                                    <th nowrap="nowrap">Score</th>
                                     <th nowrap="nowrap">AddDate</th>
-                                    <th nowrap="nowrap">ModDate</th>
                                     <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
@@ -34,10 +33,9 @@
                                 <c:forEach var="professionalVo" items="${professionalVoList}">
                                     <tr>
                                         <td>${professionalVo.id}</td>
-                                        <td>${professionalVo.tagName}</td>
+                                        <td>${professionalVo.tagVo.displayName}</td>
                                         <td>${professionalVo.score}</td>
                                         <td><fmt:formatDate value="${professionalVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${professionalVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${professionalVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${professionalVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${professionalVo.operable == 1}">checked="checked"</c:if> /></td>

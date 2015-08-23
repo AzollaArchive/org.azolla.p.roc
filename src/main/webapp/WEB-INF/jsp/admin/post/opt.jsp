@@ -117,7 +117,8 @@
                                 <label for="permission" class="col-xs-2 control-label">Permission</label>
                                 <div class="col-xs-9">
                                     <input type="checkbox" id="permission" name="visible" value="1" <c:if test="${postVo.visible == 1}">checked</c:if>/> Visible <br/>
-                                    <input type="checkbox" name="operable" value="1" <c:if test="${postVo.operable == 1}">checked</c:if>/> Operable
+                                    <input type="checkbox" name="operable" value="1" <c:if test="${postVo.operable == 1}">checked</c:if>/> Operable <br/>
+                                    <input type="checkbox" name="deleted" value="1" <c:if test="${postVo.deleted == 1}">checked</c:if>/> Deleted
                                 </div>
                             </div>
                             <div class="form-group">

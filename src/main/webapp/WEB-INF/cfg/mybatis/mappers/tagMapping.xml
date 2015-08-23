@@ -24,15 +24,15 @@
 
     <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
         select t.*
-        from (select * from roc_t_tag where visible=1 and operable=1 and deleted=0) t
-        join roc_t_post_r_tag r on r.tag_id = t.id
-        join roc_t_post p on p.id = r.post_id
+        from (select * from roc_t_tag where visible=1 and deleted=0) t
+        join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.tag_id = t.id
+        join (select * from roc_t_post where visible=1 and deleted=0) p on p.id = r.post_id
         where p.url_title = #{postUrlTitle}
         order by t.display_name
     </select>
 
     <select id="lstByUrlNameList" parameterType="java.util.List" resultMap="tag">
-        select * from roc_t_tag where url_name in
+        select * from roc_t_tag where visible=1 and deleted=0 and url_name in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>

@@ -64,7 +64,7 @@ public class ProfessionalCrontab
                 idHighChartsJsonVoMap.put(tagVo.getId(), new HighChartsJsonVo(tagVo.getDisplayName()));
             }
         }
-        for (ProfessionalVo professionalVo : iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setDeleted(0)))
+        for (ProfessionalVo professionalVo : iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo()))
         {
             idHighChartsJsonVoMap.get(professionalVo.getTagId()).getData().add(Lists.newArrayList(professionalVo.getAddDate().getTime(), professionalVo.getScore()));
         }

@@ -65,7 +65,7 @@ public class PostServiceImpl implements IPostService
     @Override
     public PostVo getByUrlTitle(String urlTitle)
     {
-        PostVo postVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle));
+        PostVo postVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle).setVisible(null).setDeleted(null));
         postVo.getTagVoList().addAll(iTagDao.lstByPostUrlTitle(urlTitle));
         postVo.getCommentVoList().addAll(iCommentMapperDao.lst(CommentMapper.class, new CommentVo().setPostId(postVo.getId())));
         return postVo;
@@ -82,7 +82,7 @@ public class PostServiceImpl implements IPostService
         return Simditor.more(iPostDao.search(search, new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
     }
 
-    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean, String, PostVo> opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Integer deleted)
     {
         Tuple.Triple<Boolean, String, PostVo> rtnResult = null;
 
@@ -95,13 +95,14 @@ public class PostServiceImpl implements IPostService
         postVo.setContent(Strings.nullToEmpty(content));
         postVo.setVisible(Integer0.nullToZero(visible));
         postVo.setOperable(Integer0.nullToZero(operable));
+        postVo.setDeleted(Integer0.nullToZero(deleted));
 
         rtnResult = Tuple.of(true, null, postVo);
 
         if (id == null || id == 0)
         {
             //add
-            PostVo existPostVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle));
+            PostVo existPostVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle).setVisible(null).setDeleted(null));
             if (existPostVo != null)
             {
                 rtnResult = Tuple.of(false, "Title exist!", postVo);
@@ -109,13 +110,13 @@ public class PostServiceImpl implements IPostService
             else
             {
                 iPostMapperDao.add(PostMapper.class, postVo);
-                postVo.setId(iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle)).getId());
+                postVo.setId(iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle).setVisible(null).setDeleted(null)).getId());
             }
         }
         else
         {
             //delete all exist tag
-            iPostRTagMapperDao.rmv(PostRTagMapper.class, new PostRTagVo().setPostId(id));
+            iPostRTagMapperDao.rmv(PostRTagMapper.class, new PostRTagVo().setPostId(id).setVisible(null));
 
             postVo.setId(id);
             //mod

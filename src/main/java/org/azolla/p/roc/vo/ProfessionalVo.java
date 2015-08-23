@@ -32,12 +32,12 @@ public class ProfessionalVo
     private Date    addDate;
     private Date    modDate;
     private Date    rmvDate;
-    private Integer visible;
+    private Integer visible = 1;
     private Integer operable;
-    private Integer deleted;
+    private Integer deleted = 0;
 
     @Transient
-    private String tagName;
+    private TagVo tagVo;
 
     public Integer getId()
     {
@@ -148,14 +148,14 @@ public class ProfessionalVo
         return this;
     }
 
-    public String getTagName()
+    public TagVo getTagVo()
     {
-        return tagName;
+        return tagVo;
     }
 
-    public ProfessionalVo setTagName(String tagName)
+    public ProfessionalVo setTagVo(TagVo tagVo)
     {
-        this.tagName = tagName;
+        this.tagVo = tagVo;
         return this;
     }
 }

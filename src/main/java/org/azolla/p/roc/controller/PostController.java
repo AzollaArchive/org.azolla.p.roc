@@ -58,10 +58,10 @@ public class PostController
     }
 
     @RequestMapping(value = "/admin/post/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Model model)
+    public String opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Integer deleted, Model model)
     {
         String rtnString = "redirect:/admin/post/lst";
-        Tuple.Triple<Boolean, String, PostVo> serviceResult = iPostService.opt(id, title, category, tag, content, visible, operable);
+        Tuple.Triple<Boolean, String, PostVo> serviceResult = iPostService.opt(id, title, category, tag, content, visible, operable, deleted);
 
         if (!Tuple.getFirst(serviceResult))
         {
@@ -73,13 +73,6 @@ public class PostController
 
         }
         return rtnString;
-    }
-
-    @RequestMapping(value = "/admin/post/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable Integer id)
-    {
-        iPostMapperService.mod(PostMapper.class, new PostVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
-        return "redirect:/admin/post/lst";
     }
 
     @RequestMapping(value = "/admin/post/lst", method = RequestMethod.GET)
@@ -98,7 +91,7 @@ public class PostController
 
     private String lst(Integer page, Model model)
     {
-        model.addAttribute("postVoList", Lists.transform(iPostMapperService.lst(PostMapper.class, new PostVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<PostVo, PostVo>()
+        model.addAttribute("postVoList", Lists.transform(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<PostVo, PostVo>()
         {
             @Nullable
             @Override

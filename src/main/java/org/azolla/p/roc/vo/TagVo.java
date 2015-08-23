@@ -31,9 +31,9 @@ public class TagVo
     private Date    addDate;
     private Date    modDate;
     private Date    rmvDate;
-    private Integer visible;
+    private Integer visible = 1;
     private Integer operable;
-    private Integer deleted;
+    private Integer deleted = 0;
 
     public Integer getId()
     {

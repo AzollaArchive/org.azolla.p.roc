@@ -25,7 +25,6 @@
                                     <th nowrap="nowrap">Category</th>
                                     <th nowrap="nowrap">AddDate</th>
                                     <th nowrap="nowrap">ModDate</th>
-                                    <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
                                     <th nowrap="nowrap">Deleted</th>
@@ -38,11 +37,10 @@
                                         <td>${postVo.categoryVo.displayName}</td>
                                         <td><fmt:formatDate value="${postVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${postVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${postVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${postVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${postVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${postVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/post/opt/${postVo.urlTitle}">MOD</a> <a href="/admin/post/rmv/${postVo.id}">RMV</a></td>
+                                        <td><a href="/admin/post/opt/${postVo.urlTitle}">MOD</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

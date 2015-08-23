@@ -19,14 +19,14 @@
     <select id="lstByTagUrlName" parameterType="String" resultMap="post">
         select p.*
         from (select * from roc_t_post where visible=1 and deleted=0) p
-        join roc_t_post_r_tag r on r.post_id = p.id
-        join roc_t_tag t on t.id = r.tag_id
+        join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.post_id = p.id
+        join (select * from roc_t_tag where visible=1 and deleted=0) t on t.id = r.tag_id
         where t.url_name=#{tagUrlName}
         order by p.add_date desc
     </select>
 
     <select id="search" parameterType="String" resultMap="post">
-        select * from roc_t_post where content like CONCAT(CONCAT('%',#{search}),'%') or title like CONCAT(CONCAT('%',#{search}),'%') order by add_date desc
+        select * from roc_t_post where visible=1 and deleted=0 and content like CONCAT(CONCAT('%',#{search}),'%') or title like CONCAT(CONCAT('%',#{search}),'%') order by add_date desc
     </select>
 
 </mapper>

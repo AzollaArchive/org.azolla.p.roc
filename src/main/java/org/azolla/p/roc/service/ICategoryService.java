@@ -16,5 +16,5 @@ public interface ICategoryService
 {
     public List<CategoryVo> loop(@Nonnull Integer parentId);
 
-    public Tuple.Triple<Boolean, String, CategoryVo> opt(Integer id, String displayName, Integer parentId, String controllerName, Integer group, Integer sequence, Integer visible, Integer operable);
+    public Tuple.Triple<Boolean, String, CategoryVo> opt(Integer id, String displayName, Integer parentId, String controllerName, Integer group, Integer sequence, Integer visible, Integer operable, Integer deleted);
 }

@@ -25,7 +25,6 @@
                                     <th nowrap="nowrap">Value</th>
                                     <th nowrap="nowrap">AddDate</th>
                                     <th nowrap="nowrap">ModDate</th>
-                                    <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
                                     <th nowrap="nowrap">Deleted</th>
@@ -38,11 +37,10 @@
                                         <td>${configVo.rocValue}</td>
                                         <td><fmt:formatDate value="${configVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${configVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${configVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${configVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${configVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${configVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/config/opt/${configVo.rocKey}">MOD</a> <a href="/admin/config/rmv/${configVo.id}">RMV</a></td>
+                                        <td><a href="/admin/config/opt/${configVo.rocKey}">MOD</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

@@ -39,7 +39,7 @@ public class IndexController
     @RequestMapping({"/", "/index"})
     public String index(Model model)
     {
-        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(1).setDeleted(0), new RowBounds(1, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
+        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo(), new RowBounds(1, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
         model.addAttribute("current_page", 1);
 
         setting(model);
@@ -73,7 +73,7 @@ public class IndexController
     {
         Integer requestPage = Integer.parseInt(page);
 
-        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(1).setDeleted(0), new RowBounds(requestPage, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
+        model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo(), new RowBounds(requestPage, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
         model.addAttribute("current_page", requestPage);
 
         setting(model);

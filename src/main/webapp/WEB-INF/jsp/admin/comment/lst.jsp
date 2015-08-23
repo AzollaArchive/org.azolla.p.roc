@@ -24,9 +24,8 @@
                                     <th nowrap="nowrap">Username</th>
                                     <th nowrap="nowrap">Email</th>
                                     <th nowrap="nowrap">Content</th>
-                                    <th nowrap="nowrap">Post Title</th>
+                                    <th nowrap="nowrap">PostId</th>
                                     <th nowrap="nowrap">AddDate</th>
-                                    <th nowrap="nowrap">ModDate</th>
                                     <th nowrap="nowrap">RmvDate</th>
                                     <th nowrap="nowrap">Visible</th>
                                     <th nowrap="nowrap">Operable</th>
@@ -39,9 +38,8 @@
                                         <td>${commentVo.username}</td>
                                         <td>${commentVo.email}</td>
                                         <td>${commentVo.content}</td>
-                                        <td>${commentVo.postVo.title}</td>
+                                        <td>${commentVo.postId}</td>
                                         <td><fmt:formatDate value="${commentVo.addDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        <td><fmt:formatDate value="${commentVo.modDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><fmt:formatDate value="${commentVo.rmvDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.operable == 1}">checked="checked"</c:if> /></td>

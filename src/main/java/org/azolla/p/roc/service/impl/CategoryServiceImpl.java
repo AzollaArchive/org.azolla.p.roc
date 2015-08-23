@@ -40,16 +40,12 @@ public class CategoryServiceImpl implements ICategoryService
         List<CategoryVo> rtnList = iCategoryMapperDao.lst(CategoryMapper.class, new CategoryVo().setParentId(parentId));
         for (CategoryVo categoryVo : rtnList)
         {
-            List<CategoryVo> subList = loop(categoryVo.getId());
-            if (subList.size() > 0)
-            {
-                categoryVo.setSubCategoryVoList(subList);
-            }
+            categoryVo.setSubCategoryVoList(loop(categoryVo.getId()));
         }
         return rtnList;
     }
 
-    public Tuple.Triple<Boolean, String, CategoryVo> opt(Integer id, String displayName, Integer parentId, String controllerName, Integer group, Integer seq, Integer visible, Integer operable)
+    public Tuple.Triple<Boolean, String, CategoryVo> opt(Integer id, String displayName, Integer parentId, String controllerName, Integer grouped, Integer seq, Integer visible, Integer operable, Integer deleted)
     {
         Tuple.Triple<Boolean, String, CategoryVo> rtnResult = null;
         CategoryVo categoryVo = new CategoryVo();
@@ -57,10 +53,11 @@ public class CategoryServiceImpl implements ICategoryService
         categoryVo.setUrlName(String0.pinyin(displayName));
         categoryVo.setParentId(parentId);
         categoryVo.setControllerName(controllerName);
-        categoryVo.setGrouped(Integer0.nullToZero(group));
-        categoryVo.setSeq(seq);
+        categoryVo.setGrouped(Integer0.nullToZero(grouped));
+        categoryVo.setSeq(Integer0.nullToZero(seq));
         categoryVo.setVisible(Integer0.nullToZero(visible));
         categoryVo.setOperable(Integer0.nullToZero(operable));
+        categoryVo.setDeleted(Integer0.nullToZero(deleted));
         rtnResult = Tuple.of(true, null, categoryVo);
         try
         {

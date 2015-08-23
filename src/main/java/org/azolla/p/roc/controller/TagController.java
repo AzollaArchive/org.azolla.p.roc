@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TagController
 {
     @Autowired
+    private CacheAware cacheAware;
+    @Autowired
     private IMapperService<TagVo> iTagMapperService;
     @Autowired
     private IPostService          iPostService;
@@ -50,15 +52,15 @@ public class TagController
     public String opt(@PathVariable String urlName, Model model)
     {
         model.addAttribute("jsp_title", "Mod Tag");
-        model.addAttribute("tagVo", iTagMapperService.selectOne(TagMapper.class, new TagVo().setUrlName(urlName)));
+        model.addAttribute("tagVo", CacheAware.getTagVoByUrl(urlName));
         return "/admin/tag/opt";
     }
 
     @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String displayName, Integer visible, Integer operable, Integer professional, Model model)
+    public String opt(Integer id, String displayName, Integer visible, Integer operable, Integer deleted, Model model)
     {
         String rtnString = "redirect:/admin/tag/lst";
-        Tuple.Triple<Boolean, String, TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, professional);
+        Tuple.Triple<Boolean, String, TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, deleted);
         if (!Tuple.getFirst(serviceResult))
         {
             rtnString = "admin/tag/opt";
@@ -68,13 +70,6 @@ public class TagController
             model.addAttribute("tagVo", Tuple.getThird(serviceResult));
         }
         return rtnString;
-    }
-
-    @RequestMapping(value = "/admin/tag/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable Integer id)
-    {
-        iTagMapperService.mod(TagMapper.class, new TagVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
-        return "redirect:/admin/tag/lst";
     }
 
     @RequestMapping(value = "/admin/tag/lst", method = RequestMethod.GET)
@@ -93,7 +88,7 @@ public class TagController
 
     private String lst(Integer page, Model model)
     {
-        model.addAttribute("tagVoList", iTagMapperService.lst(TagMapper.class, new TagVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+        model.addAttribute("tagVoList", iTagMapperService.lst(TagMapper.class, new TagVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/tag/lst");
         model.addAttribute("jsp_title", "Tag List");
@@ -127,7 +122,7 @@ public class TagController
 
     private void setting(String urlName, Model model)
     {
-        TagVo tagVo = iTagMapperService.selectOne(TagMapper.class, new TagVo().setUrlName(urlName));
+        TagVo tagVo = CacheAware.getTagVoByUrl(urlName);
 
         model.addAttribute("jsp_title", tagVo.getDisplayName());
         model.addAttribute("current_request", "tag/" + urlName);

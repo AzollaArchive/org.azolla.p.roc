@@ -34,7 +34,7 @@ public class CommentController
     @RequestMapping(value = "/admin/comment/rmv/{id}", method = RequestMethod.GET)
     public String rmv(@PathVariable Integer id, Model model)
     {
-        iCommentVoMapperService.mod(CommentMapper.class, new CommentVo().setId(id).setDeleted(1).setRmvDate(Date0.now()));
+        iCommentVoMapperService.mod(CommentMapper.class, new CommentVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
         return "redirect:/admin/comment/lst";
     }
 
@@ -54,7 +54,7 @@ public class CommentController
 
     private String lst(Integer page, Model model)
     {
-        model.addAttribute("commentVoList", iCommentVoMapperService.lst(CommentMapper.class, new CommentVo(), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+        model.addAttribute("commentVoList", iCommentVoMapperService.lst(CommentMapper.class, new CommentVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
         model.addAttribute("current_request", "admin/comment/lst");
         model.addAttribute("jsp_title", "Comment List");

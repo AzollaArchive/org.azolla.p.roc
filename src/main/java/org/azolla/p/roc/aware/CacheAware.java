@@ -8,6 +8,7 @@ package org.azolla.p.roc.aware;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.azolla.l.ling.lang.String0;
@@ -54,8 +55,12 @@ public class CacheAware
     public static final String ROC_EMAIL     = "ROC_EMAIL";//WEB
     public static final String ROC_TITLE     = "ROC_TITLE";//WEB
 
-    private static ConcurrentMap<String, List<CategoryVo>> CATEGORY_MAP = new ConcurrentHashMap<String, List<CategoryVo>>();
+    //no deleted
+    private static List<CategoryVo> LEFT_CATEGORY_LIST = Lists.newArrayList();
+    private static List<CategoryVo> RIGHT_CATEGORY_LIST = Lists.newArrayList();
+    //had deleted
     private static ConcurrentMap<String, String>           CONFIG_MAP   = new ConcurrentHashMap<String, String>();
+    //no deleted
     private static List<TagVo>                             TAG_LIST     = Lists.newArrayList();
 
     private static ConcurrentMap<Integer, CategoryVo> CATEGORY_ID_VO_MAP  = Maps.newConcurrentMap();
@@ -70,11 +75,18 @@ public class CacheAware
     @Autowired
     private IMapperDao<ConfigVo>   iConfigMapperDao;
     @Autowired
+    private ServletAware           servletAware;
+    @Autowired
     private IMapperDao<TagVo>      iTagMapperDao;
 
-    public static List<CategoryVo> getCategoryList(@Nonnull String key)
+    public static List<CategoryVo> getLeftCategoryList()
     {
-        return CATEGORY_MAP.get(key);
+        return LEFT_CATEGORY_LIST;
+    }
+
+    public static List<CategoryVo> getRightCategoryList()
+    {
+        return RIGHT_CATEGORY_LIST;
     }
 
     public static String getConfigValue(@Nonnull String key)
@@ -94,7 +106,9 @@ public class CacheAware
 
     public static String getKeywordsString()
     {
-        return new StringBuffer().append(Joiner.on(String0.COMMA).join(Lists.transform(Lists.newArrayList(CATEGORY_ID_VO_MAP.values().iterator()), new Function<CategoryVo, String>()
+        List<CategoryVo> allCategoryVoList = loop(LEFT_CATEGORY_LIST);
+        allCategoryVoList.addAll(loop(RIGHT_CATEGORY_LIST));
+        return new StringBuffer().append(Joiner.on(String0.COMMA).join(Lists.transform(allCategoryVoList, new Function<CategoryVo, String>()
         {
             @Nullable
             @Override
@@ -111,6 +125,17 @@ public class CacheAware
                 return input == null ? "" : input.getDisplayName();
             }
         }))).toString();
+    }
+
+    private static List<CategoryVo> loop(List<CategoryVo> categoryVoList)
+    {
+        List<CategoryVo> rtnCategoryVoList = Lists.newArrayList();
+        for(CategoryVo categoryVo : categoryVoList)
+        {
+            rtnCategoryVoList.add(categoryVo);
+            rtnCategoryVoList.addAll(loop(categoryVo.getSubCategoryVoList()));
+        }
+        return rtnCategoryVoList;
     }
 
     public static CategoryVo getCategoryVoById(@Nonnull Integer categoryId)
@@ -152,33 +177,37 @@ public class CacheAware
         switch (cache)
         {
             case CATEGORY_CACHE:
-                CATEGORY_MAP.put(LEFT_CATEGORY_LST, iCategoryService.loop(CategoryVo.LEFT_ROOT_ID));
-                CATEGORY_MAP.put(RIGHT_CATEGORY_LST, iCategoryService.loop(CategoryVo.RIGHT_ROOT_ID));
+                LEFT_CATEGORY_LIST.clear();
+                LEFT_CATEGORY_LIST.addAll(iCategoryService.loop(CategoryVo.LEFT_ROOT_ID));
+                RIGHT_CATEGORY_LIST.clear();
+                RIGHT_CATEGORY_LIST.addAll(iCategoryService.loop(CategoryVo.RIGHT_ROOT_ID));
                 CATEGORY_ID_VO_MAP.clear();
                 CATEGORY_URL_VO_MAP.clear();
-                for (CategoryVo categoryVo : iCategoryMapperDao.lst(CategoryMapper.class, new CategoryVo()))
+                for (CategoryVo categoryVo : iCategoryMapperDao.lst(CategoryMapper.class, new CategoryVo().setVisible(null).setDeleted(null)))
                 {
                     CATEGORY_ID_VO_MAP.put(categoryVo.getId(), categoryVo);
                     CATEGORY_URL_VO_MAP.put(categoryVo.getUrlName(), categoryVo);
                 }
+                servletAware.refreshAttribute(ServletAware.KEYWORDS, getKeywordsString());
                 break;
             case CONFIG_CACHE:
                 CONFIG_MAP.clear();
-                ;
-                for (ConfigVo configVo : iConfigMapperDao.lst(ConfigMapper.class, new ConfigVo()))
+                for (ConfigVo configVo : iConfigMapperDao.lst(ConfigMapper.class, new ConfigVo().setVisible(null).setDeleted(null)))
                 {
                     CONFIG_MAP.put(configVo.getRocKey(), configVo.getRocValue());
                 }
                 break;
             case TAG_CACHE:
+                TAG_LIST.clear();
                 TAG_LIST.addAll(iTagMapperDao.lst(TagMapper.class, new TagVo()));
                 TAG_ID_VO_MAP.clear();
                 TAG_URL_VO_MAP.clear();
-                for (TagVo tagVo : TAG_LIST)
+                for (TagVo tagVo : iTagMapperDao.lst(TagMapper.class, new TagVo().setVisible(null).setDeleted(null)))
                 {
                     TAG_ID_VO_MAP.put(tagVo.getId(), tagVo);
                     TAG_URL_VO_MAP.put(tagVo.getUrlName(), tagVo);
                 }
+                servletAware.refreshAttribute(ServletAware.KEYWORDS, getKeywordsString());
                 break;
             default:
                 break;
@@ -210,7 +239,8 @@ public class CacheAware
         switch (cache)
         {
             case CATEGORY_CACHE:
-                CATEGORY_MAP.clear();
+                LEFT_CATEGORY_LIST.clear();
+                RIGHT_CATEGORY_LIST.clear();
                 break;
             case CONFIG_CACHE:
                 CONFIG_MAP.clear();
