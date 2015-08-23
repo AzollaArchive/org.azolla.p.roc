@@ -45,8 +45,8 @@ public class ProfessionalCrontab
     @Autowired
     private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
-    //    @Scheduled(cron = "0 0 1 * * ?")
-    @Scheduled(cron = "1 * * * * ?")
+    //@Scheduled(cron = "1 * * * * ?")
+    @Scheduled(cron = "0 1 * * * ?")
     public void lst()
     {
         File professoinalFoler = File0.newFile(servletAware.getRealPath(), OSS_ROC_PROFESSIONAL_FOLDER);
