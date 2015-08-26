@@ -43,7 +43,7 @@ public class ConfigServiceImpl implements IConfigService
         Tuple.Triple<Boolean, String, ConfigVo> rtnResult = Tuple.of(true, null, configVo);
         try
         {
-            if (id == null || id == 0)
+            if (Integer0.isNullOrZero(id))
             {
                 iConfigMapperDao.add(ConfigMapper.class, configVo);
             }

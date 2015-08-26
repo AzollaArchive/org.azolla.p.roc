@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements ICategoryService
         rtnResult = Tuple.of(true, null, categoryVo);
         try
         {
-            if (id == null || id == 0)
+            if (Integer0.isNullOrZero(id))
             {
                 iCategoryMapperDao.add(CategoryMapper.class, categoryVo);
             }

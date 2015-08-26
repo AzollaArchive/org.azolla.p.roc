@@ -99,7 +99,7 @@ public class PostServiceImpl implements IPostService
 
         rtnResult = Tuple.of(true, null, postVo);
 
-        if (id == null || id == 0)
+        if (Integer0.isNullOrZero(id))
         {
             //add
             PostVo existPostVo = iPostMapperDao.selectOne(PostMapper.class, new PostVo().setUrlTitle(urlTitle).setVisible(null).setDeleted(null));

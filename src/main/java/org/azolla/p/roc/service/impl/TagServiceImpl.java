@@ -89,7 +89,7 @@ public class TagServiceImpl implements ITagService
         Tuple.Triple<Boolean, String, TagVo> rtnResult = Tuple.of(true, null, tagVo);
         try
         {
-            if (id == null || id == 0)
+            if (Integer0.isNullOrZero(id))
             {
                 iTagMapperDao.add(TagMapper.class, tagVo);
             }
