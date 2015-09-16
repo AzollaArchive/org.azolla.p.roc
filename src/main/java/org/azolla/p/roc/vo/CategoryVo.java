@@ -34,7 +34,7 @@ public class CategoryVo
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OrderBy
+//    @OrderBy
     private Integer id;
     private String  displayName;
     private String  urlName;
