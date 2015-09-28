@@ -1,0 +1,5 @@
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://you.domain.com:3306/youDatabase?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+#url=jdbc:mysql://tempInstance.you.domain.com:3306/youDatabase?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+username=youUsername
+password=youPassword
