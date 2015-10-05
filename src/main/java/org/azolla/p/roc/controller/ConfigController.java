@@ -8,6 +8,7 @@ package org.azolla.p.roc.controller;
 
 import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.mapper.ConfigMapper;
@@ -63,7 +64,7 @@ public class ConfigController
         {
             rtnString = "admin/config/opt";
 
-            model.addAttribute("jsp_title", id == 0 ? "New Config" : "Mod Config");
+            model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Config" : "Mod Config");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
             model.addAttribute("configVo", Tuple.getThird(serviceResult));
         }

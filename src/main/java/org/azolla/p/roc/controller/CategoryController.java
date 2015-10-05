@@ -8,6 +8,7 @@ package org.azolla.p.roc.controller;
 
 import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.mapper.CategoryMapper;
@@ -69,7 +70,7 @@ public class CategoryController
         {
             rtnString = "admin/category/opt";
 
-            model.addAttribute("jsp_title", id == 0 ? "New Category" : "Mod Category");
+            model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Category" : "Mod Category");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
             model.addAttribute("categoryVo", Tuple.getThird(serviceResult));
         }

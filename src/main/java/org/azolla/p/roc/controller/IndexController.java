@@ -83,7 +83,7 @@ public class IndexController
 
     private void setting(Model model)
     {
-        model.addAttribute("jsp_title", "Index");
+//        model.addAttribute("jsp_title", "Index");
         model.addAttribute("current_request", "index");
     }
 

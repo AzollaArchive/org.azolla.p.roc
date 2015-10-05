@@ -10,6 +10,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.collect.Tuple;
+import org.azolla.l.ling.lang.Integer0;
 import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.mapper.PostMapper;
@@ -67,7 +68,7 @@ public class PostController
         {
             rtnString = "admin/post/opt";
 
-            model.addAttribute("jsp_title", id == 0 ? "New Post" : "Mod Post");
+            model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Post" : "Mod Post");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
             model.addAttribute("postVo", Tuple.getThird(serviceResult));
 
