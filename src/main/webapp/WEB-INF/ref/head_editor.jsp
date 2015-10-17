@@ -17,7 +17,7 @@
     <link href="/3th/simditor/styles/simditor-html.css" media="screen" rel="stylesheet"/>
     <link href="/css/roc.css" rel="stylesheet"/>
     <!--[if lt IE 9]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
 </head>
