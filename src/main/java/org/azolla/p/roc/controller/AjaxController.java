@@ -124,7 +124,7 @@ public class AjaxController
                     }
                 }
             }
-            out.println(Json0.object2String(obj));
+            out.println(Json0.toJSONString(obj));
             out.flush();
         }
         catch (Exception e)

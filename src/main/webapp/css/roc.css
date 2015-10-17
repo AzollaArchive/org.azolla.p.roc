@@ -147,3 +147,11 @@ section p code{
 .simditor-icon-more:before {
     content: 'M';
 }
+.bs-docs-section table{
+    border: 0.1em outset gray;
+    padding: 0px 5px 0px 5px;
+}
+.bs-docs-section table tr td{
+    border: 0.1em outset gray;
+    padding: 0px 5px 0px 5px;
+}

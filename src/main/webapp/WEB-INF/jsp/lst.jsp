@@ -45,7 +45,7 @@
                 </div>
                 <div class="panel panel-default bs-docs-sidebar affix-top">
                     <div class="panel-heading">
-                        <h3 class="panel-title">${jsp_title}</h3>
+                        <h3 class="panel-title"><c:if test="${jsp_title == null || jsp_title.trim() == ''}">${applicationScope.CONFIG_MAP["ROC_TITLE"]}</c:if>${jsp_title}</h3>
                     </div>
                     <div class="panel-body">
                         <ul class="nav bs-docs-sidenav">

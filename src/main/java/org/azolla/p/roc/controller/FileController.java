@@ -82,7 +82,7 @@ public class FileController
                             }
                             catch (Exception e)
                             {
-                                out.println(simditor(false, null, Json0.object2String(pathResultMap.put(originalFilename, false))));
+                                out.println(simditor(false, null, Json0.toJSONString(pathResultMap.put(originalFilename, false))));
                             }
                         }
                         else

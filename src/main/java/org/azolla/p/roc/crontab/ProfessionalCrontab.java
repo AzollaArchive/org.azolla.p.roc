@@ -87,7 +87,7 @@ public class ProfessionalCrontab
         {
             fw = new FileWriter(highchartsJsonFile, false);
             bw = new BufferedWriter(fw);
-            bw.write(Json0.object2String(idHighChartsJsonVoMap.values()));
+            bw.write(Json0.toJSONString(idHighChartsJsonVoMap.values()));
             bw.flush();
         }
         catch (Exception e)
