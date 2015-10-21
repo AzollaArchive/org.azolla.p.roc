@@ -71,9 +71,9 @@ section p code{
     /* Set the fixed height of the footer here */
     height: 40px;
 }
-.bs-docs-sidebar {
-    padding-left: 0px;
-}
+/*.bs-docs-sidebar {*/
+    /*padding-left: 0px;*/
+/*}*/
 .bs-docs-sidenav {
     margin-top: 0px;
     margin-bottom: 0px;
