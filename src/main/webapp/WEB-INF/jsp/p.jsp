@@ -23,7 +23,7 @@
                                 <h4>Tag</h4>
                                 <div class="roc-c-div-tag">
                                     <c:forEach var="tag" items="${post.tagVoList}">
-                                        <a href="/tag/${tag.urlName}">${tag.displayName}</a>
+                                        <a href="/t/${tag.urlName}">${tag.displayName}</a>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="panel-body roc-c-div-tag">
                         <c:forEach var="tag" items="${applicationScope.TAG_LST}">
-                            <a href="/tag/${tag.urlName}">${tag.displayName}</a>
+                            <a href="/t/${tag.urlName}">${tag.displayName}</a>
                         </c:forEach>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
         $(".tagProfessionalSelectCss").each(function (idx, tagProfessionalSelect) {
             professionalStr = professionalStr + "," + $(tagProfessionalSelect).attr("id").split("tagProfessionalId")[1]+":"+$(tagProfessionalSelect).val();
         });
-        $.post("/ajax/comment/add",{postId:$("#postId").val(),commentName:$("#commentName").val(),commentEmail:$("#commentEmail").val(),commentContent:$("#commentContent").val(),professionalStr:professionalStr},function(result){
+        $.post("/ajax/cmt/a",{postId:$("#postId").val(),commentName:$("#commentName").val(),commentEmail:$("#commentEmail").val(),commentContent:$("#commentContent").val(),professionalStr:professionalStr},function(result){
             var data = eval("("+result+")");
             if (data.err === 0) {
                 var list_comment = "";

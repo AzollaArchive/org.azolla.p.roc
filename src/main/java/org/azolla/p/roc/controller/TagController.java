@@ -41,30 +41,30 @@ public class TagController
     @Autowired
     private ITagService           iTagService;
 
-    @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.GET)
-    public String opt(Model model)
+    @RequestMapping(value = "/a/t/m", method = RequestMethod.GET)
+    public String m(Model model)
     {
         model.addAttribute("jsp_title", "New Tag");
         model.addAttribute("tagVo", new TagVo());
-        return "/admin/tag/opt";
+        return "/a/t/m";
     }
 
-    @RequestMapping(value = "/admin/tag/opt/{urlName}", method = RequestMethod.GET)
-    public String opt(@PathVariable String urlName, Model model)
+    @RequestMapping(value = "/a/t/m/{urlName}", method = RequestMethod.GET)
+    public String m(@PathVariable String urlName, Model model)
     {
         model.addAttribute("jsp_title", "Mod Tag");
         model.addAttribute("tagVo", CacheAware.getTagVoByUrl(urlName));
-        return "/admin/tag/opt";
+        return "/a/t/m";
     }
 
-    @RequestMapping(value = "/admin/tag/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String displayName, Integer visible, Integer operable, Integer deleted, Model model)
+    @RequestMapping(value = "/a/t/m", method = RequestMethod.POST)
+    public String m(Integer id, String displayName, Integer visible, Integer operable, Integer deleted, Model model)
     {
-        String rtnString = "redirect:/admin/tag/lst";
+        String rtnString = "redirect:/a/t/l";
         Tuple.Triple<Boolean, String, TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, deleted);
         if (!Tuple.getFirst(serviceResult))
         {
-            rtnString = "admin/tag/opt";
+            rtnString = "a/t/m";
 
             model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Tag" : "Mod Tag");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
@@ -73,43 +73,43 @@ public class TagController
         return rtnString;
     }
 
-    @RequestMapping(value = "/admin/tag/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/t/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/tag/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/t/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
         model.addAttribute("tagVoList", iTagMapperService.lst(TagMapper.class, new TagVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/tag/lst");
+        model.addAttribute("current_request", "a/t/l");
         model.addAttribute("jsp_title", "Tag List");
 
-        return "admin/tag/lst";
+        return "a/t/l";
     }
 
-    @RequestMapping("/tag/{urlName}")
-    public String tag(@PathVariable String urlName, Model model)
+    @RequestMapping("/t/{urlName}")
+    public String t(@PathVariable String urlName, Model model)
     {
         model.addAttribute("postList", iPostService.lstByTagUrlName(urlName, 1));
         model.addAttribute("current_page", 1);
 
         setting(urlName, model);
 
-        return "lst";
+        return "l";
     }
 
-    @RequestMapping("/tag/{urlName}/{page}")
-    public String tag(@PathVariable String urlName, @PathVariable String page, Model model)
+    @RequestMapping("/t/{urlName}/{page}")
+    public String t(@PathVariable String urlName, @PathVariable String page, Model model)
     {
         Integer requestPage = Integer.parseInt(page);
 
@@ -118,7 +118,7 @@ public class TagController
 
         setting(urlName, model);
 
-        return "lst";
+        return "l";
     }
 
     private void setting(String urlName, Model model)
@@ -126,6 +126,6 @@ public class TagController
         TagVo tagVo = CacheAware.getTagVoByUrl(urlName);
 
         model.addAttribute("jsp_title", tagVo.getDisplayName());
-        model.addAttribute("current_request", "tag/" + urlName);
+        model.addAttribute("current_request", "t/" + urlName);
     }
 }

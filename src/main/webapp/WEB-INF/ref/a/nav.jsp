@@ -28,7 +28,7 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/admin/user/mod">修改密码</a></li>
+                                <li><a href="/a/u/m">修改密码</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/j_spring_security_logout">Logout</a></li>
                             </ul>

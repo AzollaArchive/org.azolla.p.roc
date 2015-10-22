@@ -9,9 +9,9 @@
     <http security="none" pattern="/login*" />
     <http auto-config="true" use-expressions="false">
         <http-basic />
-        <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/a/**" access="ROLE_ADMIN" />
         <!-- 登录界面 -->
-        <form-login login-page="/login" login-processing-url="/j_spring_security_check" default-target-url="/admin/post/opt" always-use-default-target="true" />
+        <form-login login-page="/login" login-processing-url="/j_spring_security_check" default-target-url="/a/p/m" always-use-default-target="true" />
 
         <logout invalidate-session="true" logout-success-url="/index" logout-url="/j_spring_security_logout" />
         <csrf disabled="true" />

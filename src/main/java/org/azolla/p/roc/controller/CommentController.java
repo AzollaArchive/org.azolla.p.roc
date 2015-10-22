@@ -31,34 +31,34 @@ public class CommentController
     @Autowired
     private IMapperService<CommentVo> iCommentVoMapperService;
 
-    @RequestMapping(value = "/admin/comment/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable Integer id, Model model)
+    @RequestMapping(value = "/a/cmt/d/{id}", method = RequestMethod.GET)
+    public String d(@PathVariable Integer id, Model model)
     {
         iCommentVoMapperService.mod(CommentMapper.class, new CommentVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
-        return "redirect:/admin/comment/lst";
+        return "redirect:/a/cmt/l";
     }
 
-    @RequestMapping(value = "/admin/comment/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/cmt/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/comment/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/cmt/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
         model.addAttribute("commentVoList", iCommentVoMapperService.lst(CommentMapper.class, new CommentVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/comment/lst");
+        model.addAttribute("current_request", "a/cmt/l");
         model.addAttribute("jsp_title", "Comment List");
 
-        return "admin/comment/lst";
+        return "a/cmt/l";
     }
 }

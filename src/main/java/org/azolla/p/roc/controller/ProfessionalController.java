@@ -35,28 +35,28 @@ public class ProfessionalController
     @Autowired
     private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
-    @RequestMapping(value = "/admin/professional/rmv/{id}", method = RequestMethod.GET)
-    public String rmv(@PathVariable Integer id, Model model)
+    @RequestMapping(value = "/a/professional/d/{id}", method = RequestMethod.GET)
+    public String d(@PathVariable Integer id, Model model)
     {
         iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
-        return "redirect:/admin/professional/lst";
+        return "redirect:/a/professional/l";
     }
 
-    @RequestMapping(value = "/admin/professional/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/professional/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/professional/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/professional/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
 
         model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
@@ -73,9 +73,9 @@ public class ProfessionalController
             }
         }));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/professional/lst");
+        model.addAttribute("current_request", "a/professional/l");
         model.addAttribute("jsp_title", "Professional List");
 
-        return "admin/professional/lst";
+        return "a/professional/l";
     }
 }

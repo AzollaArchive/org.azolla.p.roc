@@ -40,33 +40,33 @@ public class PostController
     @Autowired
     private IPostService           iPostService;
 
-    @RequestMapping(value = "/admin/post/opt", method = RequestMethod.GET)
-    public String opt(Model model)
+    @RequestMapping(value = "/a/p/m", method = RequestMethod.GET)
+    public String m(Model model)
     {
         model.addAttribute("jsp_title", "New Post");
         model.addAttribute("postVo", new PostVo());
 
-        return "admin/post/opt";
+        return "a/p/m";
     }
 
-    @RequestMapping(value = "/admin/post/opt/{urlTitle}", method = RequestMethod.GET)
-    public String opt(@PathVariable String urlTitle, Model model)
+    @RequestMapping(value = "/a/p/m/{urlTitle}", method = RequestMethod.GET)
+    public String m(@PathVariable String urlTitle, Model model)
     {
         model.addAttribute("jsp_title", "Mod Post");
         model.addAttribute("postVo", iPostService.getByUrlTitle(urlTitle));
 
-        return "admin/post/opt";
+        return "a/p/m";
     }
 
-    @RequestMapping(value = "/admin/post/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Integer deleted, Model model)
+    @RequestMapping(value = "/a/p/m", method = RequestMethod.POST)
+    public String m(Integer id, String title, Integer category, String tag, String content, Integer visible, Integer operable, Integer deleted, Model model)
     {
-        String rtnString = "redirect:/admin/post/lst";
+        String rtnString = "redirect:/a/p/l";
         Tuple.Triple<Boolean, String, PostVo> serviceResult = iPostService.opt(id, title, category, tag, content, visible, operable, deleted);
 
         if (!Tuple.getFirst(serviceResult))
         {
-            rtnString = "admin/post/opt";
+            rtnString = "a/p/m";
 
             model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Post" : "Mod Post");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
@@ -76,21 +76,21 @@ public class PostController
         return rtnString;
     }
 
-    @RequestMapping(value = "/admin/post/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/p/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/post/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/p/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
         model.addAttribute("postVoList", Lists.transform(iPostMapperService.lst(PostMapper.class, new PostVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<PostVo, PostVo>()
         {
@@ -102,19 +102,19 @@ public class PostController
             }
         }));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/post/lst");
+        model.addAttribute("current_request", "a/p/l");
         model.addAttribute("jsp_title", "Post List");
 
-        return "admin/post/lst";
+        return "a/p/l";
     }
 
-    @RequestMapping("/post/{urlTitle}")
-    public String post(@PathVariable String urlTitle, Model model)
+    @RequestMapping("/p/{urlTitle}")
+    public String p(@PathVariable String urlTitle, Model model)
     {
         PostVo postVo = iPostService.getByUrlTitle(urlTitle);
         model.addAttribute("post", postVo);
         model.addAttribute("jsp_title", postVo.getTitle());
 
-        return "pst";
+        return "p";
     }
 }

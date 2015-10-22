@@ -4,11 +4,11 @@
 <html lang="zh-CN">
 <%@ include file="/WEB-INF/ref/head_editor.jsp"%>
 <body>
-<jsp:include page="/WEB-INF/ref/admin/nav.jsp" />
+<jsp:include page="/WEB-INF/ref/a/nav.jsp" />
 <div id="roc-i-content">
     <div class="container">
         <div class="row">
-            <%@ include file="/WEB-INF/ref/admin/aside.jsp"%>
+            <%@ include file="/WEB-INF/ref/a/aside.jsp"%>
             <main class="col-md-9">
                 <article class="roc-c-article-post">
                     <c:if test="${ctrl_result != null && ctrl_result.trim() != ''}">
@@ -22,7 +22,7 @@
                         <div class="panel-heading">${jsp_title}</div>
                         <!-- Table -->
                         <br/>
-                        <form class="form-horizontal" name="form1" action="/admin/post/opt" method="post">
+                        <form class="form-horizontal" name="form1" action="/a/p/m" method="post">
                             <input hidden="hidden" name="id" value="${postVo.id}">
                             <%--<input hidden="hidden" name="urlTitle" value="${postVo.urlTitle}">--%>
                             <div class="form-group">
@@ -140,7 +140,7 @@
         placeholder:'Please input...',
         toolbar:['bold','italic','underline','strikethrough','color','ol','ul','blockquote','code','table','link','image','hr','emoji','html','mark','kbd','coded','small','more'],
         defaultImage:'/img/favicon.png',
-        upload: {url:'/admin/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
+        upload: {url:'/a/simditor',params: null,fileKey:'upload_file',connectionCount: 3,leaveConfirm: 'Uploading...'},
         pasteImage: true,
         emoji: {imagePath: '/3th/simditor/images/emoji/'},
         autosave: 'editor-content'

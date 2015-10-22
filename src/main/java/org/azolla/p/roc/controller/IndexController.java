@@ -44,7 +44,7 @@ public class IndexController
 
         setting(model);
 
-        return "lst";
+        return "l";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -55,7 +55,7 @@ public class IndexController
         model.addAttribute("current_page", 1);
         model.addAttribute("jsp_title", "Search");
         model.addAttribute("current_request", "search");
-        return "lst";
+        return "l";
     }
 
     @RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class IndexController
         model.addAttribute("current_page", page);
         model.addAttribute("jsp_title", "Search");
         model.addAttribute("current_request", "search");
-        return "lst";
+        return "l";
     }
 
     @RequestMapping("/index/{page}")
@@ -78,7 +78,7 @@ public class IndexController
 
         setting(model);
 
-        return "lst";
+        return "l";
     }
 
     private void setting(Model model)

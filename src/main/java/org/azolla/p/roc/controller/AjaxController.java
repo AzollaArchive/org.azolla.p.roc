@@ -54,7 +54,7 @@ public class AjaxController
     private Map<String, String> ipDateMap  = Maps.newHashMap();
     private String              dateFormat = "yyyyMMddHHmm";
 
-    @RequestMapping("/ajax/comment/add")
+    @RequestMapping("/ajax/cmt/a")
     public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, String professionalStr, HttpServletRequest request, HttpServletResponse response)
     {
         response.setContentType("text/html; charset=UTF-8");

@@ -38,31 +38,31 @@ public class ConfigController
     @Autowired
     private IMapperService<ConfigVo> iConfigMapperService;
 
-    @RequestMapping(value = "/admin/config/opt", method = RequestMethod.GET)
-    public String opt(Model model)
+    @RequestMapping(value = "/a/cfg/m", method = RequestMethod.GET)
+    public String m(Model model)
     {
         model.addAttribute("jsp_title", "New Config");
         model.addAttribute("configVo", new ConfigVo());
-        return "/admin/config/opt";
+        return "/a/cfg/m";
     }
 
-    @RequestMapping(value = "/admin/config/opt/{key}", method = RequestMethod.GET)
-    public String opt(@PathVariable String key, Model model)
+    @RequestMapping(value = "/a/cfg/m/{key}", method = RequestMethod.GET)
+    public String m(@PathVariable String key, Model model)
     {
         model.addAttribute("jsp_title", "New Config");
         model.addAttribute("configVo", iConfigMapperService.selectOne(ConfigMapper.class, new ConfigVo().setRocKey(key).setVisible(null).setDeleted(null)));
-        return "/admin/config/opt";
+        return "/a/cfg/m";
     }
 
-    @RequestMapping(value = "/admin/config/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Integer deleted, Model model)
+    @RequestMapping(value = "/a/cfg/m", method = RequestMethod.POST)
+    public String m(Integer id, String rocKey, String rocValue, Integer visible, Integer operable, Integer deleted, Model model)
     {
-        String rtnString = "redirect:/admin/config/lst";
+        String rtnString = "redirect:/a/cfg/l";
 
         Tuple.Triple<Boolean, String, ConfigVo> serviceResult = iConfigService.opt(id, rocKey, rocValue, visible, operable, deleted);
         if (!Tuple.getFirst(serviceResult))
         {
-            rtnString = "admin/config/opt";
+            rtnString = "a/cfg/m";
 
             model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Config" : "Mod Config");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
@@ -72,27 +72,27 @@ public class ConfigController
         return rtnString;
     }
 
-    @RequestMapping(value = "/admin/config/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/cfg/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/config/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/cfg/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
         model.addAttribute("configVoList", iConfigMapperService.lst(ConfigMapper.class, new ConfigVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/config/lst");
+        model.addAttribute("current_request", "a/cfg/l");
         model.addAttribute("jsp_title", "Config List");
 
-        return "admin/config/lst";
+        return "a/cfg/l";
     }
 }

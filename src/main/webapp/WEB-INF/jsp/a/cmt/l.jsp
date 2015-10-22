@@ -4,11 +4,11 @@
 <html lang="zh-CN">
 <%@ include file="/WEB-INF/ref/head.jsp"%>
 <body>
-<jsp:include page="/WEB-INF/ref/admin/nav.jsp" />
+<jsp:include page="/WEB-INF/ref/a/nav.jsp" />
 <div id="roc-i-content">
     <div class="container">
         <div class="row">
-            <%@ include file="/WEB-INF/ref/admin/aside.jsp"%>
+            <%@ include file="/WEB-INF/ref/a/aside.jsp"%>
             <main class="col-md-9">
                 <article class="roc-c-article-post">
                     <div class="panel panel-default">
@@ -44,7 +44,7 @@
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.visible == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.operable == 1}">checked="checked"</c:if> /></td>
                                         <td><input type="checkbox" disabled <c:if test="${commentVo.deleted == 1}">checked="checked"</c:if> /></td>
-                                        <td><a href="/admin/comment/rmv/${commentVo.id}">RMV</a></td>
+                                        <td><a href="/a/cmt/d/${commentVo.id}">RMV</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

@@ -43,32 +43,32 @@ public class CategoryController
     @Autowired
     private IMapperService<PostVo>     iPostMapperService;
 
-    @RequestMapping(value = "/admin/category/opt", method = RequestMethod.GET)
-    public String opt(Model model)
+    @RequestMapping(value = "/a/c/m", method = RequestMethod.GET)
+    public String m(Model model)
     {
         model.addAttribute("jsp_title", "New Category");
         model.addAttribute("categoryVo", new CategoryVo());
 
-        return "admin/category/opt";
+        return "a/c/m";
     }
 
-    @RequestMapping(value = "/admin/category/opt/{id}", method = RequestMethod.GET)
-    public String opt(@PathVariable Integer id, Model model)
+    @RequestMapping(value = "/a/c/m/{id}", method = RequestMethod.GET)
+    public String m(@PathVariable Integer id, Model model)
     {
         model.addAttribute("jsp_title", "Mod Category");
         model.addAttribute("categoryVo", CacheAware.getCategoryVoById(id));
 
-        return "admin/category/opt";
+        return "a/c/m";
     }
 
-    @RequestMapping(value = "/admin/category/opt", method = RequestMethod.POST)
-    public String opt(Integer id, String displayName, Integer parentId, String controllerName, Integer grouped, Integer seq, Integer visible, Integer operable, Integer deleted, Model model)
+    @RequestMapping(value = "/a/c/m", method = RequestMethod.POST)
+    public String m(Integer id, String displayName, Integer parentId, String controllerName, Integer grouped, Integer seq, Integer visible, Integer operable, Integer deleted, Model model)
     {
-        String rtnString = "redirect:/admin/category/lst";
+        String rtnString = "redirect:/a/c/l";
         Tuple.Triple<Boolean, String, CategoryVo> serviceResult = iCategoryService.opt(id, displayName, parentId, controllerName, grouped, seq, visible, operable, deleted);
         if (!Tuple.getFirst(serviceResult))
         {
-            rtnString = "admin/category/opt";
+            rtnString = "a/c/m";
 
             model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Category" : "Mod Category");
             model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
@@ -77,43 +77,43 @@ public class CategoryController
         return rtnString;
     }
 
-    @RequestMapping(value = "/admin/category/lst", method = RequestMethod.GET)
-    public String lst(Model model)
+    @RequestMapping(value = "/a/c/l", method = RequestMethod.GET)
+    public String l(Model model)
     {
-        return lst(1, model);
+        return l(1, model);
     }
 
-    @RequestMapping(value = "/admin/category/lst/{page}", method = RequestMethod.GET)
-    public String lst(@PathVariable String page, Model model)
+    @RequestMapping(value = "/a/c/l/{page}", method = RequestMethod.GET)
+    public String l(@PathVariable String page, Model model)
     {
         Integer requestPage = Integer.valueOf(page);
 
-        return lst(requestPage, model);
+        return l(requestPage, model);
     }
 
-    private String lst(Integer page, Model model)
+    private String l(Integer page, Model model)
     {
         model.addAttribute("categoryVoList", iCategoryMapperService.lst(CategoryMapper.class, new CategoryVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
         model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "admin/category/lst");
+        model.addAttribute("current_request", "a/c/l");
         model.addAttribute("jsp_title", "Category List");
 
-        return "admin/category/lst";
+        return "a/c/l";
     }
 
-    @RequestMapping("/category/{urlName}")
-    public String category(@PathVariable String urlName, Model model)
+    @RequestMapping("/c/{urlName}")
+    public String c(@PathVariable String urlName, Model model)
     {
         model.addAttribute("postList", Simditor.more(iPostMapperService.lst(PostMapper.class, new PostVo().setCategoryId(CacheAware.getCategoryVoByUrl(urlName).getId()), new RowBounds(1, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE))))));
         model.addAttribute("current_page", 1);
 
         setting(urlName, model);
 
-        return "lst";
+        return "l";
     }
 
-    @RequestMapping("/category/{urlName}/{page}")
-    public String category(@PathVariable String urlName, @PathVariable String page, Model model)
+    @RequestMapping("/c/{urlName}/{page}")
+    public String c(@PathVariable String urlName, @PathVariable String page, Model model)
     {
         Integer requestPage = Integer.parseInt(page);
 
@@ -122,7 +122,7 @@ public class CategoryController
 
         setting(urlName, model);
 
-        return "lst";
+        return "l";
     }
 
     private void setting(String urlName, Model model)
@@ -130,6 +130,6 @@ public class CategoryController
         CategoryVo categoryVo = CacheAware.getCategoryVoByUrl(urlName);
 
         model.addAttribute("jsp_title", categoryVo.getDisplayName());
-        model.addAttribute("current_request", "category/" + urlName);
+        model.addAttribute("current_request", "c/" + urlName);
     }
 }

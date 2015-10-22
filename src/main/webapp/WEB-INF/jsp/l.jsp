@@ -16,12 +16,12 @@
                                 <small>
                                     <time><fmt:formatDate value="${post.addDate}" type="both" pattern="yyyy-MM-dd" /></time>
                                 </small>
-                                <a class="anchorjs-link" href="/post/${post.urlTitle}">
+                                <a class="anchorjs-link" href="/p/${post.urlTitle}">
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
                             ${post.content}
-                            <p> <a href="/post/${post.urlTitle}">阅读详细 »</a></p>
+                            <p> <a href="/p/${post.urlTitle}">阅读详细 »</a></p>
                         </section>
                     </c:forEach>
                 </article>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="panel-body roc-c-div-tag">
                         <c:forEach var="tag" items="${applicationScope.TAG_LST}">
-                            <a href="/tag/${tag.urlName}">${tag.displayName}</a>
+                            <a href="/t/${tag.urlName}">${tag.displayName}</a>
                         </c:forEach>
                     </div>
                 </div>
