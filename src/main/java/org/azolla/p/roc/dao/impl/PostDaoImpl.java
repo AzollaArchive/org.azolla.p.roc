@@ -1,8 +1,8 @@
 /*
  * @(#)PostDaoImpl.java		Created at 15/4/21
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.dao.impl;
 
@@ -25,18 +25,18 @@ import java.util.List;
 @Repository
 public class PostDaoImpl implements IPostDao
 {
-    @Autowired
-    private SqlSession sqlSession;
+  @Autowired
+  private SqlSession sqlSession;
 
-    @Override
-    public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds)
-    {
-        return sqlSession.selectList("mapper.post.lstByTagUrlName", tagUrlName, rowBounds);
-    }
+  @Override
+  public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds)
+  {
+    return sqlSession.selectList("mapper.post.lstByTagUrlName", tagUrlName, rowBounds);
+  }
 
-    @Override
-    public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds)
-    {
-        return sqlSession.selectList("mapper.post.search", search, rowBounds);
-    }
+  @Override
+  public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds)
+  {
+    return sqlSession.selectList("mapper.post.search", search, rowBounds);
+  }
 }

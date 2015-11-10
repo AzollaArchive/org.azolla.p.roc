@@ -21,7 +21,6 @@
 .simditor .simditor-toolbar ul.emoji-list img {
   display: block;
 }
-
 .editor-style img[data-emoji],
 .simditor .simditor-body img[data-emoji] {
   width: 1.1em;
@@ -34,5 +33,4 @@
   box-shadow: none;
   cursor: default;
 }
-
 /*# sourceMappingURL=simditor-emoji.css.map */

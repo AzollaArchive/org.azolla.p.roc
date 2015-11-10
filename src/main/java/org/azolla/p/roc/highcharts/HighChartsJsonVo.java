@@ -1,8 +1,8 @@
 /*
  * @(#)HighChartsJsonVo.java		Created at 15/8/17
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.highcharts;
 
@@ -20,36 +20,36 @@ import java.util.List;
 @Component
 public class HighChartsJsonVo
 {
-    private String name;
+  private String name;
 
-    private List<List<Object>> data = Lists.newArrayList();
+  private List<List<Object>> data = Lists.newArrayList();
 
-    public HighChartsJsonVo()
-    {
-    }
+  public HighChartsJsonVo()
+  {
+  }
 
-    public HighChartsJsonVo(String name)
-    {
-        this.name = name;
-    }
+  public HighChartsJsonVo(String name)
+  {
+    this.name = name;
+  }
 
-    public String getName()
-    {
-        return name;
-    }
+  public String getName()
+  {
+    return name;
+  }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+  public void setName(String name)
+  {
+    this.name = name;
+  }
 
-    public List<List<Object>> getData()
-    {
-        return data;
-    }
+  public List<List<Object>> getData()
+  {
+    return data;
+  }
 
-    public void setData(List<List<Object>> data)
-    {
-        this.data = data;
-    }
+  public void setData(List<List<Object>> data)
+  {
+    this.data = data;
+  }
 }

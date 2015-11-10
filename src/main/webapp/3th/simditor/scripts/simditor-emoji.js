@@ -1,9 +1,21 @@
 var EmojiButton,
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __extends = function (child, parent) {
+    for (var key in parent) {
+      if (__hasProp.call(parent, key)) child[key] = parent[key];
+    }
+    function ctor() {
+      this.constructor = child;
+    }
+
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+    child.__super__ = parent.prototype;
+    return child;
+  },
   __slice = [].slice;
 
-EmojiButton = (function(_super) {
+EmojiButton = (function (_super) {
   __extends(EmojiButton, _super);
 
   EmojiButton.i18n = {
@@ -34,7 +46,7 @@ EmojiButton = (function(_super) {
     $.merge(this.editor.formatter._allowedAttributes['img'], ['data-emoji', 'alt']);
   }
 
-  EmojiButton.prototype.renderMenu = function() {
+  EmojiButton.prototype.renderMenu = function () {
     var $list, dir, html, name, opts, tpl, _i, _len, _ref;
     tpl = '<ul class="emoji-list">\n</ul>';
     opts = $.extend({
@@ -50,8 +62,8 @@ EmojiButton = (function(_super) {
     }
     $list = $(tpl);
     $list.html(html).appendTo(this.menuWrapper);
-    return $list.on('mousedown', 'li', (function(_this) {
-      return function(e) {
+    return $list.on('mousedown', 'li', (function (_this) {
+      return function (e) {
         var $img;
         _this.wrapper.removeClass('menu-on');
         if (!_this.editor.inputManager.focused) {

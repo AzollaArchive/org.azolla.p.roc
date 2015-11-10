@@ -1,8 +1,8 @@
 /*
  * @(#)UserVo.java		Created at 15/4/18
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.vo.impl;
 
@@ -27,154 +27,154 @@ import java.util.List;
 @Component
 public class UserDetailsImpl implements UserDetails
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OrderBy
-    private Integer id;
-    private String  username;
-    private String  email;
-    private String  password;
-    @OrderBy
-    private Date    addDate;
-    private Date    modDate;
-    private Date    rmvDate;
-    private Integer visible = 1;
-    private Integer operable;
-    private Integer deleted = 0;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @OrderBy
+  private Integer id;
+  private String  username;
+  private String  email;
+  private String  password;
+  @OrderBy
+  private Date    addDate;
+  private Date    modDate;
+  private Date    rmvDate;
+  private Integer visible = 1;
+  private Integer operable;
+  private Integer deleted = 0;
 
-    public Integer getId()
-    {
-        return id;
-    }
+  public Integer getId()
+  {
+    return id;
+  }
 
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
 
-    @Override
-    public String getUsername()
-    {
-        return username;
-    }
+  @Override
+  public String getUsername()
+  {
+    return username;
+  }
 
-    public UserDetailsImpl setUsername(String username)
-    {
-        this.username = username;
-        return this;
-    }
+  public UserDetailsImpl setUsername(String username)
+  {
+    this.username = username;
+    return this;
+  }
 
-    public String getEmail()
-    {
-        return email;
-    }
+  public String getEmail()
+  {
+    return email;
+  }
 
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+  public void setEmail(String email)
+  {
+    this.email = email;
+  }
 
-    @Override
-    public String getPassword()
-    {
-        return password;
-    }
+  @Override
+  public String getPassword()
+  {
+    return password;
+  }
 
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
+  public void setPassword(String password)
+  {
+    this.password = password;
+  }
 
-    public Date getAddDate()
-    {
-        return addDate;
-    }
+  public Date getAddDate()
+  {
+    return addDate;
+  }
 
-    public void setAddDate(Date addDate)
-    {
-        this.addDate = addDate;
-    }
+  public void setAddDate(Date addDate)
+  {
+    this.addDate = addDate;
+  }
 
-    public Date getModDate()
-    {
-        return modDate;
-    }
+  public Date getModDate()
+  {
+    return modDate;
+  }
 
-    public void setModDate(Date modDate)
-    {
-        this.modDate = modDate;
-    }
+  public void setModDate(Date modDate)
+  {
+    this.modDate = modDate;
+  }
 
-    public Date getRmvDate()
-    {
-        return rmvDate;
-    }
+  public Date getRmvDate()
+  {
+    return rmvDate;
+  }
 
-    public void setRmvDate(Date rmvDate)
-    {
-        this.rmvDate = rmvDate;
-    }
+  public void setRmvDate(Date rmvDate)
+  {
+    this.rmvDate = rmvDate;
+  }
 
-    public Integer getVisible()
-    {
-        return visible;
-    }
+  public Integer getVisible()
+  {
+    return visible;
+  }
 
-    public void setVisible(Integer visible)
-    {
-        this.visible = visible;
-    }
+  public void setVisible(Integer visible)
+  {
+    this.visible = visible;
+  }
 
-    public Integer getOperable()
-    {
-        return operable;
-    }
+  public Integer getOperable()
+  {
+    return operable;
+  }
 
-    public void setOperable(Integer operable)
-    {
-        this.operable = operable;
-    }
+  public void setOperable(Integer operable)
+  {
+    this.operable = operable;
+  }
 
-    public Integer getDeleted()
-    {
-        return deleted;
-    }
+  public Integer getDeleted()
+  {
+    return deleted;
+  }
 
-    public void setDeleted(Integer deleted)
-    {
-        this.deleted = deleted;
-    }
+  public void setDeleted(Integer deleted)
+  {
+    this.deleted = deleted;
+  }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<SimpleGrantedAuthority>();
-        SimpleGrantedAuthority sim = new SimpleGrantedAuthority("ROLE_ADMIN");
-        simpleGrantedAuthorityList.add(sim);
-        return simpleGrantedAuthorityList;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities()
+  {
+    List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<SimpleGrantedAuthority>();
+    SimpleGrantedAuthority sim = new SimpleGrantedAuthority("ROLE_ADMIN");
+    simpleGrantedAuthorityList.add(sim);
+    return simpleGrantedAuthorityList;
+  }
 
-    @Override
-    public boolean isAccountNonExpired()
-    {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonExpired()
+  {
+    return true;
+  }
 
-    @Override
-    public boolean isAccountNonLocked()
-    {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonLocked()
+  {
+    return true;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired()
-    {
-        return true;
-    }
+  @Override
+  public boolean isCredentialsNonExpired()
+  {
+    return true;
+  }
 
-    @Override
-    public boolean isEnabled()
-    {
-        return true;
-    }
+  @Override
+  public boolean isEnabled()
+  {
+    return true;
+  }
 }

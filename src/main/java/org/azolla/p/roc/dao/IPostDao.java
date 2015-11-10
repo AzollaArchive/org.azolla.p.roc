@@ -1,8 +1,8 @@
 /*
  * @(#)IPostDao.java		Created at 15/4/21
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.dao;
 
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public interface IPostDao
 {
-    public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds);
+  public List<PostVo> lstByTagUrlName(String tagUrlName, RowBounds rowBounds);
 
-    public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds);
+  public List<PostVo> search(@Nonnull String search, @Nonnull RowBounds rowBounds);
 }

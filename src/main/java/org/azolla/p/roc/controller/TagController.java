@@ -1,15 +1,14 @@
 /*
  * @(#)TagController.java		Created at 15/5/1
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.controller;
 
 import org.apache.ibatis.session.RowBounds;
 import org.azolla.l.ling.collect.Tuple;
 import org.azolla.l.ling.lang.Integer0;
-import org.azolla.l.ling.util.Date0;
 import org.azolla.p.roc.aware.CacheAware;
 import org.azolla.p.roc.mapper.TagMapper;
 import org.azolla.p.roc.service.IMapperService;
@@ -32,100 +31,100 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TagController
 {
-    @Autowired
-    private CacheAware cacheAware;
-    @Autowired
-    private IMapperService<TagVo> iTagMapperService;
-    @Autowired
-    private IPostService          iPostService;
-    @Autowired
-    private ITagService           iTagService;
+  @Autowired
+  private CacheAware            cacheAware;
+  @Autowired
+  private IMapperService<TagVo> iTagMapperService;
+  @Autowired
+  private IPostService          iPostService;
+  @Autowired
+  private ITagService           iTagService;
 
-    @RequestMapping(value = "/a/t/m", method = RequestMethod.GET)
-    public String m(Model model)
+  @RequestMapping(value = "/a/t/m", method = RequestMethod.GET)
+  public String m(Model model)
+  {
+    model.addAttribute("jsp_title", "New Tag");
+    model.addAttribute("tagVo", new TagVo());
+    return "/a/t/m";
+  }
+
+  @RequestMapping(value = "/a/t/m/{urlName}", method = RequestMethod.GET)
+  public String m(@PathVariable String urlName, Model model)
+  {
+    model.addAttribute("jsp_title", "Mod Tag");
+    model.addAttribute("tagVo", CacheAware.getTagVoByUrl(urlName));
+    return "/a/t/m";
+  }
+
+  @RequestMapping(value = "/a/t/m", method = RequestMethod.POST)
+  public String m(Integer id, String displayName, Integer visible, Integer operable, Integer deleted, Model model)
+  {
+    String rtnString = "redirect:/a/t/l";
+    Tuple.Triple<Boolean, String, TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, deleted);
+    if (!Tuple.getFirst(serviceResult))
     {
-        model.addAttribute("jsp_title", "New Tag");
-        model.addAttribute("tagVo", new TagVo());
-        return "/a/t/m";
+      rtnString = "a/t/m";
+
+      model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Tag" : "Mod Tag");
+      model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
+      model.addAttribute("tagVo", Tuple.getThird(serviceResult));
     }
+    return rtnString;
+  }
 
-    @RequestMapping(value = "/a/t/m/{urlName}", method = RequestMethod.GET)
-    public String m(@PathVariable String urlName, Model model)
-    {
-        model.addAttribute("jsp_title", "Mod Tag");
-        model.addAttribute("tagVo", CacheAware.getTagVoByUrl(urlName));
-        return "/a/t/m";
-    }
+  @RequestMapping(value = "/a/t/l", method = RequestMethod.GET)
+  public String l(Model model)
+  {
+    return l(1, model);
+  }
 
-    @RequestMapping(value = "/a/t/m", method = RequestMethod.POST)
-    public String m(Integer id, String displayName, Integer visible, Integer operable, Integer deleted, Model model)
-    {
-        String rtnString = "redirect:/a/t/l";
-        Tuple.Triple<Boolean, String, TagVo> serviceResult = iTagService.opt(id, displayName, visible, operable, deleted);
-        if (!Tuple.getFirst(serviceResult))
-        {
-            rtnString = "a/t/m";
+  @RequestMapping(value = "/a/t/l/{page}", method = RequestMethod.GET)
+  public String l(@PathVariable String page, Model model)
+  {
+    Integer requestPage = Integer.valueOf(page);
 
-            model.addAttribute("jsp_title", Integer0.isNullOrZero(id) ? "New Tag" : "Mod Tag");
-            model.addAttribute("ctrl_result", Tuple.getSecond(serviceResult));
-            model.addAttribute("tagVo", Tuple.getThird(serviceResult));
-        }
-        return rtnString;
-    }
+    return l(requestPage, model);
+  }
 
-    @RequestMapping(value = "/a/t/l", method = RequestMethod.GET)
-    public String l(Model model)
-    {
-        return l(1, model);
-    }
+  private String l(Integer page, Model model)
+  {
+    model.addAttribute("tagVoList", iTagMapperService.lst(TagMapper.class, new TagVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
+    model.addAttribute("current_page", page);
+    model.addAttribute("current_request", "a/t/l");
+    model.addAttribute("jsp_title", "Tag List");
 
-    @RequestMapping(value = "/a/t/l/{page}", method = RequestMethod.GET)
-    public String l(@PathVariable String page, Model model)
-    {
-        Integer requestPage = Integer.valueOf(page);
+    return "a/t/l";
+  }
 
-        return l(requestPage, model);
-    }
+  @RequestMapping("/t/{urlName}")
+  public String t(@PathVariable String urlName, Model model)
+  {
+    model.addAttribute("postList", iPostService.lstByTagUrlName(urlName, 1));
+    model.addAttribute("current_page", 1);
 
-    private String l(Integer page, Model model)
-    {
-        model.addAttribute("tagVoList", iTagMapperService.lst(TagMapper.class, new TagVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))));
-        model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "a/t/l");
-        model.addAttribute("jsp_title", "Tag List");
+    setting(urlName, model);
 
-        return "a/t/l";
-    }
+    return "l";
+  }
 
-    @RequestMapping("/t/{urlName}")
-    public String t(@PathVariable String urlName, Model model)
-    {
-        model.addAttribute("postList", iPostService.lstByTagUrlName(urlName, 1));
-        model.addAttribute("current_page", 1);
+  @RequestMapping("/t/{urlName}/{page}")
+  public String t(@PathVariable String urlName, @PathVariable String page, Model model)
+  {
+    Integer requestPage = Integer.parseInt(page);
 
-        setting(urlName, model);
+    model.addAttribute("postList", iPostService.lstByTagUrlName(urlName, requestPage));
+    model.addAttribute("current_page", requestPage);
 
-        return "l";
-    }
+    setting(urlName, model);
 
-    @RequestMapping("/t/{urlName}/{page}")
-    public String t(@PathVariable String urlName, @PathVariable String page, Model model)
-    {
-        Integer requestPage = Integer.parseInt(page);
+    return "l";
+  }
 
-        model.addAttribute("postList", iPostService.lstByTagUrlName(urlName, requestPage));
-        model.addAttribute("current_page", requestPage);
+  private void setting(String urlName, Model model)
+  {
+    TagVo tagVo = CacheAware.getTagVoByUrl(urlName);
 
-        setting(urlName, model);
-
-        return "l";
-    }
-
-    private void setting(String urlName, Model model)
-    {
-        TagVo tagVo = CacheAware.getTagVoByUrl(urlName);
-
-        model.addAttribute("jsp_title", tagVo.getDisplayName());
-        model.addAttribute("current_request", "t/" + urlName);
-    }
+    model.addAttribute("jsp_title", tagVo.getDisplayName());
+    model.addAttribute("current_request", "t/" + urlName);
+  }
 }

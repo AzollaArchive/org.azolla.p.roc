@@ -1,8 +1,8 @@
 /*
  * @(#)ProfessionalController.java		Created at 15/8/15
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.controller;
 
@@ -32,50 +32,50 @@ import javax.annotation.Nullable;
 @Controller
 public class ProfessionalController
 {
-    @Autowired
-    private IMapperService<ProfessionalVo> iProfessionalMapperService;
+  @Autowired
+  private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
-    @RequestMapping(value = "/a/professional/d/{id}", method = RequestMethod.GET)
-    public String d(@PathVariable Integer id, Model model)
+  @RequestMapping(value = "/a/professional/d/{id}", method = RequestMethod.GET)
+  public String d(@PathVariable Integer id, Model model)
+  {
+    iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
+    return "redirect:/a/professional/l";
+  }
+
+  @RequestMapping(value = "/a/professional/l", method = RequestMethod.GET)
+  public String l(Model model)
+  {
+    return l(1, model);
+  }
+
+  @RequestMapping(value = "/a/professional/l/{page}", method = RequestMethod.GET)
+  public String l(@PathVariable String page, Model model)
+  {
+    Integer requestPage = Integer.valueOf(page);
+
+    return l(requestPage, model);
+  }
+
+  private String l(Integer page, Model model)
+  {
+
+    model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
     {
-        iProfessionalMapperService.mod(ProfessionalMapper.class, new ProfessionalVo().setId(id).setDeleted(1).setVisible(null).setRmvDate(Date0.now()));
-        return "redirect:/a/professional/l";
-    }
-
-    @RequestMapping(value = "/a/professional/l", method = RequestMethod.GET)
-    public String l(Model model)
-    {
-        return l(1, model);
-    }
-
-    @RequestMapping(value = "/a/professional/l/{page}", method = RequestMethod.GET)
-    public String l(@PathVariable String page, Model model)
-    {
-        Integer requestPage = Integer.valueOf(page);
-
-        return l(requestPage, model);
-    }
-
-    private String l(Integer page, Model model)
-    {
-
-        model.addAttribute("professionalVoList", Lists.transform(iProfessionalMapperService.lst(ProfessionalMapper.class, new ProfessionalVo().setVisible(null).setDeleted(null), new RowBounds(page, Integer.parseInt(CacheAware.getConfigValue(CacheAware.ROC_POST_SIZE)))), new Function<ProfessionalVo, ProfessionalVo>()
+      @Nullable
+      @Override
+      public ProfessionalVo apply(ProfessionalVo input)
+      {
+        if (input != null)
         {
-            @Nullable
-            @Override
-            public ProfessionalVo apply(ProfessionalVo input)
-            {
-                if (input != null)
-                {
-                    input.setTagVo(CacheAware.getTagVoById(input.getTagId()));
-                }
-                return input;
-            }
-        }));
-        model.addAttribute("current_page", page);
-        model.addAttribute("current_request", "a/professional/l");
-        model.addAttribute("jsp_title", "Professional List");
+          input.setTagVo(CacheAware.getTagVoById(input.getTagId()));
+        }
+        return input;
+      }
+    }));
+    model.addAttribute("current_page", page);
+    model.addAttribute("current_request", "a/professional/l");
+    model.addAttribute("jsp_title", "Professional List");
 
-        return "a/professional/l";
-    }
+    return "a/professional/l";
+  }
 }

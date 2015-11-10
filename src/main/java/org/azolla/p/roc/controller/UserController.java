@@ -1,8 +1,8 @@
 /*
  * @(#)UserController.java		Created at 15/5/1
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.controller;
 
@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController
 {
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model)
-    {
-        model.addAttribute("jsp_title", "Login");
+  @RequestMapping(value = "/login", method = RequestMethod.GET)
+  public String login(Model model)
+  {
+    model.addAttribute("jsp_title", "Login");
 
-        return "login";
-    }
+    return "login";
+  }
 }

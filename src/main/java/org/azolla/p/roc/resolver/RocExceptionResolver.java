@@ -1,8 +1,8 @@
 /*
  * @(#)RocExceptionResolver.java		Created at 15/7/25
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.resolver;
 
@@ -22,16 +22,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RocExceptionResolver implements HandlerExceptionResolver
 {
-    @Override
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+  @Override
+  public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+  {
+    ModelAndView rtn = new ModelAndView("500");
+    if (ex instanceof NullPointerException)
     {
-        ModelAndView rtn = new ModelAndView("500");
-        if (ex instanceof NullPointerException)
-        {
-            rtn = new ModelAndView("404");
-        }
-        Log0.error(this.getClass(), request.getRequestURL().append(Json0.toJSONString(request.getParameterMap())).toString(), ex);
-        request.setAttribute("exception", ex);
-        return rtn;
+      rtn = new ModelAndView("404");
     }
+    Log0.error(this.getClass(), request.getRequestURL().append(Json0.toJSONString(request.getParameterMap())).toString(), ex);
+    request.setAttribute("exception", ex);
+    return rtn;
+  }
 }

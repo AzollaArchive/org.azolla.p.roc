@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface ITagDao
 {
-    public int btAdd(@Nonnull List<TagVo> tagVoList);
+  public int btAdd(@Nonnull List<TagVo> tagVoList);
 
-    public List<TagVo> lstByPostUrlTitle(String postUrlTitle);
+  public List<TagVo> lstByPostUrlTitle(String postUrlTitle);
 
-    public List<TagVo> lstByUrlNameList(@Nonnull List<String> urlNameList);
+  public List<TagVo> lstByUrlNameList(@Nonnull List<String> urlNameList);
 }

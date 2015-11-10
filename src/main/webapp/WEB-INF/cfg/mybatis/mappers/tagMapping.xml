@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="UTF-8" ?>  
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.tag">
 
-    <resultMap id="tag" type="TagVo">
-        <id property="id" column="id" />
-        <result property="displayName" column="display_name" />
-        <result property="urlName" column="url_name" />
-        <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
-    </resultMap>
+  <resultMap id="tag" type="TagVo">
+    <id property="id" column="id"/>
+    <result property="displayName" column="display_name"/>
+    <result property="urlName" column="url_name"/>
+    <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE"/>
+    <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE"/>
+    <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE"/>
+    <result property="visible" column="visible"/>
+    <result property="operable" column="operable"/>
+    <result property="deleted" column="deleted"/>
+  </resultMap>
 
-    <!--http://mybatis.github.io/mybatis-3/zh/dynamic-sql.html#foreach-->
-    <insert id="btAdd" parameterType="java.util.List">
-        insert into roc_t_tag(display_name,url_name) values
-        <foreach collection="list" item="item" index="index" separator="," >
-            (#{item.displayName},#{item.urlName})
-        </foreach>
-    </insert>
+  <!--http://mybatis.github.io/mybatis-3/zh/dynamic-sql.html#foreach-->
+  <insert id="btAdd" parameterType="java.util.List">
+    insert into roc_t_tag(display_name,url_name) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.displayName},#{item.urlName})
+    </foreach>
+  </insert>
 
-    <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
-        select t.*
-        from (select * from roc_t_tag where visible=1 and deleted=0) t
-        join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.tag_id = t.id
-        join (select * from roc_t_post where visible=1 and deleted=0) p on p.id = r.post_id
-        where p.url_title = #{postUrlTitle}
-        order by t.display_name
-    </select>
+  <select id="lstByPostUrlTitle" parameterType="String" resultMap="tag">
+    select t.*
+    from (select * from roc_t_tag where visible=1 and deleted=0) t
+    join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.tag_id = t.id
+    join (select * from roc_t_post where visible=1 and deleted=0) p on p.id = r.post_id
+    where p.url_title = #{postUrlTitle}
+    order by t.display_name
+  </select>
 
-    <select id="lstByUrlNameList" parameterType="java.util.List" resultMap="tag">
-        select * from roc_t_tag where visible=1 and deleted=0 and url_name in
-        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
+  <select id="lstByUrlNameList" parameterType="java.util.List" resultMap="tag">
+    select * from roc_t_tag where visible=1 and deleted=0 and url_name in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 
 </mapper>

@@ -1,8 +1,8 @@
 /*
  * @(#)TagDaoImpl.java		Created at 15/4/22
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.dao.impl;
 
@@ -24,22 +24,22 @@ import java.util.List;
 @Repository
 public class TagDaoImpl implements ITagDao
 {
-    @Autowired
-    private SqlSession sqlSession;
+  @Autowired
+  private SqlSession sqlSession;
 
-    public int btAdd(@Nonnull List<TagVo> tagVoList)
-    {
-        return sqlSession.insert("mapper.tag.btAdd", tagVoList);
-    }
+  public int btAdd(@Nonnull List<TagVo> tagVoList)
+  {
+    return sqlSession.insert("mapper.tag.btAdd", tagVoList);
+  }
 
-    @Override
-    public List<TagVo> lstByPostUrlTitle(String postUrlTitle)
-    {
-        return sqlSession.selectList("mapper.tag.lstByPostUrlTitle", postUrlTitle);
-    }
+  @Override
+  public List<TagVo> lstByPostUrlTitle(String postUrlTitle)
+  {
+    return sqlSession.selectList("mapper.tag.lstByPostUrlTitle", postUrlTitle);
+  }
 
-    public List<TagVo> lstByUrlNameList(@Nonnull List<String> urlNameList)
-    {
-        return sqlSession.selectList("mapper.tag.lstByUrlNameList", urlNameList);
-    }
+  public List<TagVo> lstByUrlNameList(@Nonnull List<String> urlNameList)
+  {
+    return sqlSession.selectList("mapper.tag.lstByUrlNameList", urlNameList);
+  }
 }

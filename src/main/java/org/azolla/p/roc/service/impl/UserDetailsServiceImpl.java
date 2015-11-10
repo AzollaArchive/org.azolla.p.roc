@@ -1,8 +1,8 @@
 /*
  * @(#)UserDetailService.java		Created at 15/4/18
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.service.impl;
 
@@ -25,12 +25,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService
 {
-    @Autowired
-    private IMapperDao<UserDetailsImpl> iUserDetailsMapDao;
+  @Autowired
+  private IMapperDao<UserDetailsImpl> iUserDetailsMapDao;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
-        return iUserDetailsMapDao.selectOne(UserDetailsMapper.class, new UserDetailsImpl().setUsername(username));
-    }
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+  {
+    return iUserDetailsMapDao.selectOne(UserDetailsMapper.class, new UserDetailsImpl().setUsername(username));
+  }
 }

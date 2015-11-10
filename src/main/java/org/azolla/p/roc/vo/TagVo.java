@@ -1,8 +1,8 @@
 /*
  * @(#)TagVo.java		Created at 15/4/22
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.vo;
 
@@ -21,115 +21,115 @@ import java.util.Date;
 @Component
 public class TagVo
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OrderBy
-    private Integer id;
-    private String  displayName;
-    private String  urlName;
-    @OrderBy
-    private Date    addDate;
-    private Date    modDate;
-    private Date    rmvDate;
-    private Integer visible = 1;
-    private Integer operable;
-    private Integer deleted = 0;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @OrderBy
+  private Integer id;
+  private String  displayName;
+  private String  urlName;
+  @OrderBy
+  private Date    addDate;
+  private Date    modDate;
+  private Date    rmvDate;
+  private Integer visible = 1;
+  private Integer operable;
+  private Integer deleted = 0;
 
-    public Integer getId()
-    {
-        return id;
-    }
+  public Integer getId()
+  {
+    return id;
+  }
 
-    public TagVo setId(Integer id)
-    {
-        this.id = id;
-        return this;
-    }
+  public TagVo setId(Integer id)
+  {
+    this.id = id;
+    return this;
+  }
 
-    public String getDisplayName()
-    {
-        return displayName;
-    }
+  public String getDisplayName()
+  {
+    return displayName;
+  }
 
-    public TagVo setDisplayName(String displayName)
-    {
-        this.displayName = displayName;
-        return this;
-    }
+  public TagVo setDisplayName(String displayName)
+  {
+    this.displayName = displayName;
+    return this;
+  }
 
-    public String getUrlName()
-    {
-        return urlName;
-    }
+  public String getUrlName()
+  {
+    return urlName;
+  }
 
-    public TagVo setUrlName(String urlName)
-    {
-        this.urlName = urlName;
-        return this;
-    }
+  public TagVo setUrlName(String urlName)
+  {
+    this.urlName = urlName;
+    return this;
+  }
 
-    public Date getAddDate()
-    {
-        return addDate;
-    }
+  public Date getAddDate()
+  {
+    return addDate;
+  }
 
-    public void setAddDate(Date addDate)
-    {
-        this.addDate = addDate;
-    }
+  public void setAddDate(Date addDate)
+  {
+    this.addDate = addDate;
+  }
 
-    public Date getModDate()
-    {
-        return modDate;
-    }
+  public Date getModDate()
+  {
+    return modDate;
+  }
 
-    public TagVo setModDate(Date modDate)
-    {
-        this.modDate = modDate;
-        return this;
-    }
+  public TagVo setModDate(Date modDate)
+  {
+    this.modDate = modDate;
+    return this;
+  }
 
-    public Date getRmvDate()
-    {
-        return rmvDate;
-    }
+  public Date getRmvDate()
+  {
+    return rmvDate;
+  }
 
-    public TagVo setRmvDate(Date rmvDate)
-    {
-        this.rmvDate = rmvDate;
-        return this;
-    }
+  public TagVo setRmvDate(Date rmvDate)
+  {
+    this.rmvDate = rmvDate;
+    return this;
+  }
 
-    public Integer getVisible()
-    {
-        return visible;
-    }
+  public Integer getVisible()
+  {
+    return visible;
+  }
 
-    public TagVo setVisible(Integer visible)
-    {
-        this.visible = visible;
-        return this;
-    }
+  public TagVo setVisible(Integer visible)
+  {
+    this.visible = visible;
+    return this;
+  }
 
-    public Integer getOperable()
-    {
-        return operable;
-    }
+  public Integer getOperable()
+  {
+    return operable;
+  }
 
-    public TagVo setOperable(Integer operable)
-    {
-        this.operable = operable;
-        return this;
-    }
+  public TagVo setOperable(Integer operable)
+  {
+    this.operable = operable;
+    return this;
+  }
 
-    public Integer getDeleted()
-    {
-        return deleted;
-    }
+  public Integer getDeleted()
+  {
+    return deleted;
+  }
 
-    public TagVo setDeleted(Integer deleted)
-    {
-        this.deleted = deleted;
-        return this;
-    }
+  public TagVo setDeleted(Integer deleted)
+  {
+    this.deleted = deleted;
+    return this;
+  }
 }

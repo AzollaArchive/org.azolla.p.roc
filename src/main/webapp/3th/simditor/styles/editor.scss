@@ -44,7 +44,7 @@ $simditor-button-height: 40px;
         position: fixed;
         top: 0;
         z-index: 10;
-        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
       }
     }
 
@@ -59,7 +59,7 @@ $simditor-button-height: 40px;
       .progress {
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         position: absolute;
         bottom: 0;
         left: 0;
@@ -105,8 +105,8 @@ $simditor-button-height: 40px;
       /*min-height: 28px;*/
       box-sizing: border-box;
       -moz-box-sizing: border-box;
-      word-wrap: break-word!important;
-      white-space: pre-wrap!important;
+      word-wrap: break-word !important;
+      white-space: pre-wrap !important;
     }
 
     img {
@@ -139,9 +139,9 @@ $simditor-button-height: 40px;
       list-style: none;
 
       &:after {
-        content:"";
-        display:table;
-        clear:both;
+        content: "";
+        display: table;
+        clear: both;
       }
 
       & > li {
@@ -242,7 +242,7 @@ $simditor-button-height: 40px;
             position: relative;
             z-index: 21;
             background: #ffffff;
-            box-shadow: 0 -3px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.2);
 
             span {
               opacity: 1;
@@ -264,7 +264,7 @@ $simditor-button-height: 40px;
       z-index: 20;
       background: #ffffff;
       text-align: left;
-      box-shadow: 0 0 3px rgba(0,0,0,0.2);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
       ul {
         min-width: 160px;
@@ -276,7 +276,7 @@ $simditor-button-height: 40px;
 
           .menu-item {
             display: block;
-            font-size:16px;
+            font-size: 16px;
             line-height: 2em;
             padding: 0 10px;
             text-decoration: none;
@@ -331,7 +331,6 @@ $simditor-button-height: 40px;
           height: 40px;
           margin: 10px 6px 6px 10px;
           padding: 0;
-
           min-width: 0;
 
           li {
@@ -437,7 +436,7 @@ $simditor-button-height: 40px;
     display: none;
     padding: 5px 8px 0;
     background: #ffffff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     border-radius: 2px;
     position: absolute;
     z-index: 2;
@@ -512,16 +511,13 @@ $simditor-button-height: 40px;
     }
 
     .simditor-wrapper.toolbar-floating .simditor-toolbar {
-        position: absolute;
-        top: 0;
-        z-index: 10;
-        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      position: absolute;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     }
   }
 }
-
-
-
 .simditor .simditor-body, .editor-style {
   font-size: 16px;
   font-family: arial, sans-serif;
@@ -531,16 +527,16 @@ $simditor-button-height: 40px;
   word-wrap: break-word;
 
   & > :first-child {
-    margin-top: 0!important;
+    margin-top: 0 !important;
   }
 
-  a{ color: #4298BA; text-decoration: none; word-break: break-all;}
-  a:visited{ color: #4298BA; }
-  a:hover{ color: #0F769F; }
-  a:active{ color:#9E792E; }
-  a:hover, a:active{ outline: 0; }
+  a { color: #4298BA; text-decoration: none; word-break: break-all; }
+  a:visited { color: #4298BA; }
+  a:hover { color: #0F769F; }
+  a:active { color: #9E792E; }
+  a:hover, a:active { outline: 0; }
 
-  h1,h2,h3,h4,h5,h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     margin: 40px 0 20px;
     color: #000000;
@@ -577,7 +573,7 @@ $simditor-button-height: 40px;
   }
 
   ul, ol {
-    list-style:disc outside none;
+    list-style: disc outside none;
     margin: 15px 0;
     padding: 0 0 0 40px;
     line-height: 1.6;
@@ -596,7 +592,7 @@ $simditor-button-height: 40px;
   }
 
   ol {
-    list-style:decimal;
+    list-style: decimal;
   }
 
   blockquote {
@@ -626,7 +622,7 @@ $simditor-button-height: 40px;
     line-height: 18px;
     background: #F0F0F0;
     border-radius: 3px;
-    font-size:13px;
+    font-size: 13px;
     font-family: 'monaco', 'Consolas', "Liberation Mono", Courier, monospace;
     white-space: pre;
     word-wrap: normal;
@@ -675,7 +671,6 @@ $simditor-button-height: 40px;
       }
     }
   }
-
 
   img {
     margin: 0 5px;

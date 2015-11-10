@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface IPostRTagDao
 {
-    public int btAdd(@Nonnull List<PostRTagVo> list);
+  public int btAdd(@Nonnull List<PostRTagVo> list);
 }

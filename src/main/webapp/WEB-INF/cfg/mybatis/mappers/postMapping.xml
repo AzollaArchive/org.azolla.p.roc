@@ -1,32 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>  
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.post">
 
-    <resultMap id="post" type="PostVo">
-        <id property="id" column="id" />
-        <result property="title" column="title" />
-        <result property="urlTitle" column="url_title" />
-        <result property="content" column="content" />
-        <result property="categoryId" column="category_id" />
-        <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE" />
-        <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE" />
-        <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE" />
-        <result property="visible" column="visible" />
-        <result property="operable" column="operable" />
-        <result property="deleted" column="deleted" />
-    </resultMap>
+  <resultMap id="post" type="PostVo">
+    <id property="id" column="id"/>
+    <result property="title" column="title"/>
+    <result property="urlTitle" column="url_title"/>
+    <result property="content" column="content"/>
+    <result property="categoryId" column="category_id"/>
+    <result property="addDate" javaType="java.util.Date" column="add_date" jdbcType="DATE"/>
+    <result property="modDate" javaType="java.util.Date" column="mod_date" jdbcType="DATE"/>
+    <result property="rmvDate" javaType="java.util.Date" column="rmv_date" jdbcType="DATE"/>
+    <result property="visible" column="visible"/>
+    <result property="operable" column="operable"/>
+    <result property="deleted" column="deleted"/>
+  </resultMap>
 
-    <select id="lstByTagUrlName" parameterType="String" resultMap="post">
-        select p.*
-        from (select * from roc_t_post where visible=1 and deleted=0) p
-        join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.post_id = p.id
-        join (select * from roc_t_tag where visible=1 and deleted=0) t on t.id = r.tag_id
-        where t.url_name=#{tagUrlName}
-        order by p.add_date desc
-    </select>
+  <select id="lstByTagUrlName" parameterType="String" resultMap="post">
+    select p.*
+    from (select * from roc_t_post where visible=1 and deleted=0) p
+    join (select * from roc_t_post_r_tag where visible=1 and deleted=0) r on r.post_id = p.id
+    join (select * from roc_t_tag where visible=1 and deleted=0) t on t.id = r.tag_id
+    where t.url_name=#{tagUrlName}
+    order by p.add_date desc
+  </select>
 
-    <select id="search" parameterType="String" resultMap="post">
-        select * from roc_t_post where visible=1 and deleted=0 and content like CONCAT(CONCAT('%',#{search}),'%') or title like CONCAT(CONCAT('%',#{search}),'%') order by add_date desc
-    </select>
+  <select id="search" parameterType="String" resultMap="post">
+    select * from roc_t_post where visible=1 and deleted=0 and content like CONCAT(CONCAT('%',#{search}),'%') or title
+    like CONCAT(CONCAT('%',#{search}),'%') order by add_date desc
+  </select>
 
 </mapper>

@@ -1,8 +1,8 @@
 /*
  * @(#)AjaxController.java		Created at 15/6/21
- * 
+ *
  * Copyright (c) azolla.org All rights reserved.
- * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
+ * Azolla PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package org.azolla.p.roc.controller;
 
@@ -44,97 +44,97 @@ import java.util.Map;
 @Controller
 public class AjaxController
 {
-    public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";
+  public static final String OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER = "roc/generate/qrcode/email/";
 
-    @Autowired
-    private IMapperService<CommentVo>      iCommentMapperService;
-    @Autowired
-    private IMapperService<ProfessionalVo> iProfessionalMapperService;
+  @Autowired
+  private IMapperService<CommentVo>      iCommentMapperService;
+  @Autowired
+  private IMapperService<ProfessionalVo> iProfessionalMapperService;
 
-    private Map<String, String> ipDateMap  = Maps.newHashMap();
-    private String              dateFormat = "yyyyMMddHHmm";
+  private Map<String, String> ipDateMap  = Maps.newHashMap();
+  private String              dateFormat = "yyyyMMddHHmm";
 
-    @RequestMapping("/ajax/cmt/a")
-    public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, String professionalStr, HttpServletRequest request, HttpServletResponse response)
+  @RequestMapping("/ajax/cmt/a")
+  public void addComment(Integer postId, String commentName, String commentEmail, String commentContent, String professionalStr, HttpServletRequest request, HttpServletResponse response)
+  {
+    response.setContentType("text/html; charset=UTF-8");
+    PrintWriter out = null;
+    try
     {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = null;
-        try
+      out = response.getWriter();
+      JSONObject obj = new JSONObject();
+      String ip = request.getRemoteHost();
+      String date = ipDateMap.get(ip);
+      String nowDate = Date0.toString(Date0.now(), dateFormat);
+      if (nowDate.equals(date))
+      {
+        obj.put("err", 1);
+        obj.put("msg", "Please wait moment !");
+      }
+      else
+      {
+        ipDateMap.put(ip, nowDate);
+
+        File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+        if (!qrcodeFolder.exists())
         {
-            out = response.getWriter();
-            JSONObject obj = new JSONObject();
-            String ip = request.getRemoteHost();
-            String date = ipDateMap.get(ip);
-            String nowDate = Date0.toString(Date0.now(), dateFormat);
-            if (nowDate.equals(date))
+          qrcodeFolder.mkdirs();
+        }
+        File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
+        String photoUrl = null;
+        if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
+        {
+          photoUrl = Oss.Ali.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
+        }
+        else
+        {
+          photoUrl = Oss.Ali.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
+        }
+
+        CommentVo commentVo = new CommentVo().setPostId(postId).setUsername(commentName).setEmail(commentEmail).setPhotoUrl(photoUrl).setContent(commentContent).setIp(request.getRemoteHost());
+
+        if (iCommentMapperService.add(CommentMapper.class, commentVo) <= 0)
+        {
+          obj.put("err", 1);
+          obj.put("msg", "Add failed !");
+        }
+        else
+        {
+          commentVo.setUsername(String0.html(commentVo.getUsername()));
+          commentVo.setEmail(String0.html(commentVo.getEmail()));
+          commentVo.setContent(String0.html(commentVo.getContent()));
+
+          obj.put("err", 0);
+          obj.put("rst", commentVo);
+
+          if (!Strings.isNullOrEmpty(professionalStr))
+          {
+            String[] professionalArray = professionalStr.split(String0.COMMA);
+            if (professionalArray != null && professionalArray.length > 1)
             {
-                obj.put("err", 1);
-                obj.put("msg", "Please wait moment !");
+              for (int i = 1; i < professionalArray.length; i++)
+              {
+                String[] professionalScore = professionalArray[i].split(String.valueOf(Char0.COLON));
+                if (professionalScore != null && professionalScore.length == 2 && Integer0.isInt(professionalScore[0]) && Integer0.isInt(professionalScore[1]) && !"0".equalsIgnoreCase(professionalScore[1]))
+                {
+                  iProfessionalMapperService.add(ProfessionalMapper.class, new ProfessionalVo().setTagId(Integer.valueOf(professionalScore[0])).setScore(Integer.valueOf(professionalScore[1])).setIp(ip));
+                }
+              }
             }
-            else
-            {
-                ipDateMap.put(ip, nowDate);
-
-                File qrcodeFolder = File0.newFile(request.getServletContext().getRealPath(String0.SLASH), OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
-                if (!qrcodeFolder.exists())
-                {
-                    qrcodeFolder.mkdirs();
-                }
-                File qrcodeFile = File0.newFile(qrcodeFolder, commentEmail + String0.POINT + File0.PNG_FILETYPE);
-                String photoUrl = null;
-                if (!qrcodeFile.exists() && Img0.qrcode(commentEmail, 64, 64, Paths.get(qrcodeFile.toURI())))
-                {
-                    photoUrl = Oss.Ali.putObject(qrcodeFile, OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER);
-                }
-                else
-                {
-                    photoUrl = Oss.Ali.getOssDomain() + OSS_ROC_GENERATE_QRCODE_EMAIL_FOLDER + qrcodeFile.getName();
-                }
-
-                CommentVo commentVo = new CommentVo().setPostId(postId).setUsername(commentName).setEmail(commentEmail).setPhotoUrl(photoUrl).setContent(commentContent).setIp(request.getRemoteHost());
-
-                if (iCommentMapperService.add(CommentMapper.class, commentVo) <= 0)
-                {
-                    obj.put("err", 1);
-                    obj.put("msg", "Add failed !");
-                }
-                else
-                {
-                    commentVo.setUsername(String0.html(commentVo.getUsername()));
-                    commentVo.setEmail(String0.html(commentVo.getEmail()));
-                    commentVo.setContent(String0.html(commentVo.getContent()));
-
-                    obj.put("err", 0);
-                    obj.put("rst", commentVo);
-
-                    if (!Strings.isNullOrEmpty(professionalStr))
-                    {
-                        String[] professionalArray = professionalStr.split(String0.COMMA);
-                        if (professionalArray != null && professionalArray.length > 1)
-                        {
-                            for (int i = 1; i < professionalArray.length; i++)
-                            {
-                                String[] professionalScore = professionalArray[i].split(String.valueOf(Char0.COLON));
-                                if (professionalScore != null && professionalScore.length == 2 && Integer0.isInt(professionalScore[0]) && Integer0.isInt(professionalScore[1]) && !"0".equalsIgnoreCase(professionalScore[1]))
-                                {
-                                    iProfessionalMapperService.add(ProfessionalMapper.class, new ProfessionalVo().setTagId(Integer.valueOf(professionalScore[0])).setScore(Integer.valueOf(professionalScore[1])).setIp(ip));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            out.println(Json0.toJSONString(obj));
-            out.flush();
+          }
         }
-        catch (Exception e)
-        {
-            Log0.error(this.getClass(), e.toString(), e);
-        }
-        finally
-        {
-            Close0.close(out);
-        }
+      }
+      out.println(Json0.toJSONString(obj));
+      out.flush();
     }
+    catch (Exception e)
+    {
+      Log0.error(this.getClass(), e.toString(), e);
+    }
+    finally
+    {
+      Close0.close(out);
+    }
+  }
 
 }
